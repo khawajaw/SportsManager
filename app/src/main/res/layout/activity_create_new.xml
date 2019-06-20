@@ -4,12 +4,27 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CreateNew">
+    tools:context=".TeamSelectActivity">
 
     <ListView
         android:id="@+id/sportsList"
-        android:layout_width="394dp"
-        android:layout_height="594dp"
-        tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="129dp" />
+        android:layout_width="392dp"
+        android:layout_height="481dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="163dp"
+        android:layout_height="82dp"
+        android:text="@string/create_new"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/sportsList"
+        android:layout_marginTop="24dp"/>
+
 </android.support.constraint.ConstraintLayout>
