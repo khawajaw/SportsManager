@@ -2,18 +2,23 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/navigation_home"
+        android:id="@+id/team_home_nav_button"
         android:icon="@drawable/ic_home_black_24dp"
-        android:title="@string/title_home" />
+        android:title="@string/team_home" />
 
     <item
-        android:id="@+id/navigation_dashboard"
+        android:id="@+id/roster_nav_button"
         android:icon="@drawable/ic_dashboard_black_24dp"
-        android:title="@string/title_dashboard" />
+        android:title="@string/players" />
 
     <item
-        android:id="@+id/navigation_notifications"
-        android:icon="@drawable/ic_notifications_black_24dp"
-        android:title="@string/title_notifications" />
+        android:id="@+id/lineup_nav_button"
+        android:icon="@drawable/ic_dashboard_black_24dp"
+        android:title="@string/lineup" />
+
+    <item
+        android:id="@+id/games_nav_button"
+        android:icon="@drawable/ic_dashboard_black_24dp"
+        android:title="@string/games" />
 
 </menu>

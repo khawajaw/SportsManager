@@ -16,14 +16,17 @@ public class TeamHomeActivity extends AppCompatActivity {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
-                case R.id.navigation_home:
-                    mTextMessage.setText(R.string.title_home);
+                case R.id.team_home_nav_button:
+                    mTextMessage.setText(R.string.team_home);
                     return true;
-                case R.id.navigation_dashboard:
-                    mTextMessage.setText(R.string.title_dashboard);
+                case R.id.roster_nav_button:
+                    mTextMessage.setText(R.string.players);
                     return true;
-                case R.id.navigation_notifications:
-                    mTextMessage.setText(R.string.title_notifications);
+                case R.id.lineup_nav_button:
+                    mTextMessage.setText(R.string.lineup);
+                    return true;
+                case R.id.games_nav_button:
+                    mTextMessage.setText(R.string.games);
                     return true;
             }
             return false;
