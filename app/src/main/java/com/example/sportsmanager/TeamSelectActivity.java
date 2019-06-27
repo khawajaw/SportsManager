@@ -8,6 +8,7 @@ import android.app.LauncherActivity.ListItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
@@ -27,6 +28,16 @@ public class TeamSelectActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(TeamSelectActivity.this, TeamHomeActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        Button createTeam = findViewById(R.id.create_team_button);
+        createTeam.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //TODO Make this open a dialog to input team name/sport. Just go to player activity for now
+                Intent intent = new Intent(TeamSelectActivity.this, PlayerActivity.class);
                 startActivity(intent);
             }
         });
