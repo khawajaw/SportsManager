@@ -7,6 +7,8 @@ import android.support.annotation.NonNull;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.example.sportsmanager.DataEntities.LoadedData;
+
 public class TeamHomeActivity extends AppCompatActivity {
     private TextView mTextMessage;
 
@@ -17,7 +19,7 @@ public class TeamHomeActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.team_home_nav_button:
-                    mTextMessage.setText(R.string.team_home);
+                    mTextMessage.setText(LoadedData.getCurrentTeam().toString());
                     return true;
                 case R.id.roster_nav_button:
                     mTextMessage.setText(R.string.players);

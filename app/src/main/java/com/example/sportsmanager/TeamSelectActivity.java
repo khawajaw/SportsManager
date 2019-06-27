@@ -12,6 +12,9 @@ import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
+import com.example.sportsmanager.DataEntities.LoadedData;
+import com.example.sportsmanager.DataEntities.Team;
+
 public class TeamSelectActivity extends AppCompatActivity {
 
     private ListView teamList;
@@ -21,12 +24,14 @@ public class TeamSelectActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_new);
         teamList = findViewById(R.id.sportsList);
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1);
-        adapter.add("Test Team");
+
+        ArrayAdapter<Team> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, LoadedData.getTeams());
+
         teamList.setAdapter(adapter);
         teamList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                LoadedData.currentTeamIndex = position;
                 Intent intent = new Intent(TeamSelectActivity.this, TeamHomeActivity.class);
                 startActivity(intent);
             }
