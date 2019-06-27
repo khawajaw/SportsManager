@@ -7,6 +7,7 @@ public class Player {
     public int weight;
     public int height;
 
+
 }
 
 

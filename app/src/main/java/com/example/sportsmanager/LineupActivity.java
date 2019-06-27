@@ -7,7 +7,6 @@ import android.widget.*;
 import android.util.Log;
 import android.view.*;
 public class LineupActivity extends AppCompatActivity {
-
     private final String TAG = "myApp"; //
     @Override
     protected void onCreate(Bundle savedInstanceState) {
