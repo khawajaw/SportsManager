@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     tools:context=".PlayerActivity">
 
-    <include layout="@layout/toolbar" />
+    <include layout="@layout/toolbar"
+        android:id="@+id/toolbar"/>
 
     <ImageView
         android:id="@+id/player_avatar"

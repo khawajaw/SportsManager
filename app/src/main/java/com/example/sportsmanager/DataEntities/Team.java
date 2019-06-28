@@ -10,12 +10,13 @@ public class Team {
     private ArrayList<Lineup> lineup;
     private ArrayList<Game> games;
 
-    public Team(String name) {
+    public Team(String name, Sport sport) {
         this.name = name;
+        this.sport = sport;
     }
 
     @Override
     public String toString() {
-        return name;
+        return name + " ("+sport+")";
     }
 }

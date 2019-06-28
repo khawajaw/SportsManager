@@ -37,7 +37,8 @@ public class LoginActivity extends AppCompatActivity {
      * @return true if username and password exist/match
      */
     private boolean loadDataFromFirebase(String username, String password) {
-        LoadedData.createTeam("Test Team");
+        LoadedData.createTeam("Test Team", LoadedData.SPORTS[0]);
+        LoadedData.createTeam("Test Team 2", LoadedData.SPORTS[1]);
 
         return true;
     }

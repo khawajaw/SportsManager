@@ -12,7 +12,7 @@ import com.example.sportsmanager.DataEntities.LoadedData;
 public class TeamHomeActivity extends AppCompatActivity {
     private TextView mTextMessage;
 
-    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
+    private BottomNavigationView.OnNavigationItemSelectedListener onNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
         @Override
@@ -35,15 +35,14 @@ public class TeamHomeActivity extends AppCompatActivity {
         }
     };
 
-    //test commit
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_team_home);
         BottomNavigationView navView = findViewById(R.id.nav_view);
         mTextMessage = findViewById(R.id.message);
-        navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        mTextMessage.setText(LoadedData.getCurrentTeam().toString());
+        navView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener);
     }
 
 }

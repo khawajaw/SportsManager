@@ -4,10 +4,18 @@ import android.graphics.Bitmap;
 
 import java.util.ArrayList;
 
-class Sport {
+public class Sport {
 
     private String name;
     private ArrayList<Position> positions;
     private Bitmap logo;
 
+    public Sport(String sportName) {
+        this.name = sportName;
+    }
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }

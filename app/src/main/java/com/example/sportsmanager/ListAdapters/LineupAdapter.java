@@ -1,5 +1,5 @@
-package com.example.sportsmanager;
-
+package com.example.sportsmanager.ListAdapters;
+/*
 import android.widget.ArrayAdapter;
 
 import android.view.*;
@@ -31,4 +31,4 @@ public class LineupAdapter extends ArrayAdapter<Lineup> {
         comment.setText(item.position);
         return view;
     }
-}
+} */

@@ -4,7 +4,7 @@
     <string name="players">Roster</string>
     <string name="lineup">Lineup</string>
     <string name="games">Games</string>
-    <string name="title_activity_login">LoginActivity</string>
+    <string name="title_activity_login">Sports Manager</string>
     <string name="login">Login</string>
     <string name="create_new">Create New Team</string>
     <string name="save">Save</string>
@@ -12,4 +12,7 @@
     <string name="player_avatar">Player Avatar</string>
     <string name="name">Name</string>
     <string name="phone">Phone #</string>
+
+    <string name="new_team">New Team</string>
+    <string name="team_name">Team Name</string>
 </resources>

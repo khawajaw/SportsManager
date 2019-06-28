@@ -6,9 +6,15 @@ public class LoadedData {
 
     private static ArrayList<Team> teams = new ArrayList<>();
     public static int currentTeamIndex;
+    public static final Sport[] SPORTS = {
+            new Sport("Football"),
+            new Sport("Soccer"),
+            new Sport("Baseball"),
+            new Sport("Basketball"),
+    };
 
-    public static void createTeam(String name) {
-        teams.add(new Team(name));
+    public static void createTeam(String name, Sport sport) {
+        teams.add(new Team(name, sport));
     }
 
     public static Team getCurrentTeam() {
