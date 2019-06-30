@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "931043627108",
+    "firebase_url": "https://sportsmanager-wajowe.firebaseio.com",
+    "project_id": "sportsmanager-wajowe",
+    "storage_bucket": "sportsmanager-wajowe.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:931043627108:android:401bea36c05a8472",
+        "android_client_info": {
+          "package_name": "edu.wit.comp3660.sportsmanager"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "931043627108-ufomufn1a4rhmdldf52jgks9j9cdi48g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA4DROXeSh1BF-XTvyNvFpKh9qII3u8Fc0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "931043627108-ufomufn1a4rhmdldf52jgks9j9cdi48g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

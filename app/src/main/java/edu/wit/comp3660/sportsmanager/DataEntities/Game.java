@@ -1,4 +1,4 @@
-package com.example.sportsmanager.DataEntities;
+package edu.wit.comp3660.sportsmanager.DataEntities;
 
 import java.util.Date;
 

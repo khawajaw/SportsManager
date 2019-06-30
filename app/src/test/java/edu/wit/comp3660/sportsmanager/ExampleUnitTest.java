@@ -1,4 +1,4 @@
-package com.example.sportsmanager;
+package edu.wit.comp3660.sportsmanager;
 
 import org.junit.Test;
 

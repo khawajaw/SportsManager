@@ -1,4 +1,4 @@
-package com.example.sportsmanager.ListAdapters;
+package edu.wit.comp3660.sportsmanager.ListAdapters;
 /*
 import android.widget.ArrayAdapter;
 
@@ -8,7 +8,6 @@ import android.content.*;
 import android.app.LauncherActivity.*;
 import java.util.List;
 
-import com.example.sportsmanager.DataEntities.Lineup;
 public class LineupAdapter extends ArrayAdapter<Lineup> {
     private LayoutInflater mInflater;
     public LineupAdapter(Context context, int rid, List<ListItem> list){

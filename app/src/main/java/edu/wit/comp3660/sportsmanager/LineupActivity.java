@@ -1,11 +1,10 @@
-package com.example.sportsmanager;
+package edu.wit.comp3660.sportsmanager;
 
-import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.*;
-import android.util.Log;
 import android.view.*;
+
 public class LineupActivity extends AppCompatActivity {
     private final String TAG = "myApp"; //
     @Override

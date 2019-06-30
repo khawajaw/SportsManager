@@ -1,11 +1,10 @@
-package com.example.sportsmanager;
+package edu.wit.comp3660.sportsmanager;
 
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
-import com.example.sportsmanager.DataEntities.Player;
+import edu.wit.comp3660.sportsmanager.DataEntities.Player;
 
 import java.util.ArrayList;
 import java.util.List;

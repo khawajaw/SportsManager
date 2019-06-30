@@ -1,13 +1,13 @@
-package com.example.sportsmanager;
+package edu.wit.comp3660.sportsmanager;
 
 import android.os.Bundle;
-import android.support.design.widget.BottomNavigationView;
-import android.support.v7.app.AppCompatActivity;
-import android.support.annotation.NonNull;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.annotation.NonNull;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-import com.example.sportsmanager.DataEntities.LoadedData;
+import edu.wit.comp3660.sportsmanager.DataEntities.LoadedData;
 
 public class TeamHomeActivity extends AppCompatActivity {
     private TextView mTextMessage;

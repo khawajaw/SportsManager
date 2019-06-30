@@ -1,4 +1,4 @@
-package com.example.sportsmanager.ListAdapters;
+package edu.wit.comp3660.sportsmanager.ListAdapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,8 +8,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.sportsmanager.DataEntities.Player;
-import com.example.sportsmanager.R;
+import edu.wit.comp3660.sportsmanager.DataEntities.Player;
+import edu.wit.comp3660.sportsmanager.R;
 
 import java.util.List;
 

@@ -1,10 +1,10 @@
-package com.example.sportsmanager;
+package edu.wit.comp3660.sportsmanager;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
-import android.support.v7.app.AlertDialog;
+import androidx.fragment.app.DialogFragment;
+import androidx.appcompat.app.AlertDialog;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -15,8 +15,8 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 
-import com.example.sportsmanager.DataEntities.LoadedData;
-import com.example.sportsmanager.DataEntities.Sport;
+import edu.wit.comp3660.sportsmanager.DataEntities.LoadedData;
+import edu.wit.comp3660.sportsmanager.DataEntities.Sport;
 
 public class NewTeamDialogFragment extends DialogFragment {
 

@@ -1,8 +1,8 @@
-package com.example.sportsmanager;
+package edu.wit.comp3660.sportsmanager;
 
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
+import androidx.appcompat.widget.Toolbar;
 import android.view.Menu;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
