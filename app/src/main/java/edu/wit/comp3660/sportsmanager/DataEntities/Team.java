@@ -1,8 +1,9 @@
 package edu.wit.comp3660.sportsmanager.DataEntities;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Team {
+public class Team implements Serializable {
 
     private String name;
     private Sport sport;
@@ -13,6 +14,7 @@ public class Team {
     public Team(String name, Sport sport) {
         this.name = name;
         this.sport = sport;
+        this.roster = new ArrayList<>();
     }
 
     public Team() {

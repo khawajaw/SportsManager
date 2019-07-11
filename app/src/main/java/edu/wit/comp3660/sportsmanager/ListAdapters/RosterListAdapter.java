@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -13,12 +14,12 @@ import edu.wit.comp3660.sportsmanager.R;
 
 import java.util.List;
 
-public class RosterListAdapter extends ArrayAdapter {
+public class RosterListAdapter extends ArrayAdapter<Player> {
     private LayoutInflater mInflater;
 
     public RosterListAdapter(Context context, int rid, List<Player> list) {
         super(context, rid, list);
-        mInflater = (LayoutInflater)context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
+        mInflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -29,12 +30,33 @@ public class RosterListAdapter extends ArrayAdapter {
         // set player image
         ImageView playerImage;
         playerImage = view.findViewById(R.id.player_image);
-        //playerImage.setImageBitmap(player.playerImage);
+        playerImage.setImageBitmap(player.image);
 
         // set player name
         TextView playerName;
         playerName = view.findViewById(R.id.player_name);
-        //playerName.setText(player.playerName);
+        playerName.setText(player.name);
+
+        // set player weight
+        TextView playerWeight;
+        playerWeight = view.findViewById(R.id.player_weight);
+        playerWeight.setText(String.valueOf(player.weight));
+
+        // set player height
+        TextView playerHeight;
+        playerHeight = view.findViewById(R.id.player_height);
+        playerHeight.setText(String.valueOf(player.height));
+
+        // remove imageButton
+        /*ImageButton removeBtn;
+        removeBtn = view.findViewById(R.id.remove_btn);
+        removeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // create notification to ensure user wants to remove player?
+                // remove player from roster?
+            }
+        });*/
 
         return view;
     }
