@@ -23,6 +23,11 @@ public class NewTeamDialogFragment extends DialogFragment {
     private View view;
     private Spinner dropdown;
     private EditText team_name_input;
+    private TeamSelectActivity.DialogCallback callback;
+
+    NewTeamDialogFragment(TeamSelectActivity.DialogCallback dialogCallback) {
+        callback = dialogCallback;
+    }
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -35,6 +40,7 @@ public class NewTeamDialogFragment extends DialogFragment {
                         LoadedData.createTeam(
                                 team_name_input.getText().toString(),
                                 (Sport) dropdown.getSelectedItem());
+                        callback.onTeamAdded();
                     }
                 })
                 .setNegativeButton("Cancel", null);
