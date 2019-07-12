@@ -1,33 +1,42 @@
 package edu.wit.comp3660.sportsmanager.ListAdapters;
-/*
-import android.widget.ArrayAdapter;
 
-import android.view.*;
-import android.widget.*;
-import android.content.*;
-import android.app.LauncherActivity.*;
+import android.content.Context;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
+import androidx.recyclerview.widget.RecyclerView;
+
 import java.util.List;
 
-public class LineupAdapter extends ArrayAdapter<Lineup> {
-    private LayoutInflater mInflater;
-    public LineupAdapter(Context context, int rid, List<ListItem> list){
-        super(context, rid, list);
-        mInflater =
-                (LayoutInflater)context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
+import edu.wit.comp3660.sportsmanager.R;
+
+public class LineupAdapter extends RecyclerView.Adapter<LineupviewHolder>{
+
+    private List<LineupObject> itemList;
+    private Context context;
+
+    public LineupAdapter(Context context, List<LineupObject> itemList) {
+        this.itemList = itemList;
+        this.context = context;
     }
-    public View getView(int position, View convertView, ViewGroup parent){
-        // Retrieve data
-        Lineup item = (Lineup)getItem(position);
-        // Use layout file to generate View
-        View view = mInflater.inflate(R.layout.list_item, null);
-        // Set user name
-        TextView name;
-        name = (TextView)view.findViewById(R.id.name);
-        name.setText(item.name);
-        // Set position
-        TextView comment;
-        comment = (TextView) view.findViewById(R.id.position);
-        comment.setText(item.position);
-        return view;
+
+    @Override
+    public LineupviewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View layoutView = LayoutInflater.from(parent.getContext()).inflate(R.layout.lineup_list_item, null);
+        LineupviewHolder rcv = new LineupviewHolder(layoutView);
+        return rcv;
     }
-} */
+
+    @Override
+    public void onBindViewHolder(LineupviewHolder holder, int position) {
+        holder.playername.setText(" " + itemList.get(position).getPlayername());
+        holder.number.setText(" " + itemList.get(position).getNumber());
+        holder.position.setText(" " + itemList.get(position).getPosition());
+    }
+
+    @Override
+    public int getItemCount() {
+        return this.itemList.size();
+    }
+}

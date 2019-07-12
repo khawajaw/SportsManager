@@ -1,43 +1,45 @@
 package edu.wit.comp3660.sportsmanager;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.os.Bundle;
-import android.widget.*;
-import android.view.*;
+
+
+import java.util.ArrayList;
+import java.util.List;
+
+import edu.wit.comp3660.sportsmanager.ListAdapters.LineupAdapter;
+import edu.wit.comp3660.sportsmanager.ListAdapters.LineupObject;
 
 public class LineupActivity extends AppCompatActivity {
-    private final String TAG = "myApp"; //
+
+    private final String TAG = "MainActivity";
+    private RecyclerView recyclerView;
+    private LinearLayoutManager layoutManager;
+    private LineupAdapter adapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-        String [] testString = new String[10];
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_lineup);
-        ArrayAdapter<String> adapter =
-                new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1);
+        setContentView(R.layout.lineup);
 
-        for(int i = 0; i<testString.length; i++){
-            /**
-             * call array filled with team members and print them
-             */
-            adapter.add("sample text");
-        }
-        ListView listView = (ListView)findViewById(R.id.ListView01);
-        listView.setAdapter(adapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener()
+        recyclerView = (RecyclerView)findViewById(R.id.recycler_view);
+        layoutManager = new LinearLayoutManager(LineupActivity.this);
+        recyclerView.setLayoutManager(layoutManager);
 
+        List<LineupObject> posts = returnListItems();
 
-
-    {
-        @Override
-        public void onItemClick (AdapterView <?> parent,
-                View view,
-                int position,
-                long id){
-            //On click should lead to the player activity which will then further expand on
-            // player info
-           // Intent intent = new Intent(LineupActivity.this, PlayerActivity.class);
-           // startActivity(intent);
+        adapter = new LineupAdapter(LineupActivity.this, posts);
+        recyclerView.setAdapter(adapter);
     }
-    });
-}}
+
+    private List<LineupObject> returnListItems(){
+        List<LineupObject> items = new ArrayList<LineupObject>();
+        items.add(new LineupObject("Wajih Khawaja", "ST", "1"));
+        items.add(new LineupObject("Wes Brimeyer", "ST", "2"));
+        items.add(new LineupObject("Jose Fossi", "ST", "3"));
+        return items;
+    }
+}
