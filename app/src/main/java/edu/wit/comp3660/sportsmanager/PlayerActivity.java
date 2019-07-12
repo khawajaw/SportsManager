@@ -7,7 +7,9 @@ import android.view.Menu;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 
-public class PlayerActivity extends AppCompatActivity {
+import java.io.Serializable;
+
+public class PlayerActivity extends AppCompatActivity implements Serializable {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

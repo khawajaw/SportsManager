@@ -6,8 +6,6 @@ public class Player {
     public String name;
     public int weight;
     public int height;
-
-
 }
 
 

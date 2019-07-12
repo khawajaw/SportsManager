@@ -4,6 +4,10 @@ import android.os.Bundle;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
 import android.view.MenuItem;
 import android.widget.TextView;
 
@@ -11,6 +15,9 @@ import edu.wit.comp3660.sportsmanager.DataEntities.LoadedData;
 
 public class TeamHomeActivity extends AppCompatActivity {
     private TextView mTextMessage;
+    private FragmentManager fm;
+    private FragmentTransaction ft;
+    private Fragment selectedFragment;
 
     private BottomNavigationView.OnNavigationItemSelectedListener onNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -22,7 +29,11 @@ public class TeamHomeActivity extends AppCompatActivity {
                     mTextMessage.setText(LoadedData.getCurrentTeam().toString());
                     return true;
                 case R.id.roster_nav_button:
-                    mTextMessage.setText(R.string.players);
+                    fm = getSupportFragmentManager();
+                    ft = fm.beginTransaction();
+                    selectedFragment = new RosterFragment();
+                    ft.replace(R.id.team_home_frame, selectedFragment);
+                    ft.commit();
                     return true;
                 case R.id.lineup_nav_button:
                     mTextMessage.setText(R.string.lineup);
