@@ -15,15 +15,16 @@ import edu.wit.comp3660.sportsmanager.DataEntities.LoadedData;
 
 public class TeamHomeActivity extends AppCompatActivity {
     private TextView mTextMessage;
-    private FragmentManager fm;
-    private FragmentTransaction ft;
-    private Fragment selectedFragment;
 
     private BottomNavigationView.OnNavigationItemSelectedListener onNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            FragmentManager fm;
+            FragmentTransaction ft;
+            Fragment selectedFragment;
+
             switch (item.getItemId()) {
                 case R.id.team_home_nav_button:
                     mTextMessage.setText(LoadedData.getCurrentTeam().toString());
@@ -32,7 +33,7 @@ public class TeamHomeActivity extends AppCompatActivity {
                     fm = getSupportFragmentManager();
                     ft = fm.beginTransaction();
                     selectedFragment = new RosterFragment();
-                    ft.replace(R.id.team_home_frame, selectedFragment);
+                    ft.add(R.id.team_home_frame, selectedFragment);
                     ft.commit();
                     return true;
                 case R.id.lineup_nav_button:

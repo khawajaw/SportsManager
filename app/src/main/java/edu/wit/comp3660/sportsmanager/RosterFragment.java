@@ -29,8 +29,8 @@ public class RosterFragment extends Fragment {
         Team currentTeam = LoadedData.getCurrentTeam();
 
         final List<Player> current_roster = currentTeam.getRoster();
-        Player rando = new Player();
-        rando.name = "Randy";
+        Player rando = new Player(getActivity());
+        rando.name = "Jones";
         current_roster.add(rando);
 
         RosterListAdapter adapter = new RosterListAdapter(getActivity(), 0, current_roster);

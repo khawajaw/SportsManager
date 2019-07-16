@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -23,7 +24,7 @@ public class RosterListAdapter extends ArrayAdapter<Player> {
     }
 
     public View getView(int position, View convertView, ViewGroup parent) {
-        Player player = (Player)getItem(position);
+        Player player = getItem(position);
 
         View view = mInflater.inflate(R.layout.roster_player_item, null);
 
@@ -45,18 +46,7 @@ public class RosterListAdapter extends ArrayAdapter<Player> {
         // set player height
         TextView playerHeight;
         playerHeight = view.findViewById(R.id.player_height);
-        playerHeight.setText(String.valueOf(player.height));
-
-        // remove imageButton
-        /*ImageButton removeBtn;
-        removeBtn = view.findViewById(R.id.remove_btn);
-        removeBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // create notification to ensure user wants to remove player?
-                // remove player from roster?
-            }
-        });*/
+        playerHeight.setText(String.valueOf(player.weight));
 
         return view;
     }

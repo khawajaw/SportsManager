@@ -15,4 +15,8 @@
 
     <string name="new_team">New Team</string>
     <string name="team_name">Team Name</string>
+
+    <!-- roster -->
+    <string name="player_image">player image</string>
+    <string name="remove">Remove</string>
 </resources>
