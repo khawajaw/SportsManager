@@ -46,7 +46,7 @@ public class RosterListAdapter extends ArrayAdapter<Player> {
         // set player height
         TextView playerHeight;
         playerHeight = view.findViewById(R.id.player_height);
-        playerHeight.setText(String.valueOf(player.weight));
+        playerHeight.setText(String.valueOf(player.height));
 
         return view;
     }

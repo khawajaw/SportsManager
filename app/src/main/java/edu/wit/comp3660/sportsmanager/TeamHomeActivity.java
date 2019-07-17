@@ -33,14 +33,22 @@ public class TeamHomeActivity extends AppCompatActivity {
                     fm = getSupportFragmentManager();
                     ft = fm.beginTransaction();
                     selectedFragment = new RosterFragment();
-                    ft.add(R.id.team_home_frame, selectedFragment);
+                    ft.replace(R.id.team_home_frame, selectedFragment);
                     ft.commit();
                     return true;
                 case R.id.lineup_nav_button:
-                    mTextMessage.setText(R.string.lineup);
+                    fm = getSupportFragmentManager();
+                    ft = fm.beginTransaction();
+                    selectedFragment = new LineupFragment();
+                    ft.replace(R.id.team_home_frame, selectedFragment);
+                    ft.commit();
                     return true;
                 case R.id.games_nav_button:
-                    mTextMessage.setText(R.string.games);
+                    fm = getSupportFragmentManager();
+                    ft = fm.beginTransaction();
+                    selectedFragment = new GamesNavFragment();
+                    ft.replace(R.id.team_home_frame, selectedFragment);
+                    ft.commit();
                     return true;
             }
             return false;

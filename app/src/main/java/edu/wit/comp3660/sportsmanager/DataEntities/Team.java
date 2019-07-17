@@ -15,6 +15,8 @@ public class Team implements Serializable {
         this.name = name;
         this.sport = sport;
         this.roster = new ArrayList<>();
+        this.lineup = new ArrayList<>();
+        this.games = new ArrayList<>();
     }
 
     public Team() {

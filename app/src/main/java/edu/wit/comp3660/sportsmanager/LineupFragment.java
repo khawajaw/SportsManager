@@ -1,10 +1,13 @@
 package edu.wit.comp3660.sportsmanager;
 
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 
 import java.util.ArrayList;
@@ -13,7 +16,7 @@ import java.util.List;
 import edu.wit.comp3660.sportsmanager.ListAdapters.LineupAdapter;
 import edu.wit.comp3660.sportsmanager.ListAdapters.LineupObject;
 
-public class LineupActivity extends AppCompatActivity {
+public class LineupFragment extends Fragment {
 
     private final String TAG = "MainActivity";
     private RecyclerView recyclerView;
@@ -21,18 +24,19 @@ public class LineupActivity extends AppCompatActivity {
     private LineupAdapter adapter;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.lineup);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View rootView = inflater.inflate(R.layout.lineup, container, false);
 
-        recyclerView = (RecyclerView)findViewById(R.id.recycler_view);
-        layoutManager = new LinearLayoutManager(LineupActivity.this);
+        recyclerView = rootView.findViewById(R.id.recycler_view);
+        layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
 
         List<LineupObject> posts = returnListItems();
 
-        adapter = new LineupAdapter(LineupActivity.this, posts);
+        adapter = new LineupAdapter(getActivity(), posts);
         recyclerView.setAdapter(adapter);
+
+        return rootView;
     }
 
     private List<LineupObject> returnListItems(){
