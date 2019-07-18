@@ -26,8 +26,10 @@ public class TeamHomeActivity extends AppCompatActivity {
 
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-
             ft = fm.beginTransaction();
+            FragmentManager fm;
+            Fragment selectedFragment;
+
             switch (item.getItemId()) {
                 case R.id.team_home_nav_button:
                     //if (selectedFragment != null)
@@ -49,8 +51,11 @@ public class TeamHomeActivity extends AppCompatActivity {
                         textMessage.setText(R.string.lineup);
                     return true;
                 case R.id.games_nav_button:
-                    if (textMessage != null)
-                        textMessage.setText(R.string.games);
+                    fm = getSupportFragmentManager();
+                    ft = fm.beginTransaction();
+                    selectedFragment = new GamesNavFragment();
+                    ft.replace(R.id.fragment, selectedFragment);
+                    ft.commit();
                     return true;
             }
             return false;

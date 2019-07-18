@@ -10,6 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
+
         <activity android:name=".TeamSelectActivity"></activity>
         <activity android:name=".PlayerActivity"></activity>
 
@@ -23,10 +24,16 @@
             </intent-filter>
         </activity>
 
+
         <activity
             android:name=".TeamHomeActivity"
             android:label="@string/app_name">
         </activity>
+        <activity
+            android:name=".LineupActivity"
+            android:label="@string/app_name" />
+
+
 
     </application>
 
