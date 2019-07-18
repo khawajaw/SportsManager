@@ -11,35 +11,46 @@ import androidx.fragment.app.FragmentTransaction;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 import edu.wit.comp3660.sportsmanager.DataEntities.LoadedData;
 
 public class TeamHomeActivity extends AppCompatActivity {
-    private TextView mTextMessage;
     private FragmentManager fm;
     private FragmentTransaction ft;
     private Fragment selectedFragment;
+    TextView textMessage;
 
     private BottomNavigationView.OnNavigationItemSelectedListener onNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+            ft = fm.beginTransaction();
             switch (item.getItemId()) {
                 case R.id.team_home_nav_button:
-                    mTextMessage.setText(LoadedData.getCurrentTeam().toString());
+                    //if (selectedFragment != null)
+                    //    ft.remove(selectedFragment);
+                    selectedFragment = new TeamHomeFragment();
+                    ft.replace(R.id.fragment, selectedFragment);
+                    ft.commit();
+                    //textMessage = findViewById(R.id.team_home_message);
                     return true;
                 case R.id.roster_nav_button:
-                    fm = getSupportFragmentManager();
-                    ft = fm.beginTransaction();
+                    //if (selectedFragment != null)
+                    //    ft.remove(selectedFragment);
                     selectedFragment = new RosterFragment();
-                    ft.replace(R.id.team_home_frame, selectedFragment);
+                    ft.replace(R.id.fragment, selectedFragment);
                     ft.commit();
                     return true;
                 case R.id.lineup_nav_button:
-                    mTextMessage.setText(R.string.lineup);
+                    if (textMessage != null)
+                        textMessage.setText(R.string.lineup);
                     return true;
                 case R.id.games_nav_button:
-                    mTextMessage.setText(R.string.games);
+                    if (textMessage != null)
+                        textMessage.setText(R.string.games);
                     return true;
             }
             return false;
@@ -50,9 +61,13 @@ public class TeamHomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_team_home);
+        selectedFragment = new TeamHomeFragment();
+        fm = getSupportFragmentManager();
+        ft = fm.beginTransaction();
+        ft.replace(R.id.fragment, selectedFragment);
+        ft.commit();
         BottomNavigationView navView = findViewById(R.id.nav_view);
-        mTextMessage = findViewById(R.id.message);
-        mTextMessage.setText(LoadedData.getCurrentTeam().toString());
+
         navView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener);
     }
 

@@ -42,8 +42,7 @@ public class RosterFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(getActivity(), PlayerActivity.class);
-                Player selectedPlayer = current_roster.get(i);
-                intent.putExtra("selectedPlayer", (Serializable)selectedPlayer);
+                intent.putExtra("selectedPlayerId", i);
                 startActivity(intent);
             }
         });
