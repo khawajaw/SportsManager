@@ -19,7 +19,6 @@ public class TeamHomeActivity extends AppCompatActivity {
     private FragmentManager fm;
     private FragmentTransaction ft;
     private Fragment selectedFragment;
-    TextView textMessage;
 
     private BottomNavigationView.OnNavigationItemSelectedListener onNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -47,8 +46,9 @@ public class TeamHomeActivity extends AppCompatActivity {
                     ft.commit();
                     return true;
                 case R.id.lineup_nav_button:
-                    if (textMessage != null)
-                        textMessage.setText(R.string.lineup);
+                    selectedFragment = new LineupFragment();
+                    ft.replace(R.id.fragment, selectedFragment);
+                    ft.commit();
                     return true;
                 case R.id.games_nav_button:
                     fm = getSupportFragmentManager();
