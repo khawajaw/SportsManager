@@ -8,13 +8,11 @@
 
 *Team Home Fragment (Jose)
 
-*Fill in PlayerActivity fields
+*Fill in PlayerActivity fields (Wes)
 
 *Game Nav details (Wajih)
 
 *Game Fragment (Jose)
-
-*Toolbars (Wes)
 
 *Add button to Roster (Wes)
 
