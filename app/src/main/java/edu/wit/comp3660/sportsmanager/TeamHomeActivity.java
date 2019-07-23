@@ -16,6 +16,7 @@ import org.w3c.dom.Text;
 import edu.wit.comp3660.sportsmanager.DataEntities.LoadedData;
 
 public class TeamHomeActivity extends AppCompatActivity {
+
     private FragmentManager fm;
     private FragmentTransaction ft;
     private Fragment selectedFragment;

@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,10 +20,15 @@ import edu.wit.comp3660.sportsmanager.DataEntities.LoadedData;
 import edu.wit.comp3660.sportsmanager.DataEntities.Team;
 import edu.wit.comp3660.sportsmanager.ListAdapters.GameNavListAdapter;
 
+
 public class GamesNavFragment extends Fragment {
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+
+
         View rootView = inflater.inflate(R.layout.games_nav, container, false);
 
         Team currentTeam = LoadedData.getCurrentTeam();
@@ -39,10 +46,15 @@ public class GamesNavFragment extends Fragment {
         addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // add new game
+                FragmentTransaction fr = getFragmentManager().beginTransaction();
+                fr.replace(R.id.fragment,new AddGameDialogFragment());
+                fr.commit();
+
             }
         });
 
         return rootView;
     }
+
+
 }

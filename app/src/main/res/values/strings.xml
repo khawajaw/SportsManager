@@ -15,6 +15,10 @@
 
     <string name="new_team">New Team</string>
     <string name="team_name">Team Name</string>
+    <string name="new_game">Add Game</string>
+    <string name="opponent_name">Opponent Name</string>
+    <string name="date">Select Date</string>
+
 
     <!-- roster -->
     <string name="player_image">player image</string>
