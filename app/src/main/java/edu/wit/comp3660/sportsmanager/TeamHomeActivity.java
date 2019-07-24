@@ -8,12 +8,16 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
+import edu.wit.comp3660.sportsmanager.DataEntities.Game;
 import edu.wit.comp3660.sportsmanager.DataEntities.LoadedData;
+import edu.wit.comp3660.sportsmanager.DataEntities.Team;
 
 public class TeamHomeActivity extends AppCompatActivity {
     private FragmentManager fm;
@@ -69,8 +73,8 @@ public class TeamHomeActivity extends AppCompatActivity {
         ft = fm.beginTransaction();
         ft.replace(R.id.fragment, selectedFragment);
         ft.commit();
-        BottomNavigationView navView = findViewById(R.id.nav_view);
 
+        BottomNavigationView navView = findViewById(R.id.nav_view);
         navView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener);
     }
 

@@ -16,21 +16,9 @@
             android:layout_height="wrap_content"
             android:foregroundGravity="top" />
 
-        <TextView
-            android:id="@+id/default_games_msg"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/default_games_msg"
-            android:textSize="16sp"
-            android:layout_gravity="center_horizontal"
-            android:paddingStart="20dip"
-            android:paddingEnd="20dip"
-            android:paddingTop="10dip"
-            android:paddingBottom="10dip" />
-
         <Button
             android:id="@+id/addGameBtn"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/add_game_btn_text"
             android:layout_gravity="center_horizontal" />

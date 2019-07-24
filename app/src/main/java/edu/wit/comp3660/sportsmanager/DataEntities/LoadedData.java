@@ -13,7 +13,9 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.sql.Time;
 import java.util.ArrayList;
+import java.util.Date;
 
 import edu.wit.comp3660.sportsmanager.LoginActivity;
 
@@ -22,6 +24,7 @@ public class LoadedData {
     public static String TAG = "LoadedData";
     private static ArrayList<Team> teams = new ArrayList<>();
     public static int currentTeamIndex;
+    public static int currentGameIndex;
     public static String loggedInUser;
     public static final Sport[] SPORTS = {
             new Sport("Football"),
@@ -35,6 +38,10 @@ public class LoadedData {
     }
     public static void createTeam(String name, Sport sport) {
         teams.add(new Team(name, sport));
+    }
+
+    public static void createGame(String opponentName, String gameLocation, String gameDate, String gameTime, String option) {
+        getCurrentTeam().addGame(new Game(opponentName, gameLocation, gameDate, gameTime, option));
     }
 
     public static Team getCurrentTeam() {

@@ -20,7 +20,21 @@
     <string name="player_image">player image</string>
     <string name="remove">Remove</string>
 
+    <!-- game nav -->
     <string name="game_separator">vs.</string>
     <string name="add_game_btn_text">Add Game</string>
     <string name="default_games_msg">Your team has no upcoming games.</string>
+    <string name="new_game">Add Game</string>
+
+    <!-- login/register -->
+    <string name="login_title">LOGIN</string>
+    <string name="register_btn_text">Register</string>
+    <string name="register_title_text">REGISTER</string>
+    <string name="login_btn_text">Login</string>
+    <string name="username_hint">enter username</string>
+    <string name="password_hint">enter password</string>
+    <string name="game_location">Location</string>
+    <string name="opponent_team">Opponent Team</string>
+    <string name="home_radio_btn">Home</string>
+    <string name="away_radio_btn">Away</string>
 </resources>

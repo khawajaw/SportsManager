@@ -16,7 +16,6 @@ import edu.wit.comp3660.sportsmanager.DataEntities.Player;
 import edu.wit.comp3660.sportsmanager.DataEntities.Team;
 import edu.wit.comp3660.sportsmanager.ListAdapters.RosterListAdapter;
 
-import java.io.Serializable;
 import java.util.List;
 
 public class RosterFragment extends Fragment {
@@ -25,7 +24,6 @@ public class RosterFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.roster, container, false);
 
-        // get selected team somehow
         Team currentTeam = LoadedData.getCurrentTeam();
 
         final List<Player> current_roster = currentTeam.getRoster();

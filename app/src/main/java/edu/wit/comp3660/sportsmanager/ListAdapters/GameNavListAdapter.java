@@ -24,7 +24,7 @@ public class GameNavListAdapter extends ArrayAdapter<Game> {
     public View getView(int position, View convertView, ViewGroup parent) {
         Game game = getItem(position);
 
-        View view = mInflater.inflate(R.layout.roster_player_item, null);
+        View view = mInflater.inflate(R.layout.games_nav_item, null);
 
         // home team
         TextView homeName;
@@ -33,12 +33,16 @@ public class GameNavListAdapter extends ArrayAdapter<Game> {
 
         TextView homeScore;
         homeScore = view.findViewById(R.id.homeTeamScore);
-        homeScore.setText(game.getTeamScore());
+        homeScore.setText(String.valueOf(game.getTeamScore()));
 
         // middle
         TextView date;
         date = view.findViewById(R.id.date);
-        date.setText(game.getDate().toString());
+        date.setText(game.getDate());
+
+        TextView time;
+        time = view.findViewById(R.id.time);
+        time.setText(game.getGameTime());
 
         TextView separator;
         separator = view.findViewById(R.id.vs);
@@ -49,14 +53,18 @@ public class GameNavListAdapter extends ArrayAdapter<Game> {
             separator.setText(R.string.game_separator);
         }
 
+        TextView gameLocation;
+        gameLocation = view.findViewById(R.id.location);
+        gameLocation.setText(game.getLocation());
+
         // opponent team
         TextView opponentScore;
         opponentScore = view.findViewById(R.id.awayTeamScore);
-        opponentScore.setText(game.getOpponentScore());
+        opponentScore.setText(String.valueOf(game.getOpponentScore()));
 
         TextView opponentName;
         opponentName = view.findViewById(R.id.awayTeamName);
-        opponentName.setText(game.getOpponent().getName());
+        opponentName.setText(game.getOpponent());
 
         return view;
     }

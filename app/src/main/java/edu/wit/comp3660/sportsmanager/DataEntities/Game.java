@@ -1,46 +1,60 @@
 package edu.wit.comp3660.sportsmanager.DataEntities;
 
-import java.util.Date;
-
 public class Game {
-    private Date date;
+    private String opponent;
     private String location;
-    private Team opponent;
+    private String date;
+    private String gameTime;
     private boolean away;
     private int teamScore;
     private int opponentScore;
+    private boolean played = false;
 
-    public Game(Date date, String location, Team opponent) {
-        this(date, location, opponent, false);
+    public Game(String opponent) {
+        this(opponent, "Unknown Location", "No date", "No time", "Home");
     }
 
-    public Game(Date date, String location, Team opponent, boolean away) {
-        this(date, location, opponent, away, 0, 0);
+    public Game(String opponent, String location, String date, String gameTime, String option) {
+        this(opponent, location, date, gameTime, option, 0, 0);
     }
 
-    public Game(Date date, String location, Team opponent, boolean away, int teamScore, int opponentScore) {
-        this.date = date;
-        this.location = location;
+    public Game(String opponent, String location, String date, String gameTime, String option, int teamScore, int opponentScore) {
         this.opponent = opponent;
-        this.away = away;
+        this.location = location;
+        this.date = date;
+        this.gameTime = gameTime;
+        if(option.equals("Home")) {
+            this.away = false;
+        }
+        else {
+            this.away = true;
+        }
         this.teamScore = teamScore;
         this.opponentScore = opponentScore;
     }
 
-    public Date getDate() {
-        return date;
+    public String getOpponent() {
+        return opponent;
     }
 
     public String getLocation() {
         return location;
     }
 
-    public Team getOpponent() {
-        return opponent;
+    public String getDate() {
+        return date;
+    }
+
+    public String getGameTime() {
+        return gameTime;
     }
 
     public boolean isAway() {
         return away;
+    }
+
+    public boolean isPlayed() {
+        return played;
     }
 
     public int getTeamScore() {
@@ -49,5 +63,12 @@ public class Game {
 
     public int getOpponentScore() {
         return opponentScore;
+    }
+
+    public void setScore(int teamScore, int opponentScore) {
+        this.teamScore = teamScore;
+        this.opponentScore = opponentScore;
+
+        this.played = true;
     }
 }

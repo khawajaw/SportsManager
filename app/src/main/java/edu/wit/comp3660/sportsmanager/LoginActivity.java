@@ -2,36 +2,92 @@ package edu.wit.comp3660.sportsmanager;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import edu.wit.comp3660.sportsmanager.DataEntities.LoadedData;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+//import com.google.firebase.auth.FirebaseUser;
+
 public class LoginActivity extends AppCompatActivity {
 
     private ProgressBar loadingBar;
+    private String TAG = "loginActivity";
+    final private FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        // get username and password
+        final EditText u = findViewById(R.id.loginUsername);
+        final EditText p = findViewById(R.id.loginPassword);
+
+        // set onClick for login button
         Button login_button = findViewById(R.id.login_button);
         loadingBar = findViewById(R.id.progressBar);
         login_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (loadDataFromFirebase("username", null)) {
-                    LoadedData.loggedInUser = "username";
-                    //wait for data to load
-                } else {
-                    Toast.makeText(getApplicationContext(), "Username/password does not match or exit", Toast.LENGTH_LONG)
-                            .show();
+                final String username = u.getText().toString();
+                final String password = p.getText().toString();
+                loadDataFromFirebase(username, password);
+
+                if(username.equals("") || password.equals("")) {
+                    Toast.makeText(LoginActivity.this, "Must enter a username and/or password!",
+                            Toast.LENGTH_SHORT).show();
+                    notifyDataLoaded();
                 }
+                else {
+                    mAuth.signInWithEmailAndPassword(username, password)
+                            .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    if (task.isSuccessful()) {
+                                        // Sign in success, update UI with the signed-in user's information
+                                        Log.d(TAG, "signInWithEmail:success");
+                                        Toast.makeText(LoginActivity.this, "Authentication successful!",
+                                                Toast.LENGTH_SHORT).show();
+                                        //FirebaseUser user = mAuth.getCurrentUser();
+
+                                        // store user/data and start next activity
+                                        LoadedData.loggedInUser = username;
+                                        notifyDataLoaded();
+                                    } else {
+                                        // If sign in fails, display a message to the user.
+                                        Log.w(TAG, "signInWithEmail:failure", task.getException());
+                                        Toast.makeText(LoginActivity.this, "Authentication failed.",
+                                                Toast.LENGTH_SHORT).show();
+                                        u.getText().clear();
+                                        u.setHint(R.string.username_hint);
+                                        p.getText().clear();
+                                        p.setHint(R.string.password_hint);
+                                    }
+                                }
+                            });
+                }
+            }
+        });
+
+        // set onClick for register button
+        Button registerButton = findViewById(R.id.registerBtn);
+        registerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+                startActivity(intent);
             }
         });
     }
