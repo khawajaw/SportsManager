@@ -57,7 +57,7 @@ public class Team implements Serializable {
     public void editGame(String teamScore, String opponentScore) {
         int tS = Integer.parseInt(teamScore);
         int oS = Integer.parseInt(opponentScore);
-        games.get(LoadedData.currentGameIndex).setScore(tS, oS);
+        games.get(LoadedData.get().getCurrentGameIndex()).setScore(tS, oS);
         if(tS > oS) {
             recordArr[0]++;
         }

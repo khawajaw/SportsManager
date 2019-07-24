@@ -63,7 +63,7 @@ public class LoginActivity extends AppCompatActivity {
                                         //FirebaseUser user = mAuth.getCurrentUser();
 
                                         // store user/data and start next activity
-                                        LoadedData.loggedInUser = username;
+                                        LoadedData.get().loggedInUser = username;
                                         notifyDataLoaded();
                                     } else {
                                         // If sign in fails, display a message to the user.
@@ -77,7 +77,16 @@ public class LoginActivity extends AppCompatActivity {
                                     }
                                 }
                             });
-                }
+                    /*
+=======
+                if (loadDataFromFirebase("username", null)) {
+                    LoadedData.get().loggedInUser = "username";
+                    //wait for data to load
+                } else {
+                    Toast.makeText(getApplicationContext(), "Username/password does not match or exit", Toast.LENGTH_LONG)
+                            .show();
+>>>>>>> Added the toolbar to some screens, made LoadedData a singleton, changed app font, made the flows from Roster to PlayerActivity all work, toolbar and all
+ */             }
             }
         });
 
@@ -107,11 +116,11 @@ public class LoginActivity extends AppCompatActivity {
         boolean useFirebase = false; //switch to true if you want to test Firebase
         if (useFirebase){
             loadingBar.setVisibility(View.VISIBLE);
-            LoadedData.fetchDataFromFirebase(username, this);
+            LoadedData.get().fetchDataFromFirebase(username, this);
         }
         else {
-            LoadedData.createTeam("Local Test Team");
-            LoadedData.createTeam("Local Test Team 2");
+            LoadedData.get().createTeam("Local Test Team");
+            LoadedData.get().createTeam("Local Test Team 2");
             notifyDataLoaded();
         }
         return true;

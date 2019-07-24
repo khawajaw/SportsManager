@@ -37,7 +37,7 @@ public class EditGameDialogFragment extends DialogFragment {
         builder.setView(view)
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        LoadedData.getCurrentTeam().editGame(teamScore.getText().toString(), opponentScore.getText().toString());
+                        LoadedData.get().getCurrentTeam().editGame(teamScore.getText().toString(), opponentScore.getText().toString());
                         callback.onGameAdded();
                     }
                 })

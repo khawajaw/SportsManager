@@ -10,9 +10,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.DialogInterface;
 import android.graphics.Canvas;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 
 import java.util.ArrayList;
@@ -43,10 +48,11 @@ public class LineupFragment extends Fragment {
         adapter = new LineupAdapter(getActivity(), posts);
         recyclerView.setAdapter(adapter);
 
-
         recyclerView.setAdapter(adapter);
         ItemTouchHelper touchHelper = new ItemTouchHelper(rvCallback);
         touchHelper.attachToRecyclerView(recyclerView);
+
+        setHasOptionsMenu(true);
         return rootView;
 
 
@@ -143,5 +149,24 @@ public class LineupFragment extends Fragment {
         items.add(new LineupObject("Wes Brimeyer", "ST", "2"));
         items.add(new LineupObject("Jose Fossi", "ST", "3"));
         return items;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.toolbar_menu, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Log.v(TAG, "Id: "+item.getItemId());
+        switch (item.getItemId()) {
+            case R.id.save_menu_action:
+                break;
+            case R.id.edit_menu_action:
+                Toast.makeText(getContext(), "Select first player to swap", Toast.LENGTH_LONG).show();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

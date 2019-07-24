@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -18,6 +19,7 @@ public class TeamSelectActivity extends AppCompatActivity {
 
     private ListView teamList;
     ArrayAdapter<Team> teamsAdapter;
+    private ActionBar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,15 +27,18 @@ public class TeamSelectActivity extends AppCompatActivity {
         setContentView(R.layout.activity_team_select);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        this.toolbar = getSupportActionBar();
+        this.toolbar.setDisplayHomeAsUpEnabled(true);
+
         teamList = findViewById(R.id.sportsList);
 
-        teamsAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, LoadedData.getTeams());
+        teamsAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, LoadedData.get().getTeams());
 
         teamList.setAdapter(teamsAdapter);
         teamList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                LoadedData.currentTeamIndex = position;
+                LoadedData.changeCurrentTeamIndex(position);
                 Intent intent = new Intent(TeamSelectActivity.this, TeamHomeActivity.class);
                 startActivity(intent);
             }

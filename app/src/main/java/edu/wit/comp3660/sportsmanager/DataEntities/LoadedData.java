@@ -13,47 +13,65 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import java.sql.Time;
 import java.util.ArrayList;
-import java.util.Date;
 
 import edu.wit.comp3660.sportsmanager.LoginActivity;
 
 public class LoadedData {
 
-    public static String TAG = "LoadedData";
-    private static ArrayList<Team> teams = new ArrayList<>();
-    public static int currentTeamIndex;
-    public static int currentGameIndex;
-    public static String loggedInUser;
-    public static final Sport[] SPORTS = {
+    private static LoadedData instance;
+
+    public static LoadedData get() {
+        if (instance == null)
+            instance = new LoadedData();
+        return instance;
+    }
+
+    private String TAG = "LoadedData";
+    private ArrayList<Team> teams = new ArrayList<>();
+    private int currentTeamIndex;
+    private int currentGameIndex;
+    public String loggedInUser;
+    public final Sport[] SPORTS = {
             new Sport("Football"),
             new Sport("Soccer"),
             new Sport("Baseball"),
             new Sport("Basketball"),
     };
 
-    public static void createTeam(String name) {
+    public static void changeCurrentTeamIndex(int position) {
+        instance.currentTeamIndex = position;
+    }
+
+    public static void updateCurrentGameIndex(int i) {
+        instance.currentGameIndex = i;
+    }
+
+    public void createTeam(String name) {
         createTeam(name, SPORTS[0]); //just create a football team
     }
-    public static void createTeam(String name, Sport sport) {
+    public void createTeam(String name, Sport sport) {
         teams.add(new Team(name, sport));
     }
 
-    public static void createGame(String opponentName, String gameLocation, String gameDate, String gameTime, String option) {
+    public void createGame(String opponentName, String gameLocation, String gameDate, String gameTime, String option) {
         getCurrentTeam().addGame(new Game(opponentName, gameLocation, gameDate, gameTime, option));
     }
 
-    public static Team getCurrentTeam() {
+    public Team getCurrentTeam() {
         return teams.get(currentTeamIndex);
     }
 
-    public static ArrayList<Team> getTeams() {
+    public int getCurrentGameIndex() {
+        return currentGameIndex;
+    }
+
+    public ArrayList<Team> getTeams() {
         return teams;
     }
 
     // TODO: call this when we add data, or when the app closes?
-    public static void syncAllDataToFirebase() {
+    public void syncAllDataToFirebase() {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
         // Create a new user with a first and last name
@@ -77,7 +95,7 @@ public class LoadedData {
                 });
     }
 
-    public static void fetchDataFromFirebase(final String username, final LoginActivity callback) {
+    public void fetchDataFromFirebase(final String username, final LoginActivity callback) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("teams")
                 .whereEqualTo("username", username)
