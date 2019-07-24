@@ -17,7 +17,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="4dp"
             android:textSize="24sp"
-            android:text="@string/new_game" />
+            android:text="Add Game" />
 
         <EditText
             android:id="@+id/opponent_name_input"
