@@ -20,6 +20,7 @@ import edu.wit.comp3660.sportsmanager.DataEntities.LoadedData;
 import edu.wit.comp3660.sportsmanager.DataEntities.Team;
 
 public class TeamHomeActivity extends AppCompatActivity {
+
     private FragmentManager fm;
     private FragmentTransaction ft;
     private Fragment selectedFragment;
