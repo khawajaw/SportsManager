@@ -1,50 +1,89 @@
 package edu.wit.comp3660.sportsmanager;
 
-import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import androidx.appcompat.widget.Toolbar;
+import android.view.Gravity;
 import android.view.Menu;
-import android.view.inputmethod.EditorInfo;
-import android.widget.EditText;
-import android.widget.ImageView;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Toast;
 
-import java.io.Serializable;
+import androidx.appcompat.app.AppCompatActivity;
 
 import edu.wit.comp3660.sportsmanager.DataEntities.LoadedData;
 import edu.wit.comp3660.sportsmanager.DataEntities.Player;
 
-public class PlayerActivity extends AppCompatActivity implements Serializable {
+public class PlayerActivity extends AppCompatActivity {
 
-    Player player;
+    private Player player;
+
+    PlayerView view;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_player);
+        view = new PlayerView(this, new ImageClicked());
+        setContentView(view);
 
         Bundle extras = getIntent().getExtras();
-        player = LoadedData.getCurrentTeam().getRoster().get(extras.getInt("selectedPlayerId"));
+        int selectedPlayerIndex = extras.getInt("selectedPlayerIndex");
+        if (selectedPlayerIndex >= 0) {
+            player = LoadedData.get().getCurrentTeam().getRoster().get(selectedPlayerIndex);
+            if (player != null)
+                view.populateData(player);
+        }
 
-        setSupportActionBar((Toolbar)findViewById(R.id.toolbar));
-        EditText name = findViewById(R.id.player_name);
-        name.setInputType(EditorInfo.TYPE_NULL);
-        name.setText(player.name);
+        setSupportActionBar(view.getToolbar());
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        ImageView image = findViewById(R.id.player_avatar);
-        image.setImageBitmap(player.image);
-
-        //EditText height = findViewById(R.id.player_height);
-        //EditText weight = findViewById(R.id.player_weight);
-        //height.setText(player.getHeightText());
-        //height.setText(player.getWeightText());
-
-        EditText number = findViewById(R.id.player_number);
-        number.setText(player.number);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.toolbar_menu, menu);
+        menu.removeItem(R.id.add_menu_action);
         return super.onCreateOptionsMenu(menu);
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                setResult(RESULT_CANCELED);
+                finish();
+                break;
+            case R.id.save_menu_action:
+                savePlayerData();
+                setResult(RESULT_OK);
+                finish();
+                break;
+            case R.id.edit_menu_action:
+                enterEditMode();
+                break;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void enterEditMode() {
+        view.makeFieldsEditable();
+    }
+
+    private void savePlayerData() {
+        player.image = view.getImage();
+        player.name = view.getName();
+        player.jerseyNumber = view.getJerseyNumber();
+        player.phoneNumber = view.getPhoneNumber();
+        player.height = view.getHeightInInches();
+        player.weight = view.getWeight();
+    }
+
+    class ImageClicked implements View.OnClickListener {
+        @Override
+        public void onClick(View v) {
+            Toast t = Toast.makeText(getApplicationContext(), "Clicked on image (we will open camera roll soon)", Toast.LENGTH_SHORT);
+            t.setGravity(Gravity.CENTER,0,0);
+            t.show();
+        }
+    }
+
 }

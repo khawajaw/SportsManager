@@ -26,7 +26,7 @@ public class GamesNavFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.games_nav, container, false);
 
-        Team currentTeam = LoadedData.getCurrentTeam();
+        Team currentTeam = LoadedData.get().getCurrentTeam();
         ArrayList<Game> games = currentTeam.getGames();
 
         adapter = new GameNavListAdapter(getActivity(), 0, games);
@@ -37,7 +37,7 @@ public class GamesNavFragment extends Fragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                LoadedData.currentGameIndex = i;
+                LoadedData.updateCurrentGameIndex(i);
                 EditGameDialogFragment dialogFragment = new EditGameDialogFragment(new DialogCallback());
                 dialogFragment.show(getActivity().getSupportFragmentManager(), "EditGameDialog");
             }

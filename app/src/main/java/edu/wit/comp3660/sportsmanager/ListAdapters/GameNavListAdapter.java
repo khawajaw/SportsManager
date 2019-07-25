@@ -29,7 +29,7 @@ public class GameNavListAdapter extends ArrayAdapter<Game> {
         // home team
         TextView homeName;
         homeName = view.findViewById(R.id.homeTeamName);
-        homeName.setText(LoadedData.getCurrentTeam().getName());
+        homeName.setText(LoadedData.get().getCurrentTeam().getName());
 
         TextView homeScore;
         homeScore = view.findViewById(R.id.homeTeamScore);

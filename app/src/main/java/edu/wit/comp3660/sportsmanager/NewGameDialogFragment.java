@@ -50,7 +50,7 @@ public class NewGameDialogFragment extends DialogFragment {
 
                         int selectedButton = rGroup.getCheckedRadioButtonId();
                         RadioButton rButton = view.findViewById(selectedButton);
-                        LoadedData.createGame(
+                        LoadedData.get().createGame(
                                 opponentName.getText().toString(),
                                 gameLocation.getText().toString(),
                                 gameDate,

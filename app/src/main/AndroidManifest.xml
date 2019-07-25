@@ -1,22 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="edu.wit.comp3660.sportsmanager">
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/jones"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/jones"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        tools:ignore="GoogleAppIndexingWarning">
 
 
-        <activity android:name=".TeamSelectActivity"></activity>
-        <activity android:name=".PlayerActivity"></activity>
+        <activity
+            android:name=".TeamSelectActivity"
+            android:label="Select Team"
+            android:parentActivityName=".LoginActivity">
+        </activity>
+        <activity
+            android:name=".PlayerActivity"
+            android:label="Edit Player">
+        </activity>
 
         <activity
             android:name=".LoginActivity"
-            android:label="@string/title_activity_login"
+            android:label="Welcome"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,11 +37,8 @@
 
         <activity
             android:name=".TeamHomeActivity"
-            android:label="@string/app_name">
+            android:label="Team Home">
         </activity>
-
-
-
     </application>
 
 </manifest>

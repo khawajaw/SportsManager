@@ -10,7 +10,8 @@ public class Player {
     public String name;
     public int weight;
     public int height;
-    public String number;
+    public String jerseyNumber;
+    public String phoneNumber;
 
     private Context context;
 
@@ -20,11 +21,7 @@ public class Player {
     }
 
     public Player() {
-        number = "00";
-    }
-
-    public String getHeightText() {
-        return height/12 + "' " + height%12 +"\"";
+        jerseyNumber = "00";
     }
 
     public String getWeightText() {

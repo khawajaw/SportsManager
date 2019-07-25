@@ -37,7 +37,7 @@ public class NewTeamDialogFragment extends DialogFragment {
         builder.setView(view)
                 .setPositiveButton("Create New Team", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        LoadedData.createTeam(
+                        LoadedData.get().createTeam(
                                 team_name_input.getText().toString(),
                                 (Sport) dropdown.getSelectedItem());
                         callback.onTeamAdded();
@@ -69,7 +69,7 @@ public class NewTeamDialogFragment extends DialogFragment {
         ArrayAdapter<Sport> dropdownAdapter = new ArrayAdapter<>(
                 getContext(),
                 android.R.layout.simple_spinner_dropdown_item,
-                LoadedData.SPORTS);
+                LoadedData.get().SPORTS);
         //dropdownAdapter.insert(new Sport("Select Sport..."), 0);
         dropdown.setAdapter(dropdownAdapter);
     }

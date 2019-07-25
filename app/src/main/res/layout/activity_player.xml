@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -27,12 +28,12 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
         android:layout_marginTop="16dp"
-        android:textSize="30sp"
         android:hint="@string/name"
         android:importantForAutofill="no"
+        android:inputType="textPersonName"
+        android:textSize="30sp"
         app:layout_constraintStart_toEndOf="@+id/player_avatar"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar"
-        android:inputType="textPersonName" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
     <EditText
         android:id="@+id/player_number"
@@ -42,7 +43,7 @@
         android:ems="2"
         android:maxLength="2"
         android:inputType="number"
-        android:hint="#00"
+        android:hint="@string/number_hint"
         android:importantForAutofill="no"
         app:layout_constraintStart_toEndOf="@+id/player_avatar"
         app:layout_constraintTop_toBottomOf="@+id/player_name" />
@@ -53,11 +54,95 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="28dp"
         android:ems="10"
+        android:maxLength="18"
         android:hint="@string/phone"
         android:importantForAutofill="no"
         android:inputType="phone"
         app:layout_constraintStart_toEndOf="@+id/player_avatar"
         app:layout_constraintTop_toBottomOf="@+id/player_number" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/player_phone">
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:fontFamily="sans-serif-black"
+                android:gravity="center"
+                android:text="@string/height" />
+            <Spinner
+                android:id="@+id/spinner_player_height_ft"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:entries="@array/array_4to7"
+                android:layout_weight="1" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="@string/feet" />
+            <Spinner
+                android:id="@+id/spinner_player_height_in"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:entries="@array/array_0to11"
+                android:layout_weight="1" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="@string/inches" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingVertical="8dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/weight" />
+
+            <EditText
+                android:id="@+id/text_player_weight"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:background="@color/dullGreen"
+                android:inputType="number"
+                android:ems="3"
+                android:maxLength="3"
+                android:layout_marginStart="16dp"
+                android:gravity="center"
+                android:hint="@string/lbs"
+                android:layout_weight="1"
+                tools:ignore="Autofill" />
+        </LinearLayout>
+
+
+    </LinearLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
