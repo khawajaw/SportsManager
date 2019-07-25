@@ -2,6 +2,7 @@ package edu.wit.comp3660.sportsmanager.ListAdapters;
 
 import android.util.SparseBooleanArray;
 import android.view.View;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -11,7 +12,7 @@ import edu.wit.comp3660.sportsmanager.R;
 public class LineupviewHolder extends RecyclerView.ViewHolder
         implements View.OnClickListener{
 
-    public TextView playername;
+    public Spinner playername;
     public TextView number;
     public TextView position;
 
@@ -20,7 +21,7 @@ public class LineupviewHolder extends RecyclerView.ViewHolder
     public LineupviewHolder(View itemView) {
         super(itemView);
         itemView.setOnClickListener(this);
-        playername = (TextView)itemView.findViewById(R.id.playername);
+        playername = (Spinner)itemView.findViewById(R.id.playerName);
         number = (TextView)itemView.findViewById(R.id.number);
         position = (TextView)itemView.findViewById(R.id.position);
     }

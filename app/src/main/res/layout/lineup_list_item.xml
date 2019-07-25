@@ -5,15 +5,7 @@
     android:layout_height="match_parent"
     android:padding="16dp">
 
-    <TextView
-        android:id="@+id/playername"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="New Text"
-        android:layout_marginTop="10dp"
-        android:textSize="18dp"
-        android:textStyle="bold"
-        android:textColor="@color/colorPrimaryDark"/>
+
 
     <TextView
         android:id="@+id/number"
@@ -21,9 +13,9 @@
         android:layout_height="wrap_content"
         android:text="New Text"
         android:textColor="#000"
-        android:layout_below="@+id/playername"
-        android:layout_alignLeft="@+id/playername"
-        android:layout_alignStart="@+id/playername"
+        android:layout_below="@+id/playerName"
+        android:layout_alignLeft="@+id/playerName"
+        android:layout_alignStart="@+id/playerName"
         android:layout_marginTop="20dp" />
 
     <TextView
@@ -35,5 +27,13 @@
         android:layout_alignTop="@+id/number"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
+
+    <Spinner
+        android:id="@+id/playerName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:entries="@array/array_0to11"
+        />
 
 </RelativeLayout>
