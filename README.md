@@ -19,7 +19,9 @@
 
 *Swap players' positions in lineup (Wajih)
 
-Deadlines:
+## Deadlines:
 Presentations: Aug. 1 or 6th
+
 All files and report: August 7th
+
 Google Play: August 8th
