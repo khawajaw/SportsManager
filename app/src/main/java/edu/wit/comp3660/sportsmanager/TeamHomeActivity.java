@@ -27,34 +27,44 @@ public class TeamHomeActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             fm = getSupportFragmentManager();
             ft = fm.beginTransaction();
-            Fragment selectedFragment;
 
             switch (item.getItemId()) {
                 case R.id.team_home_nav_button:
-                    selectedFragment = new TeamHomeFragment();
-                    ft.replace(R.id.fragment, selectedFragment);
-                    ft.commit();
-                    toolbar.setTitle("Team Home");
+                    if (!(selectedFragment instanceof TeamHomeFragment)) {
+                        selectedFragment = new TeamHomeFragment();
+                        ft.replace(R.id.fragment, selectedFragment);
+                        ft.commit();
+                        toolbar.setTitle("Team Home");
+                    }
                     return true;
                 case R.id.roster_nav_button:
-                    selectedFragment = new RosterFragment();
-                    ft.replace(R.id.fragment, selectedFragment);
-                    ft.commit();
-                    toolbar.setTitle("Roster");
+                    if (selectedFragment instanceof RosterFragment)
+                        ((RosterFragment) selectedFragment).refreshToTop();
+                    else {
+                        selectedFragment = new RosterFragment();
+                        ft.replace(R.id.fragment, selectedFragment);
+                        ft.commit();
+                        toolbar.setTitle("Roster");
+                    }
                     return true;
                 case R.id.lineup_nav_button:
-                    selectedFragment = new LineupFragment();
-                    ft.replace(R.id.fragment, selectedFragment);
-                    ft.commit();
-                    toolbar.setTitle("Current Lineup");
+                    if (!(selectedFragment instanceof LineupFragment)) {
+                        selectedFragment = new LineupFragment();
+                        ft.replace(R.id.fragment, selectedFragment);
+                        ft.commit();
+                        toolbar.setTitle("Current Lineup");
+                    }
                     return true;
                 case R.id.games_nav_button:
-                    selectedFragment = new GamesNavFragment();
-                    ft.replace(R.id.fragment, selectedFragment);
-                    ft.commit();
-                    toolbar.setTitle("Games");
+                    if (!(selectedFragment instanceof GamesNavFragment)) {
+                        selectedFragment = new GamesNavFragment();
+                        ft.replace(R.id.fragment, selectedFragment);
+                        ft.commit();
+                        toolbar.setTitle("Games");
+                    }
                     return true;
             }
+            fm = null;
             return false;
         }
     };

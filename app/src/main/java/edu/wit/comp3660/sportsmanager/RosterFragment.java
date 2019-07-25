@@ -25,6 +25,7 @@ import edu.wit.comp3660.sportsmanager.ListAdapters.RosterListAdapter;
 public class RosterFragment extends Fragment {
 
     private RosterListAdapter adapter;
+    ListView listView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -40,7 +41,7 @@ public class RosterFragment extends Fragment {
 
         adapter = new RosterListAdapter(getActivity(), 0, current_roster);
 
-        ListView listView = rootView.findViewById(R.id.roster_list_view);
+        listView = rootView.findViewById(R.id.roster_list_view);
         listView.setAdapter(adapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -86,4 +87,8 @@ public class RosterFragment extends Fragment {
             Log.v("myRosterFragment", "onActivityResult was not OK");
     }
 
+    public void refreshToTop() {
+        adapter.notifyDataSetChanged();
+        listView.smoothScrollToPosition(0);
+    }
 }
