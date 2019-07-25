@@ -1,15 +1,16 @@
 package edu.wit.comp3660.sportsmanager;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ListView;
+
+import androidx.fragment.app.Fragment;
 
 import java.util.ArrayList;
 
@@ -43,16 +44,26 @@ public class GamesNavFragment extends Fragment {
             }
         });
 
-        Button addBtn = rootView.findViewById(R.id.addGameBtn);
-        addBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                NewGameDialogFragment dialogFragment = new NewGameDialogFragment(new DialogCallback());
-                dialogFragment.show(getActivity().getSupportFragmentManager(), "NewGameDialog");
-            }
-        });
+        setHasOptionsMenu(true);
 
         return rootView;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.toolbar_menu, menu);
+        menu.removeItem(R.id.save_menu_action);
+        menu.removeItem(R.id.edit_menu_action);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.add_menu_action) {
+            NewGameDialogFragment dialogFragment = new NewGameDialogFragment(new DialogCallback());
+            dialogFragment.show(getActivity().getSupportFragmentManager(), "NewGameDialog");
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     class DialogCallback {
