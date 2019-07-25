@@ -46,7 +46,14 @@ public class NewGameDialogFragment extends DialogFragment {
                 .setPositiveButton("Create New Game", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         String gameDate = dPicker.getYear() + "-" + (dPicker.getMonth() + 1) + "-" + dPicker.getDayOfMonth();
-                        String gameTime = tPicker.getHour() + ":" + tPicker.getMinute();
+
+                        String gameTime;
+                        if(tPicker.getMinute() < 10) {
+                            gameTime = tPicker.getHour() + ":0" + tPicker.getMinute();
+                        }
+                        else {
+                            gameTime = tPicker.getHour() + ":" + tPicker.getMinute();
+                        }
 
                         int selectedButton = rGroup.getCheckedRadioButtonId();
                         RadioButton rButton = view.findViewById(selectedButton);

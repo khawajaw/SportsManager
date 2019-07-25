@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
@@ -20,15 +21,18 @@ import edu.wit.comp3660.sportsmanager.DataEntities.Team;
 import edu.wit.comp3660.sportsmanager.ListAdapters.GameNavListAdapter;
 
 public class GamesNavFragment extends Fragment {
-    GameNavListAdapter adapter;
+    private View rootView;
+    private GameNavListAdapter adapter;
+    private Team currentTeam;
+    private ArrayList<Game> games;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.games_nav, container, false);
+        rootView = inflater.inflate(R.layout.games_nav, container, false);
 
-        Team currentTeam = LoadedData.get().getCurrentTeam();
-        ArrayList<Game> games = currentTeam.getGames();
+        currentTeam = LoadedData.get().getCurrentTeam();
+        games = currentTeam.getGames();
 
         adapter = new GameNavListAdapter(getActivity(), 0, games);
 
@@ -66,9 +70,25 @@ public class GamesNavFragment extends Fragment {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        currentTeam = LoadedData.get().getCurrentTeam();
+        games = currentTeam.getGames();
+        TextView defaultText = rootView.findViewById(R.id.gamesText);
+        if(games.isEmpty()) {
+            defaultText.setVisibility(View.VISIBLE);
+        }
+        else {
+            defaultText.setVisibility(View.INVISIBLE);
+        }
+    }
+
     class DialogCallback {
         void onGameAdded() {
             adapter.notifyDataSetChanged();
         }
     }
+
 }

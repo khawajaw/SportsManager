@@ -5,6 +5,14 @@
     android:layout_height="match_parent"
     android:id="@+id/gamesNavFrame">
 
+    <TextView
+        android:id="@+id/gamesText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Your team currently has no games."
+        android:visibility="invisible" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -15,13 +23,6 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:foregroundGravity="top" />
-
-        <Button
-            android:id="@+id/addGameBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/add_game_btn_text"
-            android:layout_gravity="center_horizontal" />
 
     </LinearLayout>
 
