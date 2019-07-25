@@ -40,10 +40,6 @@ public class GameNavListAdapter extends ArrayAdapter<Game> {
         date = view.findViewById(R.id.date);
         date.setText(game.getDate());
 
-        TextView time;
-        time = view.findViewById(R.id.time);
-        time.setText(game.getGameTime());
-
         TextView separator;
         separator = view.findViewById(R.id.vs);
         if(game.isAway()) {
@@ -52,10 +48,6 @@ public class GameNavListAdapter extends ArrayAdapter<Game> {
         else {
             separator.setText(R.string.game_separator);
         }
-
-        TextView gameLocation;
-        gameLocation = view.findViewById(R.id.location);
-        gameLocation.setText(game.getLocation());
 
         // opponent team
         TextView opponentScore;
