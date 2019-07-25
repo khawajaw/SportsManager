@@ -25,6 +25,7 @@ public class GamesNavFragment extends Fragment {
     private GameNavListAdapter adapter;
     private Team currentTeam;
     private ArrayList<Game> games;
+    private TextView defaultText;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -76,7 +77,7 @@ public class GamesNavFragment extends Fragment {
 
         currentTeam = LoadedData.get().getCurrentTeam();
         games = currentTeam.getGames();
-        TextView defaultText = rootView.findViewById(R.id.gamesText);
+        defaultText = rootView.findViewById(R.id.gamesText);
         if(games.isEmpty()) {
             defaultText.setVisibility(View.VISIBLE);
         }
@@ -88,6 +89,7 @@ public class GamesNavFragment extends Fragment {
     class DialogCallback {
         void onGameAdded() {
             adapter.notifyDataSetChanged();
+            defaultText.setVisibility(View.INVISIBLE);
         }
     }
 
