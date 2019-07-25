@@ -1,15 +1,13 @@
 package edu.wit.comp3660.sportsmanager;
 
-import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import androidx.appcompat.widget.Toolbar;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.inputmethod.EditorInfo;
-import android.widget.EditText;
-import android.widget.ImageView;
+import android.view.View;
+import android.widget.Toast;
 
-import java.io.Serializable;
+import androidx.appcompat.app.AppCompatActivity;
 
 import edu.wit.comp3660.sportsmanager.DataEntities.LoadedData;
 import edu.wit.comp3660.sportsmanager.DataEntities.Player;
@@ -23,13 +21,16 @@ public class PlayerActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        view = new PlayerView(this, null);
+        view = new PlayerView(this, new ImageClicked());
         setContentView(view);
 
         Bundle extras = getIntent().getExtras();
-        player = LoadedData.get().getCurrentTeam().getRoster().get(extras.getInt("selectedPlayerId"));
-        if (player != null)
-            view.populateData(player);
+        int selectedPlayerIndex = extras.getInt("selectedPlayerIndex");
+        if (selectedPlayerIndex >= 0) {
+            player = LoadedData.get().getCurrentTeam().getRoster().get(selectedPlayerIndex);
+            if (player != null)
+                view.populateData(player);
+        }
 
         setSupportActionBar(view.getToolbar());
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -39,6 +40,7 @@ public class PlayerActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.toolbar_menu, menu);
+        menu.removeItem(R.id.add_menu_action);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -67,11 +69,21 @@ public class PlayerActivity extends AppCompatActivity {
     }
 
     private void savePlayerData() {
+        player.image = view.getImage();
         player.name = view.getName();
         player.jerseyNumber = view.getJerseyNumber();
         player.phoneNumber = view.getPhoneNumber();
         player.height = view.getHeightInInches();
         player.weight = view.getWeight();
+    }
+
+    class ImageClicked implements View.OnClickListener {
+        @Override
+        public void onClick(View v) {
+            Toast t = Toast.makeText(getApplicationContext(), "Clicked on image (we will open camera roll soon)", Toast.LENGTH_SHORT);
+            t.setGravity(Gravity.CENTER,0,0);
+            t.show();
+        }
     }
 
 }

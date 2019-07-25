@@ -1,10 +1,8 @@
 package edu.wit.comp3660.sportsmanager;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.util.AttributeSet;
+import android.graphics.drawable.BitmapDrawable;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -14,6 +12,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import edu.wit.comp3660.sportsmanager.DataEntities.Player;
+import edu.wit.comp3660.sportsmanager.PlayerActivity.ImageClicked;
 
 class PlayerView extends ConstraintLayout {
 
@@ -26,8 +25,8 @@ class PlayerView extends ConstraintLayout {
     private Spinner height_inches;
     private EditText weight;
 
-    public PlayerView(Context context, AttributeSet attr) {
-        super(context, attr);
+    public PlayerView(Context context, ImageClicked imageClickListener) {
+        super(context, null);
         inflate(context, R.layout.activity_player, this);
 
         toolbar = findViewById(R.id.toolbar);
@@ -39,8 +38,7 @@ class PlayerView extends ConstraintLayout {
         height_inches = findViewById(R.id.spinner_player_height_in);
         weight = findViewById(R.id.text_player_weight);
 
-        //EditText height = findViewById(R.id.player_height);
-        //EditText weight = findViewById(R.id.player_weight);
+        image.setOnClickListener(imageClickListener);
     }
 
     public void populateData(Player player) {
@@ -59,7 +57,7 @@ class PlayerView extends ConstraintLayout {
     }
 
     public Bitmap getImage() {
-        return null;
+        return ((BitmapDrawable) image.getDrawable()).getBitmap();
     }
 
     public String getJerseyNumber() {
