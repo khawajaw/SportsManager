@@ -15,6 +15,7 @@ import edu.wit.comp3660.sportsmanager.DataEntities.Player;
 public class PlayerActivity extends AppCompatActivity {
 
     private Player player;
+    private boolean isCreatingPlayer;
 
     PlayerView view;
 
@@ -28,8 +29,13 @@ public class PlayerActivity extends AppCompatActivity {
         int selectedPlayerIndex = extras.getInt("selectedPlayerIndex");
         if (selectedPlayerIndex >= 0) {
             player = LoadedData.get().getCurrentTeam().getRoster().get(selectedPlayerIndex);
-            if (player != null)
-                view.populateData(player);
+            isCreatingPlayer = false;
+        }
+        if (player != null)
+            view.populateData(player);
+        else {
+            player = new Player();
+            isCreatingPlayer = true;
         }
 
         setSupportActionBar(view.getToolbar());
@@ -75,6 +81,9 @@ public class PlayerActivity extends AppCompatActivity {
         player.phoneNumber = view.getPhoneNumber();
         player.height = view.getHeightInInches();
         player.weight = view.getWeight();
+        if (isCreatingPlayer) {
+            LoadedData.get().getCurrentTeam().getRoster().add(player);
+        }
     }
 
     class ImageClicked implements View.OnClickListener {
