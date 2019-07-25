@@ -7,6 +7,14 @@
     tools:context=".GamesNavFragment"
     android:id="@+id/rosterFrame">
 
+    <TextView
+        android:id="@+id/defaultText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/roster_default_text"
+        android:visibility="invisible" />
+
     <ListView
         android:id="@+id/roster_list_view"
         android:layout_width="fill_parent"

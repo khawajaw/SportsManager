@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
@@ -24,22 +25,20 @@ import edu.wit.comp3660.sportsmanager.ListAdapters.RosterListAdapter;
 
 public class RosterFragment extends Fragment {
 
+    private View rootView;
     private RosterListAdapter adapter;
+    private Team currentTeam;
+    private List<Player> current_roster;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.roster, container, false);
+        rootView = inflater.inflate(R.layout.roster, container, false);
         Log.v("myRosterFragment", "onCreateViewCalled");
 
-        Team currentTeam = LoadedData.get().getCurrentTeam();
-
-        final List<Player> current_roster = currentTeam.getRoster();
-        Player rando = new Player(getActivity());
-        rando.name = "Jones";
-        current_roster.add(rando);
+        currentTeam = LoadedData.get().getCurrentTeam();
+        current_roster = currentTeam.getRoster();
 
         adapter = new RosterListAdapter(getActivity(), 0, current_roster);
-
         ListView listView = rootView.findViewById(R.id.roster_list_view);
         listView.setAdapter(adapter);
 
@@ -86,4 +85,18 @@ public class RosterFragment extends Fragment {
             Log.v("myRosterFragment", "onActivityResult was not OK");
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        currentTeam = LoadedData.get().getCurrentTeam();
+        current_roster = currentTeam.getRoster();
+        TextView defaultText = rootView.findViewById(R.id.defaultText);
+        if(current_roster.isEmpty()) {
+            defaultText.setVisibility(View.VISIBLE);
+        }
+        else {
+            defaultText.setVisibility(View.INVISIBLE);
+        }
+    }
 }
