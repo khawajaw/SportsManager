@@ -4,22 +4,25 @@
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:minHeight="45dp">
+    android:minHeight="100dp">
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:paddingStart="20dp">
+        android:paddingStart="30dp">
 
         <TextView
             android:id="@+id/homeTeamName"
+            android:layout_gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
             android:textSize="16sp" />
 
     </LinearLayout>
 
+    <!--
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="wrap_content"
@@ -32,10 +35,11 @@
             android:layout_height="wrap_content"
             android:textSize="16sp" />
 
-    </LinearLayout>
+    </LinearLayout> -->
 
     <LinearLayout
         android:orientation="vertical"
+        android:layout_gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:paddingStart="10dp"
@@ -55,8 +59,36 @@
             android:layout_gravity="center"
             android:textSize="16sp" />
 
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/team_home_border" >
+
+            <TextView
+                android:id="@+id/homeTeamScore"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="  :   " />
+
+            <TextView
+                android:id="@+id/awayTeamScore"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="2dp"/>
+
+        </LinearLayout>
+
     </LinearLayout>
 
+    <!--
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="wrap_content"
@@ -69,7 +101,7 @@
             android:layout_height="wrap_content"
             android:textSize="16sp" />
 
-    </LinearLayout>
+    </LinearLayout>-->
 
     <LinearLayout
         android:orientation="vertical"
@@ -78,8 +110,10 @@
 
         <TextView
             android:id="@+id/awayTeamName"
+            android:layout_gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
             android:textSize="16sp" />
 
     </LinearLayout>
