@@ -2,7 +2,9 @@ package edu.wit.comp3660.sportsmanager.DataEntities;
 
 import java.util.ArrayList;
 
-enum Position {
+public enum Position {
+    NONE,
+
     SOCCER_GK,
     SOCCER_LB,
     SOCCER_RB,
