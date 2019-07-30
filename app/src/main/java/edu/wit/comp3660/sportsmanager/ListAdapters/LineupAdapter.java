@@ -30,7 +30,6 @@ public class LineupAdapter extends RecyclerView.Adapter<LineupviewHolder>{
 
     @Override
     public void onBindViewHolder(LineupviewHolder holder, int position) {
-        holder.playername.setText(" " + itemList.get(position).getPlayername());
         holder.number.setText(" " + itemList.get(position).getNumber());
         holder.position.setText(" " + itemList.get(position).getPosition());
     }

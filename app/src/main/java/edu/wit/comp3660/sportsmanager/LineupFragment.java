@@ -9,6 +9,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
@@ -29,10 +31,12 @@ public class LineupFragment extends Fragment {
     private RecyclerView recyclerView;
     private LinearLayoutManager layoutManager;
     private LineupAdapter adapter;
+    private Spinner spinner;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.lineup, container, false);
+        spinner = rootView.findViewById(R.id.playerName);
 
         recyclerView = rootView.findViewById(R.id.recycler_view);
         layoutManager = new LinearLayoutManager(getActivity());
@@ -44,80 +48,80 @@ public class LineupFragment extends Fragment {
         recyclerView.setAdapter(adapter);
 
         recyclerView.setAdapter(adapter);
-        ItemTouchHelper touchHelper = new ItemTouchHelper(rvCallback);
-        touchHelper.attachToRecyclerView(recyclerView);
+        // ItemTouchHelper touchHelper = new ItemTouchHelper(rvCallback);
+        // touchHelper.attachToRecyclerView(recyclerView);
 
         setHasOptionsMenu(true);
         return rootView;
 
 
     }
-    int dragStartFromPosition = -1;
-    ItemTouchHelper.Callback rvCallback = new ItemTouchHelper.Callback() {
-
-        int dragFromPosition = -1;
-        int dragToPosition = -1;
-
-        @Override
-        public int getMovementFlags(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
-            final int dragFlags = ItemTouchHelper.UP | ItemTouchHelper.DOWN | ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT;
-            //final int swipeFlags = ItemTouchHelper.START | ItemTouchHelper.END;
-            return makeMovementFlags(dragFlags, 0);
-        }
-
-
-        @Override
-        public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
-
-            if (dragFromPosition == -1) { //For Saving drag start from position
-                dragStartFromPosition = viewHolder.getAdapterPosition();
-            }
-
-            dragFromPosition = viewHolder.getAdapterPosition();
-            dragToPosition = target.getAdapterPosition();
-            moveItem(dragFromPosition, dragToPosition);
-            dragFromPosition = dragToPosition;
-            dragToPosition = -1;
-            return true;
-        }
-
-        @Override
-        public void clearView(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
-            super.clearView(recyclerView, viewHolder);
-
-            if (dragFromPosition != -1 && dragToPosition != -1 && dragFromPosition != dragToPosition) {
-                finalMoved(dragFromPosition, dragToPosition);
-            } else {
-                moveItem(dragFromPosition, dragStartFromPosition);
-                dragStartFromPosition = -1;
-            }
-            dragFromPosition = dragToPosition = -1;
-        }
-
-        private void finalMoved(int from, int to) {
-            //moveAlertDialog(from, to);
-        }
-
-        @Override
-        public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
-        }
-
-        @Override
-        public void onChildDrawOver(Canvas c, RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
-            super.onChildDrawOver(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
-        }
-
-        @Override
-        public boolean isLongPressDragEnabled() {
-            return true;
-        }
-
-    };
-
-    private void moveItem(int from, int to) {
-        Collections.swap(returnListItems(), from, to);
-        adapter.notifyItemMoved(from, to);
-    }
+//    int dragStartFromPosition = -1;
+//    ItemTouchHelper.Callback rvCallback = new ItemTouchHelper.Callback() {
+//
+//        int dragFromPosition = -1;
+//        int dragToPosition = -1;
+//
+//        @Override
+//        public int getMovementFlags(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
+//            final int dragFlags = ItemTouchHelper.UP | ItemTouchHelper.DOWN | ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT;
+//            //final int swipeFlags = ItemTouchHelper.START | ItemTouchHelper.END;
+//            return makeMovementFlags(dragFlags, 0);
+//        }
+//
+//
+//        @Override
+//        public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+//
+//            if (dragFromPosition == -1) { //For Saving drag start from position
+//                dragStartFromPosition = viewHolder.getAdapterPosition();
+//            }
+//
+//            dragFromPosition = viewHolder.getAdapterPosition();
+//            dragToPosition = target.getAdapterPosition();
+//            moveItem(dragFromPosition, dragToPosition);
+//            dragFromPosition = dragToPosition;
+//            dragToPosition = -1;
+//            return true;
+//        }
+//
+//        @Override
+//        public void clearView(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
+//            super.clearView(recyclerView, viewHolder);
+//
+//            if (dragFromPosition != -1 && dragToPosition != -1 && dragFromPosition != dragToPosition) {
+//                finalMoved(dragFromPosition, dragToPosition);
+//            } else {
+//                moveItem(dragFromPosition, dragStartFromPosition);
+//                dragStartFromPosition = -1;
+//            }
+//            dragFromPosition = dragToPosition = -1;
+//        }
+//
+//        private void finalMoved(int from, int to) {
+//            //moveAlertDialog(from, to);
+//        }
+//
+//        @Override
+//        public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+//        }
+//
+//        @Override
+//        public void onChildDrawOver(Canvas c, RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
+//            super.onChildDrawOver(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
+//        }
+//
+//        @Override
+//        public boolean isLongPressDragEnabled() {
+//            return true;
+//        }
+//
+//    };
+//
+//    private void moveItem(int from, int to) {
+//        Collections.swap(returnListItems(), from, to);
+//        adapter.notifyItemMoved(from, to);
+//    }
 
 //    public void moveAlertDialog(final int from, final int to) {
 //        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -140,10 +144,61 @@ public class LineupFragment extends Fragment {
 
     private List<LineupObject> returnListItems(){
         List<LineupObject> items = new ArrayList<LineupObject>();
-        items.add(new LineupObject("Wajih Khawaja", "ST", "1"));
-        items.add(new LineupObject("Wes Brimeyer", "ST", "2"));
-        items.add(new LineupObject("Jose Fossi", "ST", "3"));
+        items.add(new LineupObject("", "GK", ""));
+        items.add(new LineupObject("", "LB", ""));
+        items.add(new LineupObject("", "CB", ""));
+        items.add(new LineupObject("", "CB", ""));
+        items.add(new LineupObject("", "RB", ""));
+        items.add(new LineupObject("", "CM", ""));
+        items.add(new LineupObject("", "CM", ""));
+        items.add(new LineupObject("", "LW", ""));
+        items.add(new LineupObject("", "RW", ""));
+        items.add(new LineupObject("", "ST", ""));
+        items.add(new LineupObject("", "ST", ""));
         return items;
+    }
+    private void InitializeUI() {
+        ArrayList<name> names = new ArrayList<>();
+        names.add(new LineupFragment.name("Wajih"));
+        names.add(new LineupFragment.name("Jose"));
+        names.add(new LineupFragment.name("Wes"));
+
+
+
+
+        ArrayAdapter<name> adapter =
+                new ArrayAdapter<name>(getActivity(),  android.R.layout.simple_spinner_dropdown_item, names);
+        adapter.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item);
+
+        spinner.setAdapter(adapter);
+
+    }
+    private class name {
+        private String name;
+
+
+        public name() {
+        }
+
+        public name(String name) {
+            this.name = name;
+
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name= name;
+        }
+
+
+
+        @Override
+        public String toString() {
+            return name;
+        }
     }
 
     @Override
