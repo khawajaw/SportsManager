@@ -5,15 +5,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.List;
+
 import edu.wit.comp3660.sportsmanager.DataEntities.Player;
 import edu.wit.comp3660.sportsmanager.R;
-
-import java.util.List;
 
 public class RosterListAdapter extends ArrayAdapter<Player> {
     private LayoutInflater mInflater;
@@ -33,6 +31,16 @@ public class RosterListAdapter extends ArrayAdapter<Player> {
         playerImage = view.findViewById(R.id.player_image);
         playerImage.setImageBitmap(player.image);
 
+        //set player number
+        TextView playerNumber = view.findViewById(R.id.player_number);
+        playerNumber.setText("#"+player.jerseyNumber);
+
+        //set player preferred position
+        TextView playerPosition = view.findViewById(R.id.player_position);
+        if (player.preferredPosition != null)
+            playerPosition.setText(player.preferredPosition.toString());
+        else playerPosition.setVisibility(View.GONE);
+
         // set player name
         TextView playerName;
         playerName = view.findViewById(R.id.player_name);
@@ -41,12 +49,12 @@ public class RosterListAdapter extends ArrayAdapter<Player> {
         // set player weight
         TextView playerWeight;
         playerWeight = view.findViewById(R.id.player_weight);
-        playerWeight.setText(String.valueOf(player.weight));
+        playerWeight.setText(player.getWeightText());
 
         // set player height
         TextView playerHeight;
         playerHeight = view.findViewById(R.id.player_height);
-        playerHeight.setText(String.valueOf(player.height));
+        playerHeight.setText(player.getHeightText());
 
         return view;
     }

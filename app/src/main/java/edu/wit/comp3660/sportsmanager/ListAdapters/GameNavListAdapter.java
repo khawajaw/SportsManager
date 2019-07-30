@@ -1,17 +1,18 @@
 package edu.wit.comp3660.sportsmanager.ListAdapters;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import java.util.List;
+
 import edu.wit.comp3660.sportsmanager.DataEntities.Game;
 import edu.wit.comp3660.sportsmanager.DataEntities.LoadedData;
 import edu.wit.comp3660.sportsmanager.R;
-
-import java.util.List;
 
 public class GameNavListAdapter extends ArrayAdapter<Game> {
     private LayoutInflater mInflater;
@@ -25,6 +26,19 @@ public class GameNavListAdapter extends ArrayAdapter<Game> {
         Game game = getItem(position);
 
         View view = mInflater.inflate(R.layout.games_nav_item, null);
+
+        // COLORING GAME NAV
+        if(game.isPlayed()) {
+            if(game.getTeamScore() > game.getOpponentScore()) {
+                view.setBackgroundColor(Color.GREEN);
+            }
+            else if(game.getTeamScore() < game.getOpponentScore()) {
+                view.setBackgroundColor(Color.RED);
+            }
+            else {
+                view.setBackgroundColor(Color.GRAY);
+            }
+        }
 
         // home team
         TextView homeName;

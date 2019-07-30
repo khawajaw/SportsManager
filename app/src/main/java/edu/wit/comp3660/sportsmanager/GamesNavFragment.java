@@ -37,7 +37,7 @@ public class GamesNavFragment extends Fragment {
 
         adapter = new GameNavListAdapter(getActivity(), 0, games);
 
-        ListView listView = rootView.findViewById(R.id.games_nav_list_view);
+        final ListView listView = rootView.findViewById(R.id.games_nav_list_view);
         listView.setAdapter(adapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
