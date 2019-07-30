@@ -10,7 +10,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
@@ -19,12 +18,12 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import edu.wit.comp3660.sportsmanager.DataEntities.LoadedData;
+import edu.wit.comp3660.sportsmanager.DataEntities.Position;
 import edu.wit.comp3660.sportsmanager.ListAdapters.LineupAdapter;
-import edu.wit.comp3660.sportsmanager.ListAdapters.LineupObject;
 
 public class LineupFragment extends Fragment  {
 
@@ -32,29 +31,24 @@ public class LineupFragment extends Fragment  {
     private RecyclerView recyclerView;
     private LinearLayoutManager layoutManager;
     private LineupAdapter adapter;
-    private Spinner spinner;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.lineup, container, false);
 
-
         recyclerView = rootView.findViewById(R.id.recycler_view);
         layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
 
-        List<LineupObject> posts = returnListItems();
+        adapter = new LineupAdapter(getActivity(), returnListItems());
         recyclerView.setAdapter(adapter);
 
-        adapter = new LineupAdapter(getActivity(), posts);
-        recyclerView.setAdapter(adapter);
-        ItemTouchHelper touchHelper = new ItemTouchHelper(rvCallback);
-        touchHelper.attachToRecyclerView(recyclerView);
+        //ItemTouchHelper touchHelper = new ItemTouchHelper(rvCallback);
+        //touchHelper.attachToRecyclerView(recyclerView);
+
         setHasOptionsMenu(true);
 
         return rootView;
-
-
     }
 
     int dragStartFromPosition = -1;
@@ -143,20 +137,9 @@ public class LineupFragment extends Fragment  {
     }
 
 
-    private List<LineupObject> returnListItems(){
-        List<LineupObject> items = new ArrayList<LineupObject>();
-        items.add(new LineupObject("", "GK", ""));
-        items.add(new LineupObject("", "LB", ""));
-        items.add(new LineupObject("", "CB", ""));
-        items.add(new LineupObject("", "CB", ""));
-        items.add(new LineupObject("", "RB", ""));
-        items.add(new LineupObject("", "CM", ""));
-        items.add(new LineupObject("", "CM", ""));
-        items.add(new LineupObject("", "LW", ""));
-        items.add(new LineupObject("", "RW", ""));
-        items.add(new LineupObject("", "ST", ""));
-        items.add(new LineupObject("", "ST", ""));
-        return items;
+    private List<Position> returnListItems(){
+        List<Position> positions = LoadedData.get().getCurrentTeam().getSport().getPositions();
+        return positions;
     }
 
     @Override

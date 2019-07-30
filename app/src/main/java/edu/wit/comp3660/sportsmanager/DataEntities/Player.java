@@ -1,6 +1,7 @@
 package edu.wit.comp3660.sportsmanager.DataEntities;
 import android.content.Context;
-import android.graphics.*;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 
 import edu.wit.comp3660.sportsmanager.R;
 
@@ -43,6 +44,10 @@ public class Player {
         return 0;
     }
 
+    @Override
+    public String toString() {
+        return name;
+    }
 }
 
 

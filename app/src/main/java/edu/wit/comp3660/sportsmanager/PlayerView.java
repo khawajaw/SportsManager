@@ -12,6 +12,8 @@ import android.widget.Spinner;
 import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import java.util.ArrayList;
+
 import edu.wit.comp3660.sportsmanager.DataEntities.Player;
 import edu.wit.comp3660.sportsmanager.DataEntities.Position;
 import edu.wit.comp3660.sportsmanager.DataEntities.Sport;
@@ -104,11 +106,13 @@ class PlayerView extends ConstraintLayout {
     }
 
     public void setPositionSpinnerAdapter(Sport sport) {
+        ArrayList<Position> positions = new ArrayList<>();
+        positions.add(Position.NONE);
         ArrayAdapter<Position> dropdownAdapter = new ArrayAdapter<>(
                 getContext(),
                 android.R.layout.simple_spinner_dropdown_item,
-                sport.getPositions());
-        dropdownAdapter.insert(Position.NONE, 0);
+                positions);
+        dropdownAdapter.addAll(sport.getPositions());
         preferredPosition.setAdapter(dropdownAdapter);
     }
 
