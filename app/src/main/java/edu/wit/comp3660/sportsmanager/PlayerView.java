@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.view.inputmethod.EditorInfo;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -12,6 +13,8 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import edu.wit.comp3660.sportsmanager.DataEntities.Player;
+import edu.wit.comp3660.sportsmanager.DataEntities.Position;
+import edu.wit.comp3660.sportsmanager.DataEntities.Sport;
 import edu.wit.comp3660.sportsmanager.PlayerActivity.ImageClicked;
 
 class PlayerView extends ConstraintLayout {
@@ -24,6 +27,7 @@ class PlayerView extends ConstraintLayout {
     private Spinner height_feet;
     private Spinner height_inches;
     private EditText weight;
+    private Spinner preferredPosition;
 
     public PlayerView(Context context, ImageClicked imageClickListener) {
         super(context, null);
@@ -37,12 +41,19 @@ class PlayerView extends ConstraintLayout {
         height_feet = findViewById(R.id.spinner_player_height_ft);
         height_inches = findViewById(R.id.spinner_player_height_in);
         weight = findViewById(R.id.text_player_weight);
+        preferredPosition = findViewById(R.id.spinner_preferred_position);
 
         image.setOnClickListener(imageClickListener);
     }
 
     public void populateData(Player player) {
         name.setInputType(EditorInfo.TYPE_NULL);
+        name.setBackground(null);
+        phoneNumber.setInputType(EditorInfo.TYPE_NULL);
+        phoneNumber.setBackground(null);
+        jerseyNumber.setInputType(EditorInfo.TYPE_NULL);
+        jerseyNumber.setBackground(null);
+
         image.setImageBitmap(player.image);
         name.setText(player.name);
         jerseyNumber.setText(player.jerseyNumber);
@@ -50,6 +61,7 @@ class PlayerView extends ConstraintLayout {
         height_feet.setSelection((player.height/12)-4);
         height_inches.setSelection(player.height%12);
         weight.setText(player.getWeightText());
+        preferredPosition.setSelection(player.getPreferredPositionIndex());
     }
 
     public Toolbar getToolbar() {
@@ -78,10 +90,40 @@ class PlayerView extends ConstraintLayout {
     }
 
     public int getWeight() {
-        return Integer.parseInt(weight.getText().toString());
+        String text = weight.getText().toString();
+        if (!text.equals(""))
+            return Integer.parseInt(text);
+        else return 0;
+    }
+
+    public Position getPreferredPosition() {
+        Position selected = (Position) preferredPosition.getSelectedItem();
+        if (selected == Position.NONE)
+            return null;
+        else return selected;
+    }
+
+    public void setPositionSpinnerAdapter(Sport sport) {
+        ArrayAdapter<Position> dropdownAdapter = new ArrayAdapter<>(
+                getContext(),
+                android.R.layout.simple_spinner_dropdown_item,
+                sport.getPositions());
+        dropdownAdapter.insert(Position.NONE, 0);
+        preferredPosition.setAdapter(dropdownAdapter);
     }
 
     public void makeFieldsEditable() {
         name.setInputType(EditorInfo.TYPE_TEXT_VARIATION_PERSON_NAME);
+        name.setBackgroundResource(android.R.drawable.edit_text);
+        jerseyNumber.setInputType(EditorInfo.TYPE_NUMBER_VARIATION_NORMAL);
+        jerseyNumber.setBackgroundResource(android.R.drawable.edit_text);
+        phoneNumber.setInputType(EditorInfo.TYPE_CLASS_PHONE);
+        phoneNumber.setBackgroundResource(android.R.drawable.edit_text);
+
+
+    }
+
+    public void updateImage(Bitmap bitmap) {
+        image.setImageBitmap(bitmap);
     }
 }

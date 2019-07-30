@@ -1,13 +1,19 @@
 package edu.wit.comp3660.sportsmanager;
 
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
+import java.io.IOException;
 
 import edu.wit.comp3660.sportsmanager.DataEntities.LoadedData;
 import edu.wit.comp3660.sportsmanager.DataEntities.Player;
@@ -35,6 +41,7 @@ public class PlayerActivity extends AppCompatActivity {
             view.populateData(player);
         else {
             player = new Player();
+            enterEditMode();
             isCreatingPlayer = true;
         }
 
@@ -72,6 +79,7 @@ public class PlayerActivity extends AppCompatActivity {
 
     private void enterEditMode() {
         view.makeFieldsEditable();
+        view.setPositionSpinnerAdapter(LoadedData.get().getCurrentTeam().getSport());
     }
 
     private void savePlayerData() {
@@ -81,10 +89,13 @@ public class PlayerActivity extends AppCompatActivity {
         player.phoneNumber = view.getPhoneNumber();
         player.height = view.getHeightInInches();
         player.weight = view.getWeight();
+        player.preferredPosition = view.getPreferredPosition();
         if (isCreatingPlayer) {
             LoadedData.get().getCurrentTeam().getRoster().add(player);
         }
     }
+
+    private static final int PICK_IMAGE = 1;
 
     class ImageClicked implements View.OnClickListener {
         @Override
@@ -92,7 +103,22 @@ public class PlayerActivity extends AppCompatActivity {
             Toast t = Toast.makeText(getApplicationContext(), "Clicked on image (we will open camera roll soon)", Toast.LENGTH_SHORT);
             t.setGravity(Gravity.CENTER,0,0);
             t.show();
+            Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+            intent.setType("image/*");
+            startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE);
         }
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if (requestCode == PICK_IMAGE && resultCode == RESULT_OK && data != null) {
+            try {
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), data.getData());
+                player.image = bitmap;
+                view.updateImage(bitmap);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }

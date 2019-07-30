@@ -27,7 +27,7 @@ public class RosterFragment extends Fragment {
 
     private View rootView;
     private RosterListAdapter adapter;
-    ListView listView;
+    private ListView listView;
     private Team currentTeam;
     private List<Player> current_roster;
 

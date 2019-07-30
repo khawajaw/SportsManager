@@ -12,6 +12,7 @@ public class Player {
     public int height;
     public String jerseyNumber;
     public String phoneNumber;
+    public Position preferredPosition;
 
     private Context context;
 
@@ -25,7 +26,21 @@ public class Player {
     }
 
     public String getWeightText() {
-        return String.valueOf(weight);
+        return weight + " lbs";
+    }
+
+    public String getHeightText() {
+        return height/12 + "' " + height%12 + "\"";
+    }
+
+    public int getPreferredPositionIndex() {
+        Position[] positions = LoadedData.get().getCurrentTeam().getSport()
+                .getPositions().toArray(new Position[0]);
+        for(int i = 0; i < positions.length; i++) {
+            if (positions[i] == preferredPosition)
+                return i+1;
+        }
+        return 0;
     }
 
 }
