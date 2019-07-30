@@ -1,5 +1,6 @@
 package edu.wit.comp3660.sportsmanager;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -37,7 +38,7 @@ public class GamesNavFragment extends Fragment {
 
         adapter = new GameNavListAdapter(getActivity(), 0, games);
 
-        ListView listView = rootView.findViewById(R.id.games_nav_list_view);
+        final ListView listView = rootView.findViewById(R.id.games_nav_list_view);
         listView.setAdapter(adapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -46,6 +47,19 @@ public class GamesNavFragment extends Fragment {
                 LoadedData.updateCurrentGameIndex(i);
                 EditGameDialogFragment dialogFragment = new EditGameDialogFragment(new DialogCallback());
                 dialogFragment.show(getActivity().getSupportFragmentManager(), "EditGameDialog");
+
+                /* COLORING GAME NAV
+                if(games.get(i).isPlayed()) {
+                    if(games.get(i).getTeamScore() > games.get(i).getOpponentScore()) {
+                        listView.getChildAt(i).setBackgroundColor(Color.GREEN);
+                    }
+                    else if(games.get(i).getTeamScore() < games.get(i).getOpponentScore()) {
+                        listView.getChildAt(i).setBackgroundColor(Color.RED);
+                    }
+                    else {
+                        listView.getChildAt(i).setBackgroundColor(Color.GRAY);
+                    }
+                }*/
             }
         });
 

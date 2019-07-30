@@ -12,6 +12,7 @@ public class Sport {
 
     public Sport(String sportName) {
         this.name = sportName;
+        findPositions(sportName);
     }
 
     public Sport() {
@@ -34,5 +35,23 @@ public class Sport {
 
     public Bitmap getLogo() {
         return logo;
+    }
+
+    private void findPositions(String sport) {
+        switch(sport) {
+            case "Soccer":
+                positions = Position.getSoccerPos();
+                break;
+            case "Basketball":
+                positions = Position.getBasketballPos();
+                break;
+            case "Baseball":
+                positions = Position.getBaseballPos();
+                break;
+            case "Football":
+                positions = Position.getFootballPos();
+                break;
+
+        }
     }
 }
