@@ -1,6 +1,7 @@
 package edu.wit.comp3660.sportsmanager;
 
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -10,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
@@ -26,6 +28,7 @@ public class GamesNavFragment extends Fragment {
     private Team currentTeam;
     private ArrayList<Game> games;
     private TextView defaultText;
+    ListView listView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -37,7 +40,7 @@ public class GamesNavFragment extends Fragment {
 
         adapter = new GameNavListAdapter(getActivity(), 0, games);
 
-        final ListView listView = rootView.findViewById(R.id.games_nav_list_view);
+        listView = rootView.findViewById(R.id.games_nav_list_view);
         listView.setAdapter(adapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -46,6 +49,15 @@ public class GamesNavFragment extends Fragment {
                 LoadedData.updateCurrentGameIndex(i);
                 EditGameDialogFragment dialogFragment = new EditGameDialogFragment(new DialogCallback());
                 dialogFragment.show(getActivity().getSupportFragmentManager(), "EditGameDialog");
+            }
+        });
+
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                games.remove(position);
+                adapter.notifyDataSetChanged();
+                return false;
             }
         });
 
@@ -58,15 +70,22 @@ public class GamesNavFragment extends Fragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.toolbar_menu, menu);
         menu.removeItem(R.id.save_menu_action);
-        menu.removeItem(R.id.edit_menu_action);
         super.onCreateOptionsMenu(menu, inflater);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.add_menu_action) {
-            NewGameDialogFragment dialogFragment = new NewGameDialogFragment(new DialogCallback());
-            dialogFragment.show(getActivity().getSupportFragmentManager(), "NewGameDialog");
+        switch(item.getItemId()) {
+            case R.id.add_menu_action:
+                NewGameDialogFragment dialogFragment = new NewGameDialogFragment(new DialogCallback());
+                dialogFragment.show(getActivity().getSupportFragmentManager(), "NewGameDialog");
+                break;
+            case R.id.edit_menu_action:
+                Toast t = Toast.makeText(getContext(), "Long press on a game to remove it", Toast.LENGTH_LONG);
+                t.setGravity(Gravity.CENTER,0,0);
+                t.show();
+                break;
+
         }
         return super.onOptionsItemSelected(item);
     }
@@ -92,5 +111,4 @@ public class GamesNavFragment extends Fragment {
             defaultText.setVisibility(View.INVISIBLE);
         }
     }
-
 }

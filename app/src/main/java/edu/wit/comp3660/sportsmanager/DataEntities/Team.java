@@ -1,9 +1,10 @@
 package edu.wit.comp3660.sportsmanager.DataEntities;
 
-import java.io.Serializable;
+import android.graphics.Bitmap;
+
 import java.util.ArrayList;
 
-public class Team implements Serializable {
+public class Team {
 
     private String name;
     private Sport sport;
@@ -12,6 +13,7 @@ public class Team implements Serializable {
     private ArrayList<Game> games;
     private String record = "";
     private int[] recordArr = new int[3];
+    private Bitmap logo;
 
     public Team(String name, Sport sport) {
         this.name = name;
@@ -57,7 +59,15 @@ public class Team implements Serializable {
     public void editGame(String teamScore, String opponentScore) {
         int tS = Integer.parseInt(teamScore);
         int oS = Integer.parseInt(opponentScore);
-        games.get(LoadedData.get().getCurrentGameIndex()).setScore(tS, oS);
+        Game currentGame = games.get(LoadedData.get().getCurrentGameIndex());
+        if (currentGame.isPlayed()) {
+            if (currentGame.getTeamScore() > currentGame.getOpponentScore())
+                recordArr[0]--;
+            else if (currentGame.getTeamScore() == currentGame.getOpponentScore())
+                recordArr[2]--;
+            else recordArr[1]--;
+        }
+        currentGame.setScore(tS, oS);
         if(tS > oS) {
             recordArr[0]++;
         }
