@@ -3,60 +3,66 @@ package edu.wit.comp3660.sportsmanager.DataEntities;
 import java.util.ArrayList;
 
 public enum Position {
-    NONE,
+    NONE ("Select Position..."),
 
-    SOCCER_GK,
-    SOCCER_LB,
-    SOCCER_RB,
-    SOCCER_LCB,
-    SOCCER_RCB,
-    SOCCER_CDM,
-    SOCCER_LCM,
-    SOCCER_RCM,
-    SOCCER_LM,
-    SOCCER_RM,
-    SOCCER_ST,
-    BASKETBALL_PG,
-    BASKETBALL_C,
-    BASKETBALL_SF,
-    BASKETBALL_PF,
-    BASKETBALL_SG,
-    BASEBALL_CATCHER,
-    BASEBALL_PITCHER,
-    BASEBALL_B1,
-    BASEBALL_B2,
-    BASEBALL_SS,
-    BASEBALL_B3,
-    BASEBALL_RF,
-    BASEBALL_LF,
-    BASEBALL_CF,
-    FOOTBALL_DEF_CB1,
-    FOOTBALL_DEF_CB2,
-    FOOTBALL_DEF_RDE,
-    FOOTBALL_DEF_LDE,
-    FOOTBALL_DEF_DT1,
-    FOOTBALL_DEF_DT2,
-    FOOTBALL_DEF_OL1,
-    FOOTBALL_DEF_ML,
-    FOOTBALL_DEF_OL2,
-    FOOTBALL_DEF_FS,
-    FOOTBALL_DEF_SS,
-    FOOTBALL_OFF_QB,
-    FOOTBALL_OFF_RB1,
-    FOOTBALL_OFF_RB2,
-    FOOTBALL_OFF_WR1,
-    FOOTBALL_OFF_WR2,
-    FOOTBALL_OFF_TE,
-    FOOTBALL_OFF_LT,
-    FOOTBALL_OFF_RT,
-    FOOTBALL_OFF_LG,
-    FOOTBALL_OFF_RG,
-    FOOTBALL_OFF_C,
-    FOOTBALL_ST_K,
-    FOOTBALL_ST_H,
-    FOOTBALL_ST_R,
-    FOOTBALL_ST_P,
-    FOOTBALL_ST_G;
+    SOCCER_GK ("GK"),
+    SOCCER_LB ("LB"),
+    SOCCER_RB ("RB"),
+    SOCCER_LCB ("LCB"),
+    SOCCER_RCB ("RCB"),
+    SOCCER_CDM ("CDM"),
+    SOCCER_LCM ("LCM"),
+    SOCCER_RCM ("RCM"),
+    SOCCER_LM ("LM"),
+    SOCCER_RM ("RM"),
+    SOCCER_ST ("ST"),
+    BASKETBALL_PG ("PG"),
+    BASKETBALL_C ("C"),
+    BASKETBALL_SF ("SF"),
+    BASKETBALL_PF ("PF"),
+    BASKETBALL_SG ("SG"),
+    BASEBALL_CATCHER ("CATCHER"),
+    BASEBALL_PITCHER ("PITCHER"),
+    BASEBALL_B1 ("1B"),
+    BASEBALL_B2 ("2B"),
+    BASEBALL_SS ("SS"),
+    BASEBALL_B3 ("3B"),
+    BASEBALL_RF ("RF"),
+    BASEBALL_LF ("LF"),
+    BASEBALL_CF ("CF"),
+    FOOTBALL_DEF_CB1 ("CB1"),
+    FOOTBALL_DEF_CB2 ("CB2"),
+    FOOTBALL_DEF_RDE ("RDE"),
+    FOOTBALL_DEF_LDE ("LDE"),
+    FOOTBALL_DEF_DT1 ("DT1"),
+    FOOTBALL_DEF_DT2 ("DT2"),
+    FOOTBALL_DEF_OL1 ("OL1"),
+    FOOTBALL_DEF_ML ("ML"),
+    FOOTBALL_DEF_OL2 ("OL2"),
+    FOOTBALL_DEF_FS ("FS"),
+    FOOTBALL_DEF_SS ("SS"),
+    FOOTBALL_OFF_QB ("QB"),
+    FOOTBALL_OFF_RB1 ("RB1"),
+    FOOTBALL_OFF_RB2 ("RB2"),
+    FOOTBALL_OFF_WR1 ("WR1"),
+    FOOTBALL_OFF_WR2 ("WR2"),
+    FOOTBALL_OFF_TE ("TE"),
+    FOOTBALL_OFF_LT ("LT"),
+    FOOTBALL_OFF_RT ("RT"),
+    FOOTBALL_OFF_LG ("LG"),
+    FOOTBALL_OFF_RG ("RG"),
+    FOOTBALL_OFF_C ("C"),
+    FOOTBALL_ST_K ("K"),
+    FOOTBALL_ST_H ("H"),
+    FOOTBALL_ST_R ("R"),
+    FOOTBALL_ST_P ("P"),
+    FOOTBALL_ST_G ("G");
+
+    private final String text;
+
+    Position(String text) {
+        this.text = text;
+    }
 
     public static ArrayList<Position> getSoccerPos() {
         ArrayList<Position> soccerPos = new ArrayList<>();
@@ -252,5 +258,10 @@ public enum Position {
         }
 
         return footballPos;
+    }
+
+    @Override
+    public String toString() {
+        return text;
     }
 }
