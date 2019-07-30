@@ -44,12 +44,12 @@ public class LineupAdapter extends RecyclerView.Adapter<LineupviewHolder>{
 
     @Override
     public void onBindViewHolder(final LineupviewHolder holder, final int position) {
-        //holder.number.setText(" " + positionList.get(position).getNumber());
         holder.position.setText(positionList.get(position).toString());
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int index, long id) {
                 Player selectedPlayer = players.get(index);
+                holder.number.setVisibility(View.VISIBLE);
                 holder.number.setText("#"+selectedPlayer.jerseyNumber);
             }
 
