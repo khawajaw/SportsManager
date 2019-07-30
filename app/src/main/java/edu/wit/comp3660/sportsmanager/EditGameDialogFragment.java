@@ -20,6 +20,8 @@ public class EditGameDialogFragment extends DialogFragment {
 
     private View view;
     private GamesNavFragment.DialogCallback callback;
+    private EditText teamScore;
+    private EditText opponentScore;
 
     EditGameDialogFragment(GamesNavFragment.DialogCallback dialogCallback) {
         callback = dialogCallback;
@@ -29,8 +31,8 @@ public class EditGameDialogFragment extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         view = LayoutInflater.from(getContext()).inflate(R.layout.fragment_edit_game_dialog, null);
 
-        final EditText teamScore = view.findViewById(R.id.team_score);
-        final EditText opponentScore = view.findViewById(R.id.opponent_score);
+        teamScore = view.findViewById(R.id.team_score);
+        opponentScore = view.findViewById(R.id.opponent_score);
 
         // Use the Builder class for convenient dialog construction
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -43,7 +45,9 @@ public class EditGameDialogFragment extends DialogFragment {
                 })
                 .setNegativeButton("Cancel", null);
 
-        teamScore.addTextChangedListener(new GameTextWatcher());
+        GameTextWatcher watcher = new GameTextWatcher();
+        teamScore.addTextChangedListener(watcher);
+        opponentScore.addTextChangedListener(watcher);
 
         // Create the AlertDialog object and return it
         return builder.create();
@@ -74,7 +78,9 @@ public class EditGameDialogFragment extends DialogFragment {
 
         @Override
         public void afterTextChanged(Editable s) {
-            setEnabledPositiveButton(!TextUtils.isEmpty(s));
+            Log.v("MyApp", teamScore.getText().toString());
+            setEnabledPositiveButton(!TextUtils.isEmpty(teamScore.getText().toString())
+                    && !TextUtils.isEmpty(opponentScore.getText().toString()) );
         }
     }
 }
