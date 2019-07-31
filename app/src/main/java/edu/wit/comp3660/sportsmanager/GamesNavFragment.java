@@ -47,19 +47,12 @@ public class GamesNavFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 LoadedData.updateCurrentGameIndex(i);
-                EditGameDialogFragment dialogFragment = new EditGameDialogFragment(new DialogCallback());
+                EditGameDialogFragment dialogFragment = new EditGameDialogFragment(new GameDialogCallback());
                 dialogFragment.show(getActivity().getSupportFragmentManager(), "EditGameDialog");
             }
         });
 
-        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                games.remove(position);
-                adapter.notifyDataSetChanged();
-                return false;
-            }
-        });
+        listView.setOnItemLongClickListener(new RemoveListItemListener(games, new GameDialogCallback()));
 
         setHasOptionsMenu(true);
 
@@ -77,7 +70,7 @@ public class GamesNavFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()) {
             case R.id.add_menu_action:
-                NewGameDialogFragment dialogFragment = new NewGameDialogFragment(new DialogCallback());
+                NewGameDialogFragment dialogFragment = new NewGameDialogFragment(new GameDialogCallback());
                 dialogFragment.show(getActivity().getSupportFragmentManager(), "NewGameDialog");
                 break;
             case R.id.edit_menu_action:
@@ -105,10 +98,15 @@ public class GamesNavFragment extends Fragment {
         }
     }
 
-    class DialogCallback {
-        void onGameAdded() {
+    class GameDialogCallback implements DialogCallback {
+        public void onAdded() {
             adapter.notifyDataSetChanged();
             defaultText.setVisibility(View.INVISIBLE);
+        }
+
+        public void onRemoved(Object game) {
+            adapter.notifyDataSetChanged();
+            LoadedData.get().getCurrentTeam().removeGameIfPlayed((Game) game);
         }
     }
 }

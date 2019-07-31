@@ -19,11 +19,11 @@ import edu.wit.comp3660.sportsmanager.DataEntities.LoadedData;
 public class EditGameDialogFragment extends DialogFragment {
 
     private View view;
-    private GamesNavFragment.DialogCallback callback;
+    private DialogCallback callback;
     private EditText teamScore;
     private EditText opponentScore;
 
-    EditGameDialogFragment(GamesNavFragment.DialogCallback dialogCallback) {
+    EditGameDialogFragment(DialogCallback dialogCallback) {
         callback = dialogCallback;
     }
 
@@ -40,7 +40,7 @@ public class EditGameDialogFragment extends DialogFragment {
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         LoadedData.get().getCurrentTeam().editGame(teamScore.getText().toString(), opponentScore.getText().toString());
-                        callback.onGameAdded();
+                        callback.onAdded();
                     }
                 })
                 .setNegativeButton("Cancel", null);

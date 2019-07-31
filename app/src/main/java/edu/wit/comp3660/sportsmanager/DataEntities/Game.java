@@ -1,5 +1,7 @@
 package edu.wit.comp3660.sportsmanager.DataEntities;
 
+import androidx.annotation.NonNull;
+
 public class Game {
     private String opponent;
     private String location;
@@ -70,5 +72,12 @@ public class Game {
         this.opponentScore = opponentScore;
 
         this.played = true;
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        String middle = away ? " at ":" vs. ";
+        return "game"+middle+opponent;
     }
 }

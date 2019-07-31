@@ -3,8 +3,6 @@ package edu.wit.comp3660.sportsmanager;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import androidx.fragment.app.DialogFragment;
-import androidx.appcompat.app.AlertDialog;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -15,6 +13,9 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.DialogFragment;
+
 import edu.wit.comp3660.sportsmanager.DataEntities.LoadedData;
 import edu.wit.comp3660.sportsmanager.DataEntities.Sport;
 
@@ -23,9 +24,9 @@ public class NewTeamDialogFragment extends DialogFragment {
     private View view;
     private Spinner dropdown;
     private EditText team_name_input;
-    private TeamSelectActivity.DialogCallback callback;
+    private DialogCallback callback;
 
-    NewTeamDialogFragment(TeamSelectActivity.DialogCallback dialogCallback) {
+    NewTeamDialogFragment(DialogCallback dialogCallback) {
         callback = dialogCallback;
     }
 
@@ -40,7 +41,7 @@ public class NewTeamDialogFragment extends DialogFragment {
                         LoadedData.get().createTeam(
                                 team_name_input.getText().toString(),
                                 (Sport) dropdown.getSelectedItem());
-                        callback.onTeamAdded();
+                        callback.onAdded();
                     }
                 })
                 .setNegativeButton("Cancel", null);
