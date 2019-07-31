@@ -1,8 +1,12 @@
 package edu.wit.comp3660.sportsmanager.DataEntities;
 
+import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 
 import java.util.ArrayList;
+
+import edu.wit.comp3660.sportsmanager.R;
 
 public class Team {
 
@@ -50,6 +54,14 @@ public class Team {
 
     public ArrayList<Game> getGames() {
         return games;
+    }
+
+    public Bitmap getLogo() {
+        return logo;
+    }
+
+    public void setLogo(Bitmap logo) {
+        this.logo = logo;
     }
 
     public void addGame(Game game) {

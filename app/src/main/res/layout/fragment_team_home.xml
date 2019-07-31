@@ -1,22 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
+    android:layout_height="fill_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/team_home_message"
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="4dp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="@dimen/activity_vertical_margin"
-            android:text="@string/team_home"
-            android:textSize="36sp" />
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/team_logo"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_marginStart="4dp"
+                android:contentDescription="Team Logo"
+                app:srcCompat="@drawable/default_logo"/>
+
+            <TextView
+                android:id="@+id/team_home_message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="8dp"
+                android:text="@string/team_home"
+                android:textSize="32sp" />
+
+        </LinearLayout>
 
         <TextView
             android:layout_width="wrap_content"
