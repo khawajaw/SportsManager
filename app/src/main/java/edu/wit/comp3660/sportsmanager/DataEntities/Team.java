@@ -72,6 +72,20 @@ public class Team {
         int tS = Integer.parseInt(teamScore);
         int oS = Integer.parseInt(opponentScore);
         Game currentGame = games.get(LoadedData.get().getCurrentGameIndex());
+        removeGameIfPlayed(currentGame);
+        currentGame.setScore(tS, oS);
+        if (tS > oS) {
+            recordArr[0]++;
+        } else if (tS == oS) {
+            recordArr[2]++;
+        } else {
+            recordArr[1]++;
+        }
+
+        record = recordArr[0] + "W - " + recordArr[1] + "L - " + recordArr[2] + "T";
+    }
+
+    public void removeGameIfPlayed(Game currentGame) {
         if (currentGame.isPlayed()) {
             if (currentGame.getTeamScore() > currentGame.getOpponentScore())
                 recordArr[0]--;
@@ -79,23 +93,11 @@ public class Team {
                 recordArr[2]--;
             else recordArr[1]--;
         }
-        currentGame.setScore(tS, oS);
-        if(tS > oS) {
-            recordArr[0]++;
-        }
-        else if(tS == oS) {
-            recordArr[2]++;
-        }
-        else {
-            recordArr[1]++;
-        }
-
-        record = recordArr[0] + "W - " + recordArr[1] + "L - " + recordArr[2] + "T";
     }
 
     public Game getNextGame() {
-        for(int i = 0; i < games.size(); i++) {
-            if(!games.get(i).isPlayed()) {
+        for (int i = 0; i < games.size(); i++) {
+            if (!games.get(i).isPlayed()) {
                 return games.get(i);
             }
         }
@@ -105,6 +107,6 @@ public class Team {
 
     @Override
     public String toString() {
-        return name + " ("+sport+")";
+        return name + " (" + sport + ")";
     }
 }

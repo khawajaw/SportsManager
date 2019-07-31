@@ -52,15 +52,23 @@ public class TeamSelectActivity extends AppCompatActivity {
                 //TODO Make this open a dialog to input team name/sport. Just go to player activity for now
                 //Intent intent = new Intent(TeamSelectActivity.this, PlayerActivity.class);
                 //startActivity(intent);
-                NewTeamDialogFragment dialogFragment = new NewTeamDialogFragment(new DialogCallback());
+                NewTeamDialogFragment dialogFragment = new NewTeamDialogFragment(new TeamDialogCallback());
                 dialogFragment.show(getSupportFragmentManager(), "NewTeamDialog");
             }
         });
     }
 
-    class DialogCallback {
-        void onTeamAdded() {
+    class TeamDialogCallback implements DialogCallback {
+        @Override
+        public void onAdded() {
             teamsAdapter.notifyDataSetChanged();
         }
+
+        @Override
+        public void onRemoved(Object o) {
+
+        }
+
     }
+
 }

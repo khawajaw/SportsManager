@@ -30,6 +30,7 @@ public class RosterFragment extends Fragment {
     private ListView listView;
     private Team currentTeam;
     private List<Player> current_roster;
+    private DialogCallback callback;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -50,6 +51,9 @@ public class RosterFragment extends Fragment {
                 startPlayerActivity(i);
             }
         });
+
+        callback = new RosterDialogCallback();
+        listView.setOnItemLongClickListener(new RemoveListItemListener(current_roster, callback));
 
         setHasOptionsMenu(true);
 
@@ -104,6 +108,19 @@ public class RosterFragment extends Fragment {
         }
         else {
             defaultText.setVisibility(View.INVISIBLE);
+        }
+    }
+
+    class RosterDialogCallback implements DialogCallback {
+
+        @Override
+        public void onAdded() {
+            adapter.notifyDataSetChanged();
+        }
+
+        @Override
+        public void onRemoved(Object entity) {
+            adapter.notifyDataSetChanged();
         }
     }
 }

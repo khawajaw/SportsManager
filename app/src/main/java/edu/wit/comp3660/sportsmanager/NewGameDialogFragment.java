@@ -24,9 +24,9 @@ public class NewGameDialogFragment extends DialogFragment {
 
     private View view;
     private RadioGroup rGroup;
-    private GamesNavFragment.DialogCallback callback;
+    private DialogCallback callback;
 
-    NewGameDialogFragment(GamesNavFragment.DialogCallback dialogCallback) {
+    NewGameDialogFragment(DialogCallback dialogCallback) {
         callback = dialogCallback;
     }
 
@@ -63,7 +63,7 @@ public class NewGameDialogFragment extends DialogFragment {
                                 gameDate,
                                 gameTime,
                                 rButton.getText().toString());
-                        callback.onGameAdded();
+                        callback.onAdded();
                     }
                 })
                 .setNegativeButton("Cancel", null);
