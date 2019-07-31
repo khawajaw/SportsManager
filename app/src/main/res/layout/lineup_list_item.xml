@@ -17,11 +17,11 @@
         android:layout_marginTop="16dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toEndOf="@+id/position"
-        android:text="#12"
+        android:text="#00"
         android:textColor="#494949"
         android:textSize="20sp"
         android:textStyle="italic"
-        android:visibility="visible" />
+        android:visibility="invisible" />
 
     <TextView
         android:id="@+id/position"

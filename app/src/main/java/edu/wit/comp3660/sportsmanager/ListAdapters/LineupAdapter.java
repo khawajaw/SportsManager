@@ -49,8 +49,10 @@ public class LineupAdapter extends RecyclerView.Adapter<LineupviewHolder>{
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int index, long id) {
                 Player selectedPlayer = players.get(index);
-                holder.number.setVisibility(View.VISIBLE);
-                holder.number.setText("#"+selectedPlayer.jerseyNumber);
+                if (selectedPlayer.jerseyNumber != "") {
+                    holder.number.setVisibility(View.VISIBLE);
+                    holder.number.setText("#"+selectedPlayer.jerseyNumber);
+                }
             }
 
             @Override
