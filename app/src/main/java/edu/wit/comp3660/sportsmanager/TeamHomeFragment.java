@@ -37,6 +37,9 @@ public class TeamHomeFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_team_home, container, false);
 
         logo = rootView.findViewById(R.id.team_logo);
+        if(LoadedData.get().getCurrentTeam().getLogo() != null) {
+            logo.setImageBitmap(LoadedData.get().getCurrentTeam().getLogo());
+        }
         logo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
