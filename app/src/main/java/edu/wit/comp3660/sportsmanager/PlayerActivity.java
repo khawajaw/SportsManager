@@ -22,6 +22,7 @@ public class PlayerActivity extends AppCompatActivity {
 
     private Player player;
     private boolean isCreatingPlayer;
+    private boolean editing;
 
     PlayerView view;
 
@@ -36,10 +37,11 @@ public class PlayerActivity extends AppCompatActivity {
         if (selectedPlayerIndex >= 0) {
             player = LoadedData.get().getCurrentTeam().getRoster().get(selectedPlayerIndex);
             isCreatingPlayer = false;
+            editing = false;
         }
         if (player != null)
             view.populateData(player);
-        else {
+        else { //we are creating a new player
             player = new Player();
             enterEditMode();
             isCreatingPlayer = true;
@@ -65,7 +67,7 @@ public class PlayerActivity extends AppCompatActivity {
                 finish();
                 break;
             case R.id.save_menu_action:
-                savePlayerData();
+                if (editing) savePlayerData();
                 setResult(RESULT_OK);
                 finish();
                 break;
@@ -79,7 +81,8 @@ public class PlayerActivity extends AppCompatActivity {
 
     private void enterEditMode() {
         view.makeFieldsEditable();
-        view.setPositionSpinnerAdapter(LoadedData.get().getCurrentTeam().getSport());
+        view.setPositionSpinnerAdapter(LoadedData.get().getCurrentTeam().getSport(), player);
+        editing = true;
     }
 
     private void savePlayerData() {
@@ -90,6 +93,7 @@ public class PlayerActivity extends AppCompatActivity {
         player.height = view.getHeightInInches();
         player.weight = view.getWeight();
         player.preferredPosition = view.getPreferredPosition();
+        player.notes = view.getNotesText();
         if (isCreatingPlayer) {
             LoadedData.get().getCurrentTeam().getRoster().add(player);
         }

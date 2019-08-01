@@ -14,6 +14,7 @@ public class Player {
     public String jerseyNumber;
     public String phoneNumber;
     public Position preferredPosition;
+    public String notes;
 
     private Context context;
 
