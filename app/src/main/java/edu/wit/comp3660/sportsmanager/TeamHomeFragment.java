@@ -1,17 +1,13 @@
 package edu.wit.comp3660.sportsmanager;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -29,7 +25,14 @@ import edu.wit.comp3660.sportsmanager.DataEntities.Team;
 public class TeamHomeFragment extends Fragment {
 
     private static final int PICK_IMAGE = 1;
-    ImageView logo;
+    private ImageView logo;
+    private Team team;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        team = LoadedData.get().getCurrentTeam();
+    }
 
     @Nullable
     @Override
@@ -37,6 +40,8 @@ public class TeamHomeFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_team_home, container, false);
 
         logo = rootView.findViewById(R.id.team_logo);
+        if (team.getLogo() != null)
+            logo.setImageBitmap(team.getLogo());
         logo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -47,7 +52,7 @@ public class TeamHomeFragment extends Fragment {
         });
 
         TextView text = rootView.findViewById(R.id.team_home_message);
-        text.setText(LoadedData.get().getCurrentTeam().toString());
+        text.setText(team.toString());
 
         getTeamData(rootView);
 
@@ -56,10 +61,9 @@ public class TeamHomeFragment extends Fragment {
 
     private void getTeamData(View root) {
         // team home content
-        Team selected = LoadedData.get().getCurrentTeam();
 
-        if(!selected.getGames().isEmpty() && selected.getNextGame() != null) {
-            Game nextGame = selected.getNextGame();
+        if(!team.getGames().isEmpty() && team.getNextGame() != null) {
+            Game nextGame = team.getNextGame();
             String vs;
             if(nextGame.isAway()) {
                 vs = " @ ";
@@ -78,9 +82,9 @@ public class TeamHomeFragment extends Fragment {
             nextGameTextViewLocation.setText(location);
         }
 
-        if(!selected.getRecord().equals("")) {
+        if(!team.getRecord().equals("")) {
             TextView record = root.findViewById(R.id.record);
-            record.setText(selected.getRecord());
+            record.setText(team.getRecord());
         }
     }
 

@@ -75,7 +75,7 @@ public class GamesNavFragment extends Fragment {
                 break;
             case R.id.edit_menu_action:
                 Toast t = Toast.makeText(getContext(), "Long press on a game to remove it", Toast.LENGTH_LONG);
-                t.setGravity(Gravity.CENTER,0,0);
+                t.setGravity(Gravity.CENTER,0,-10);
                 t.show();
                 break;
 

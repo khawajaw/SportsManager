@@ -7,28 +7,13 @@
     android:layout_height="match_parent"
     android:padding="16dp">
 
-
-    <TextView
-        android:id="@+id/number"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="top|center"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/position"
-        android:text="#00"
-        android:textColor="#494949"
-        android:textSize="20sp"
-        android:textStyle="italic"
-        android:visibility="invisible" />
-
     <TextView
         android:id="@+id/position"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="32dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:background="@color/lightGray"
@@ -37,15 +22,49 @@
         android:textColor="#000"
         android:textSize="25sp" />
 
+    <TextView
+        android:id="@+id/number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="top|center"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/position"
+        android:text="#00"
+        android:textColor="#494949"
+        android:textSize="20sp"
+        android:textStyle="italic"
+        android:visibility="invisible" />
+
+    <ImageView
+        android:id="@+id/player_image"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:foregroundGravity="center"
+        android:visibility="invisible"
+        android:padding="4dp"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintStart_toEndOf="@id/number"
+        app:layout_constraintEnd_toStartOf="@+id/playerName"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:srcCompat="@tools:sample/avatars"
+        android:contentDescription="@string/player_image" />
+
     <Spinner
         android:id="@+id/playerName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="right"
+        android:layout_gravity="end"
         android:layout_marginTop="16dp"
         android:layout_weight="1"
         android:textSize="36sp"
-        app:layout_constraintStart_toEndOf="@id/number"
+        android:backgroundTint="@color/colorAccent"
+        app:layout_constraintStart_toEndOf="@id/player_image"
         app:layout_constraintTop_toTopOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

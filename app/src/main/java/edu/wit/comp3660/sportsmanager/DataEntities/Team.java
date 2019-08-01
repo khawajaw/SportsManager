@@ -1,12 +1,7 @@
 package edu.wit.comp3660.sportsmanager.DataEntities;
 
-import android.content.res.Resources;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-
 import java.util.ArrayList;
-
-import edu.wit.comp3660.sportsmanager.R;
 
 public class Team {
 

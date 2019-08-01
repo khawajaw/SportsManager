@@ -118,7 +118,6 @@ public class PlayerActivity extends AppCompatActivity {
         if (requestCode == PICK_IMAGE && resultCode == RESULT_OK && data != null) {
             try {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), data.getData());
-                player.image = bitmap;
                 view.updateImage(bitmap);
             } catch (IOException e) {
                 e.printStackTrace();
