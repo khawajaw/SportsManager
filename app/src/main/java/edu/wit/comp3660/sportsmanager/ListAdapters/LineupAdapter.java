@@ -1,6 +1,7 @@
 package edu.wit.comp3660.sportsmanager.ListAdapters;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,22 +12,21 @@ import android.widget.Spinner;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
-import java.util.List;
 
+import edu.wit.comp3660.sportsmanager.DataEntities.Lineup;
 import edu.wit.comp3660.sportsmanager.DataEntities.LoadedData;
 import edu.wit.comp3660.sportsmanager.DataEntities.Player;
-import edu.wit.comp3660.sportsmanager.DataEntities.Position;
 import edu.wit.comp3660.sportsmanager.R;
 
 public class LineupAdapter extends RecyclerView.Adapter<LineupviewHolder>{
 
-    private List<Position> positionList;
+    private Lineup lineup;
     private ArrayList<Player> players;
     private Context context;
     private Spinner spinner;
 
-    public LineupAdapter(Context context, List<Position> positionList) {
-        this.positionList = positionList;
+    public LineupAdapter(Context context, Lineup lineupList) {
+        this.lineup = lineupList;
         this.context = context;
         players = LoadedData.get().getCurrentTeam().getRoster();
     }
@@ -44,17 +44,27 @@ public class LineupAdapter extends RecyclerView.Adapter<LineupviewHolder>{
 
     @Override
     public void onBindViewHolder(final LineupviewHolder holder, final int position) {
-        holder.position.setText(positionList.get(position).toString());
+        holder.setIsRecyclable(false);
+        holder.position.setText(lineup.getPosition(position).toString());
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int index, long id) {
-                Player selectedPlayer = players.get(index);
-                if (!selectedPlayer.jerseyNumber.equals("")) {
-                    holder.number.setVisibility(View.VISIBLE);
-                    holder.number.setText("#"+selectedPlayer.jerseyNumber);
+                if (index > 0) {
+                    Player selectedPlayer = players.get(index-1);
+                    lineup.setPlayer(position, selectedPlayer);
+                    if (!selectedPlayer.jerseyNumber.equals("")) {
+                        holder.number.setVisibility(View.VISIBLE);
+                        holder.number.setText("#"+selectedPlayer.jerseyNumber);
+                    }
+                    if (selectedPlayer.playerImage() != null) {
+                        holder.image.setVisibility(View.VISIBLE);
+                        holder.image.setImageBitmap(selectedPlayer.playerImage());
+                    }
+                } else {
+                    lineup.setPlayer(position, null);
+                    view.setBackgroundColor(Color.RED);
+                    onNothingSelected(parent);
                 }
-                holder.image.setVisibility(View.VISIBLE);
-                holder.image.setImageBitmap(selectedPlayer.image);
             }
 
             @Override
@@ -63,18 +73,23 @@ public class LineupAdapter extends RecyclerView.Adapter<LineupviewHolder>{
                 holder.image.setVisibility(View.INVISIBLE);
             }
         });
+        Player correspondingPlayer = lineup.getPlayer(position);
+        if (lineup.getPlayer(position) != null) {
+            spinner.setSelection(((ArrayAdapter<Player>) spinner.getAdapter()).getPosition(correspondingPlayer));
+        }
     }
 
     @Override
     public int getItemCount() {
-        return this.positionList.size();
+        return this.lineup.size();
     }
 
     private void dropDownPlayers() {
         ArrayAdapter<Player> adapter =
-                new ArrayAdapter<>(context, android.R.layout.simple_spinner_dropdown_item, players);
+                new ArrayAdapter<>(context, android.R.layout.simple_spinner_dropdown_item, new ArrayList<Player>());
         adapter.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item);
-
+        adapter.add(new Player());
+        adapter.addAll(players);
         spinner.setAdapter(adapter);
     }
 

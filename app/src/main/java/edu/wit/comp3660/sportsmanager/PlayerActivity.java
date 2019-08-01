@@ -67,9 +67,15 @@ public class PlayerActivity extends AppCompatActivity {
                 finish();
                 break;
             case R.id.save_menu_action:
-                if (editing) savePlayerData();
-                setResult(RESULT_OK);
-                finish();
+                if (!view.getName().equals("")){
+                    if (editing) savePlayerData();
+                    setResult(RESULT_OK);
+                    finish();
+                } else {
+                    Toast t = Toast.makeText(getApplicationContext(), "You need to at least give this player a name!", Toast.LENGTH_LONG);
+                    t.setGravity(Gravity.TOP,0,200);
+                    t.show();
+                }
                 break;
             case R.id.edit_menu_action:
                 enterEditMode();
@@ -86,7 +92,7 @@ public class PlayerActivity extends AppCompatActivity {
     }
 
     private void savePlayerData() {
-        player.image = view.getImage();
+        player.setPlayerImage(view.getImage());
         player.name = view.getName();
         player.jerseyNumber = view.getJerseyNumber();
         player.phoneNumber = view.getPhoneNumber();
@@ -104,9 +110,6 @@ public class PlayerActivity extends AppCompatActivity {
     class ImageClicked implements View.OnClickListener {
         @Override
         public void onClick(View v) {
-            Toast t = Toast.makeText(getApplicationContext(), "Clicked on image (we will open camera roll soon)", Toast.LENGTH_SHORT);
-            t.setGravity(Gravity.CENTER,0,0);
-            t.show();
             Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
             intent.setType("image/*");
             startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE);

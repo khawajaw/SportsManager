@@ -1,14 +1,11 @@
 package edu.wit.comp3660.sportsmanager.DataEntities;
 
-import android.graphics.Bitmap;
-
 import java.util.ArrayList;
 
 public class Sport {
 
     private String name;
     private ArrayList<Position> positions;
-    private Bitmap logo;
 
     public Sport(String sportName) {
         this.name = sportName;
@@ -31,10 +28,6 @@ public class Sport {
 
     public ArrayList<Position> getPositions() {
         return positions;
-    }
-
-    public Bitmap getLogo() {
-        return logo;
     }
 
     private void findPositions(String sport) {

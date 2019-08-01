@@ -29,7 +29,7 @@ public class RosterListAdapter extends ArrayAdapter<Player> {
         // set player image
         ImageView playerImage;
         playerImage = view.findViewById(R.id.player_image);
-        playerImage.setImageBitmap(player.image);
+        playerImage.setImageBitmap(player.playerImage());
 
         //set player number
         TextView playerNumber = view.findViewById(R.id.player_number);

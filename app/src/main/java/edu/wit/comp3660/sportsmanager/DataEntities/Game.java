@@ -12,6 +12,10 @@ public class Game {
     private int opponentScore;
     private boolean played = false;
 
+    public Game() {
+        //this("Error");
+    }
+
     public Game(String opponent) {
         this(opponent, "Unknown Location", "No date", "No time", "Home");
     }

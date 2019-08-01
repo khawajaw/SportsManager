@@ -1,6 +1,7 @@
 package edu.wit.comp3660.sportsmanager;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -75,7 +76,7 @@ public class GamesNavFragment extends Fragment {
                 break;
             case R.id.edit_menu_action:
                 Toast t = Toast.makeText(getContext(), "Long press on a game to remove it", Toast.LENGTH_LONG);
-                t.setGravity(Gravity.CENTER,0,-10);
+                t.setGravity(Gravity.TOP,0,200);
                 t.show();
                 break;
 
@@ -86,7 +87,7 @@ public class GamesNavFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-
+        Log.v("myApp", "onResume on game nav");
         currentTeam = LoadedData.get().getCurrentTeam();
         games = currentTeam.getGames();
         defaultText = rootView.findViewById(R.id.gamesText);
@@ -107,6 +108,9 @@ public class GamesNavFragment extends Fragment {
         public void onRemoved(Object game) {
             adapter.notifyDataSetChanged();
             LoadedData.get().getCurrentTeam().removeGameIfPlayed((Game) game);
+            if(games.isEmpty()) {
+                defaultText.setVisibility(View.VISIBLE);
+            }
         }
     }
 }
