@@ -22,6 +22,7 @@ public class PlayerActivity extends AppCompatActivity {
 
     private Player player;
     private boolean isCreatingPlayer;
+    private boolean editing;
 
     PlayerView view;
 
@@ -36,10 +37,11 @@ public class PlayerActivity extends AppCompatActivity {
         if (selectedPlayerIndex >= 0) {
             player = LoadedData.get().getCurrentTeam().getRoster().get(selectedPlayerIndex);
             isCreatingPlayer = false;
+            editing = false;
         }
         if (player != null)
             view.populateData(player);
-        else {
+        else { //we are creating a new player
             player = new Player();
             enterEditMode();
             isCreatingPlayer = true;
@@ -65,9 +67,15 @@ public class PlayerActivity extends AppCompatActivity {
                 finish();
                 break;
             case R.id.save_menu_action:
-                savePlayerData();
-                setResult(RESULT_OK);
-                finish();
+                if (!view.getName().equals("")){
+                    if (editing) savePlayerData();
+                    setResult(RESULT_OK);
+                    finish();
+                } else {
+                    Toast t = Toast.makeText(getApplicationContext(), "You need to at least give this player a name!", Toast.LENGTH_LONG);
+                    t.setGravity(Gravity.TOP,0,200);
+                    t.show();
+                }
                 break;
             case R.id.edit_menu_action:
                 enterEditMode();
@@ -79,17 +87,19 @@ public class PlayerActivity extends AppCompatActivity {
 
     private void enterEditMode() {
         view.makeFieldsEditable();
-        view.setPositionSpinnerAdapter(LoadedData.get().getCurrentTeam().getSport());
+        view.setPositionSpinnerAdapter(LoadedData.get().getCurrentTeam().getSport(), player);
+        editing = true;
     }
 
     private void savePlayerData() {
-        player.image = view.getImage();
+        player.setPlayerImage(view.getImage());
         player.name = view.getName();
         player.jerseyNumber = view.getJerseyNumber();
         player.phoneNumber = view.getPhoneNumber();
         player.height = view.getHeightInInches();
         player.weight = view.getWeight();
         player.preferredPosition = view.getPreferredPosition();
+        player.notes = view.getNotesText();
         if (isCreatingPlayer) {
             LoadedData.get().getCurrentTeam().getRoster().add(player);
         }
@@ -100,9 +110,6 @@ public class PlayerActivity extends AppCompatActivity {
     class ImageClicked implements View.OnClickListener {
         @Override
         public void onClick(View v) {
-            Toast t = Toast.makeText(getApplicationContext(), "Clicked on image (we will open camera roll soon)", Toast.LENGTH_SHORT);
-            t.setGravity(Gravity.CENTER,0,0);
-            t.show();
             Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
             intent.setType("image/*");
             startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE);
@@ -114,7 +121,6 @@ public class PlayerActivity extends AppCompatActivity {
         if (requestCode == PICK_IMAGE && resultCode == RESULT_OK && data != null) {
             try {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), data.getData());
-                player.image = bitmap;
                 view.updateImage(bitmap);
             } catch (IOException e) {
                 e.printStackTrace();

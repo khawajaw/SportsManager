@@ -1,21 +1,15 @@
 package edu.wit.comp3660.sportsmanager.DataEntities;
 
-import android.content.res.Resources;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-
 import java.util.ArrayList;
-
-import edu.wit.comp3660.sportsmanager.R;
 
 public class Team {
 
     private String name;
     private Sport sport;
     private ArrayList<Player> roster;
-    private ArrayList<Lineup> lineup;
+    private Lineup lineup;
     private ArrayList<Game> games;
-    private String record = "";
     private int[] recordArr = new int[3];
     private Bitmap logo;
 
@@ -23,7 +17,7 @@ public class Team {
         this.name = name;
         this.sport = sport;
         this.roster = new ArrayList<>();
-        this.lineup = new ArrayList<>();
+        this.lineup = new Lineup(sport);
         this.games = new ArrayList<>();
     }
 
@@ -44,12 +38,12 @@ public class Team {
         return roster;
     }
 
-    public ArrayList<Lineup> getLineup() {
+    public Lineup getLineup() {
         return lineup;
     }
 
-    public String getRecord() {
-        return record;
+    public String getRecordText() {
+        return recordArr[0] + "W - " + recordArr[1] + "L - " + recordArr[2] + "T";
     }
 
     public ArrayList<Game> getGames() {
@@ -81,8 +75,6 @@ public class Team {
         } else {
             recordArr[1]++;
         }
-
-        record = recordArr[0] + "W - " + recordArr[1] + "L - " + recordArr[2] + "T";
     }
 
     public void removeGameIfPlayed(Game currentGame) {
@@ -104,6 +96,11 @@ public class Team {
 
         return null;
     }
+
+    public int[] getRecordArr() {
+        return recordArr;
+    }
+
 
     @Override
     public String toString() {

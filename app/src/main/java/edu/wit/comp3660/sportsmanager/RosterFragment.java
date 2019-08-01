@@ -31,6 +31,7 @@ public class RosterFragment extends Fragment {
     private Team currentTeam;
     private List<Player> current_roster;
     private DialogCallback callback;
+    TextView defaultText;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -102,7 +103,7 @@ public class RosterFragment extends Fragment {
 
         currentTeam = LoadedData.get().getCurrentTeam();
         current_roster = currentTeam.getRoster();
-        TextView defaultText = rootView.findViewById(R.id.defaultText);
+        defaultText = rootView.findViewById(R.id.defaultText);
         if(current_roster.isEmpty()) {
             defaultText.setVisibility(View.VISIBLE);
         }
@@ -121,6 +122,9 @@ public class RosterFragment extends Fragment {
         @Override
         public void onRemoved(Object entity) {
             adapter.notifyDataSetChanged();
+            if(current_roster.isEmpty()) {
+                defaultText.setVisibility(View.VISIBLE);
+            }
         }
     }
 }

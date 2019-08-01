@@ -48,7 +48,7 @@ public class LoadedData {
     }
 
     public void createTeam(String name) {
-        createTeam(name, SPORTS[0]); //just create a football team
+        createTeam(name, SPORTS[3]); //just create a basketball team
     }
     public void createTeam(String name, Sport sport) {
         teams.add(new Team(name, sport));
@@ -110,10 +110,11 @@ public class LoadedData {
                                 teams = data.teams;
                                 Log.d(TAG, "Loaded team 1 = " + teams.get(0).getName());
 
-                                callback.notifyDataLoaded();
+                                callback.notifyDataLoaded(true);
                             }
                         } else {
                             Log.w(TAG, "Error getting documents.", task.getException());
+                            callback.notifyDataLoaded(false);
                         }
                     }
                 });

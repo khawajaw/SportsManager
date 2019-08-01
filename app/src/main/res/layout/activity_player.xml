@@ -32,6 +32,7 @@
         android:importantForAutofill="no"
         android:inputType="textPersonName"
         android:textSize="30sp"
+        android:nextFocusForward="@id/player_number"
         app:layout_constraintStart_toEndOf="@+id/player_avatar"
         app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
@@ -45,6 +46,7 @@
         android:inputType="number"
         android:hint="@string/number_hint"
         android:importantForAutofill="no"
+        android:textStyle="italic"
         app:layout_constraintStart_toEndOf="@+id/player_avatar"
         app:layout_constraintTop_toBottomOf="@+id/player_name" />
 
@@ -62,9 +64,10 @@
         app:layout_constraintTop_toBottomOf="@+id/player_number" />
 
     <LinearLayout
+        android:id="@+id/player_attr_linear_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:orientation="vertical"
@@ -75,9 +78,11 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingVertical="8dp"
             android:orientation="horizontal">
 
             <TextView
+                android:id="@+id/label_preferred_position"
                 android:layout_width="wrap_content"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
@@ -102,16 +107,17 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:fontFamily="sans-serif-black"
+                android:layout_marginEnd="16dp"
                 android:gravity="center"
                 android:text="@string/height" />
             <Spinner
                 android:id="@+id/spinner_player_height_ft"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
                 android:entries="@array/array_4to7"
                 android:layout_weight="1" />
             <TextView
+                android:id="@+id/feet_label"
                 android:layout_width="wrap_content"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
@@ -125,6 +131,7 @@
                 android:entries="@array/array_0to11"
                 android:layout_weight="1" />
             <TextView
+                android:id="@+id/inches_label"
                 android:layout_width="wrap_content"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
@@ -148,20 +155,37 @@
             <EditText
                 android:id="@+id/text_player_weight"
                 android:layout_width="wrap_content"
-                android:layout_height="fill_parent"
-                android:background="@color/dullGreen"
+                android:layout_height="wrap_content"
                 android:inputType="number"
                 android:ems="3"
                 android:maxLength="3"
                 android:layout_marginStart="16dp"
+                android:importantForAutofill="no"
                 android:gravity="center"
                 android:hint="@string/lbs"
-                android:layout_weight="1"
-                tools:ignore="Autofill" />
+                android:layout_weight="1" />
         </LinearLayout>
 
-
     </LinearLayout>
+
+    <EditText
+        android:id="@+id/player_notes"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:ems="10"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:gravity="start|top"
+        android:background="@color/lightGray"
+        android:hint="@string/notes"
+        android:inputType="textMultiLine"
+        app:layout_constraintTop_toBottomOf="@+id/player_attr_linear_layout"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

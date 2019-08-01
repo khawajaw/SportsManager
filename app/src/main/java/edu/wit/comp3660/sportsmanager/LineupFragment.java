@@ -10,7 +10,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
@@ -41,7 +40,7 @@ public class LineupFragment extends Fragment  {
         layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
 
-        adapter = new LineupAdapter(getActivity(), returnListItems());
+        adapter = new LineupAdapter(getActivity(), LoadedData.get().getCurrentTeam().getLineup());
         recyclerView.setAdapter(adapter);
 
         //ItemTouchHelper touchHelper = new ItemTouchHelper(rvCallback);
@@ -149,6 +148,7 @@ public class LineupFragment extends Fragment  {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.toolbar_menu, menu);
         menu.removeItem(R.id.add_menu_action);
+        menu.removeItem(R.id.edit_menu_action);
         super.onCreateOptionsMenu(menu, inflater);
     }
 
@@ -157,9 +157,9 @@ public class LineupFragment extends Fragment  {
         Log.v(TAG, "Id: "+item.getItemId());
         switch (item.getItemId()) {
             case R.id.save_menu_action:
+                //LoadedData.get().syncAllDataToFirebase();
                 break;
             case R.id.edit_menu_action:
-                Toast.makeText(getContext(), "Select first player to swap", Toast.LENGTH_LONG).show();
                 break;
         }
         return super.onOptionsItemSelected(item);
