@@ -1,7 +1,9 @@
 package edu.wit.comp3660.sportsmanager.DataEntities;
 
 import android.graphics.Bitmap;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Team {
 
@@ -10,7 +12,7 @@ public class Team {
     private ArrayList<Player> roster;
     private Lineup lineup;
     private ArrayList<Game> games;
-    private int[] recordArr = new int[3];
+    private RecordDictionary recordDict = new RecordDictionary();
     private Bitmap logo;
 
     public Team(String name, Sport sport) {
@@ -39,11 +41,15 @@ public class Team {
     }
 
     public Lineup getLineup() {
+        if (lineup == null || lineup.isEmpty())
+            lineup = new Lineup(sport);
         return lineup;
     }
 
     public String getRecordText() {
-        return recordArr[0] + "W - " + recordArr[1] + "L - " + recordArr[2] + "T";
+        return recordDict.get("W") + "W - "
+                + recordDict.get("L") + "L - "
+                + recordDict.get("T") + "T";
     }
 
     public ArrayList<Game> getGames() {
@@ -69,22 +75,29 @@ public class Team {
         removeGameIfPlayed(currentGame);
         currentGame.setScore(tS, oS);
         if (tS > oS) {
-            recordArr[0]++;
+            recordDict.increment("W");
         } else if (tS == oS) {
-            recordArr[2]++;
+            recordDict.increment("T");
         } else {
-            recordArr[1]++;
+            recordDict.increment("L");
         }
     }
 
     public void removeGameIfPlayed(Game currentGame) {
         if (currentGame.isPlayed()) {
             if (currentGame.getTeamScore() > currentGame.getOpponentScore())
-                recordArr[0]--;
+                recordDict.decrement("W");
             else if (currentGame.getTeamScore() == currentGame.getOpponentScore())
-                recordArr[2]--;
-            else recordArr[1]--;
+                recordDict.decrement("T");
+            else recordDict.decrement("L");
         }
+    }
+
+    public Player findPlayer(String playerId) {
+        for (Player e: roster)
+            if (e.name.equals(playerId))
+                return e;
+        return null;
     }
 
     public Game getNextGame() {
@@ -97,13 +110,31 @@ public class Team {
         return null;
     }
 
-    public int[] getRecordArr() {
-        return recordArr;
+    public RecordDictionary getRecordDict() {
+        return recordDict;
     }
 
 
     @Override
     public String toString() {
         return name + " (" + sport + ")";
+    }
+}
+
+class RecordDictionary extends HashMap<String, Integer> {
+    RecordDictionary() {
+        super();
+        for (String key: new String[]{"W", "L", "T"})
+            put(key, 0);
+    }
+    void increment(String key) {
+        Integer val = super.get(key);
+        if (val == null) return;
+        super.put(key, val+1);
+    }
+    void decrement(String key) {
+        Integer val = super.get(key);
+        if (val == null) return;
+        super.put(key, val-1);
     }
 }

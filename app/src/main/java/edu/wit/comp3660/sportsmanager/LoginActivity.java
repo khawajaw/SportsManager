@@ -53,11 +53,11 @@ public class LoginActivity extends AppCompatActivity {
         if (didLoad) {
             Intent intent = new Intent(LoginActivity.this, TeamSelectActivity.class);
             startActivity(intent);
-            loadingBar.setVisibility(View.INVISIBLE);
         } else {
-            Toast.makeText(getApplicationContext(), "Username/password does not match or exit", Toast.LENGTH_LONG)
+            Toast.makeText(getApplicationContext(), "Username/password does not match or exist", Toast.LENGTH_LONG)
                     .show();
         }
+        loadingBar.setVisibility(View.INVISIBLE);
     }
 
     //TODO get all the data from firebase based on username/password
@@ -68,12 +68,13 @@ public class LoginActivity extends AppCompatActivity {
      * @return true if username and password exist/match
      */
     private boolean loadDataFromFirebase(String username, String password) {
-        boolean useFirebase = false; //switch to true if you want to test Firebase
+        boolean useFirebase = true; //switch to true if you want to test Firebase
         if (useFirebase) {
             loadingBar.setVisibility(View.VISIBLE);
             LoadedData.get().fetchDataFromFirebase(username, this);
         } else {
-            LoadedData.get().createTeam("Leopards");
+            if (LoadedData.get().getTeams().isEmpty())
+                LoadedData.get().createTeam("Leopards");
             notifyDataLoaded(true);
         }
         return true;
@@ -119,8 +120,7 @@ public class LoginActivity extends AppCompatActivity {
                         });
                     */
             if (loadDataFromFirebase(username, null)) {
-                LoadedData.get().loggedInUser = username;
-                notifyDataLoaded(true);
+                //LoadedData.get().loggedInUser = username;
                 //wait for data to load
             } else {
                 Toast.makeText(getApplicationContext(), "Username/password does not match or exit", Toast.LENGTH_LONG)

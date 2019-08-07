@@ -45,13 +45,13 @@ public class LineupAdapter extends RecyclerView.Adapter<LineupviewHolder>{
     @Override
     public void onBindViewHolder(final LineupviewHolder holder, final int position) {
         holder.setIsRecyclable(false);
-        holder.position.setText(lineup.getPosition(position).toString());
+        holder.position.setText(lineup.position(position).toString());
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int index, long id) {
                 if (index > 0) {
                     Player selectedPlayer = players.get(index-1);
-                    lineup.setPlayer(position, selectedPlayer);
+                    lineup.changePlayer(position, selectedPlayer);
                     if (!selectedPlayer.jerseyNumber.equals("")) {
                         holder.number.setVisibility(View.VISIBLE);
                         holder.number.setText("#"+selectedPlayer.jerseyNumber);
@@ -61,7 +61,7 @@ public class LineupAdapter extends RecyclerView.Adapter<LineupviewHolder>{
                         holder.image.setImageBitmap(selectedPlayer.playerImage());
                     }
                 } else {
-                    lineup.setPlayer(position, null);
+                    lineup.changePlayer(position, null);
                     view.setBackgroundColor(Color.RED);
                     onNothingSelected(parent);
                 }
@@ -73,8 +73,8 @@ public class LineupAdapter extends RecyclerView.Adapter<LineupviewHolder>{
                 holder.image.setVisibility(View.INVISIBLE);
             }
         });
-        Player correspondingPlayer = lineup.getPlayer(position);
-        if (lineup.getPlayer(position) != null) {
+        Player correspondingPlayer = lineup.player(position);
+        if (lineup.player(position) != null) {
             spinner.setSelection(((ArrayAdapter<Player>) spinner.getAdapter()).getPosition(correspondingPlayer));
         }
     }

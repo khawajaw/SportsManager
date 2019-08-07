@@ -3,8 +3,9 @@ package edu.wit.comp3660.sportsmanager.DataEntities;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.util.Base64;
 
-import java.util.List;
+import java.nio.ByteBuffer;
 
 import edu.wit.comp3660.sportsmanager.R;
 
@@ -18,7 +19,7 @@ public class Player {
     public String phoneNumber;
     public Position preferredPosition;
     public String notes;
-    public List bitmapList;
+    public String bitmapBytes;
 
     private Context context;
 
@@ -26,8 +27,7 @@ public class Player {
         this.context = current;
         this.name = name;
         this.jerseyNumber = jerseyNumber;
-        image = BitmapFactory.decodeResource(context.getResources(), R.drawable.jones);
-        //bitmapList = Arrays.asList(image);
+        setPlayerImage(BitmapFactory.decodeResource(context.getResources(), R.drawable.jones));
     }
 
     public Player() {
@@ -36,12 +36,13 @@ public class Player {
     }
 
     public Bitmap playerImage() {
+        loadBitmapFromBytes();
         return image;
     }
 
     public void setPlayerImage(Bitmap b) {
         image = b;
-        //bitmapList = Arrays.asList(image);
+        bitmapBytes = getBitmapBytes();
     }
     public String getWeightText() {
         return weight + " lbs";
@@ -59,6 +60,25 @@ public class Player {
                 return i+1;
         }
         return 0;
+    }
+
+    public String getBitmapBytes() {
+        int size = image.getRowBytes() * image.getHeight();
+        ByteBuffer byteBuffer = ByteBuffer.allocate(size);
+        image.copyPixelsToBuffer(byteBuffer);
+        bitmapBytes = Base64.encodeToString(byteBuffer.array(), Base64.DEFAULT);
+        return "";
+        //  store & retrieve this string to firebase
+    }
+
+    private boolean loadBitmapFromBytes() {
+        byte[] byteArray = Base64.decode(bitmapBytes, Base64.DEFAULT);
+        if (bitmapBytes != null && byteArray.length > 0) {
+            ByteBuffer buffer = ByteBuffer.wrap(byteArray);
+            image.copyPixelsFromBuffer(buffer);
+            return true;
+        }
+        else return false;
     }
 
     @Override

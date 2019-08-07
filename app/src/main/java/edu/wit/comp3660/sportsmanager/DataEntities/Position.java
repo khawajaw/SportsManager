@@ -60,6 +60,8 @@ public enum Position {
 
     private final String text;
 
+    Position() {text = "Firebase failure";}
+
     Position(String text) {
         this.text = text;
     }

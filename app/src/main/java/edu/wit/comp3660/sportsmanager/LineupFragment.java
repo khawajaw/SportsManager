@@ -157,7 +157,7 @@ public class LineupFragment extends Fragment  {
         Log.v(TAG, "Id: "+item.getItemId());
         switch (item.getItemId()) {
             case R.id.save_menu_action:
-                //LoadedData.get().syncAllDataToFirebase();
+                LoadedData.get().syncAllDataToFirebase();
                 break;
             case R.id.edit_menu_action:
                 break;

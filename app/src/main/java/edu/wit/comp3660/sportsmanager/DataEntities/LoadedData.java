@@ -5,13 +5,10 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
@@ -50,6 +47,7 @@ public class LoadedData {
     public void createTeam(String name) {
         createTeam(name, SPORTS[3]); //just create a basketball team
     }
+
     public void createTeam(String name, Sport sport) {
         teams.add(new Team(name, sport));
     }
@@ -79,18 +77,12 @@ public class LoadedData {
         //user.put("password", "admin");
 
         // Add a new document with a generated ID
-        db.collection("teams")
-                .add(team)
-                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+        db.collection("teams").document(loggedInUser)
+                .set(team)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
-                    public void onSuccess(DocumentReference documentReference) {
-                        Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.w(TAG, "Error adding document", e);
+                    public void onSuccess(Void aVoid) {
+                        Log.d(TAG, "DocumentSnapshot added with ID: " + loggedInUser);
                     }
                 });
     }
@@ -98,20 +90,21 @@ public class LoadedData {
     public void fetchDataFromFirebase(final String username, final LoginActivity callback) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("teams")
-                .whereEqualTo("username", username)
+                .document(username)
                 .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                Log.d(TAG, document.getId() + " => " + document.getData());
-                                FirebaseTeam data = document.toObject(FirebaseTeam.class);
-                                teams = data.teams;
-                                Log.d(TAG, "Loaded team 1 = " + teams.get(0).getName());
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        DocumentSnapshot document = task.getResult();
+                        FirebaseTeam data = null;
+                        if (document != null) data = document.toObject(FirebaseTeam.class);
+                        if (task.isSuccessful() && data != null) {
+                            Log.d(TAG, document.getId() + " => " + document.getData());
+                            teams = data.teams;
+                            loggedInUser = username;
+                            Log.d(TAG, "Loaded team 1 = " + teams.get(0).getName());
 
-                                callback.notifyDataLoaded(true);
-                            }
+                            callback.notifyDataLoaded(true);
                         } else {
                             Log.w(TAG, "Error getting documents.", task.getException());
                             callback.notifyDataLoaded(false);
@@ -119,6 +112,7 @@ public class LoadedData {
                     }
                 });
     }
+
 
     static class FirebaseTeam {
         String username;
