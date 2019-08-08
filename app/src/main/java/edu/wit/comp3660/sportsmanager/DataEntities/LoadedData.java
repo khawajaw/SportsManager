@@ -12,7 +12,6 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageMetadata;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
@@ -183,10 +182,6 @@ public class LoadedData {
     }
 
     void uploadImageToFirestore(String localPath, Bitmap image) {
-        StorageMetadata userData = userRef.getMetadata().getResult();
-        if (userData != null && userData.getSizeBytes() > ONE_MEGABYTE*10) {
-            return;
-        }
         StorageReference imageRef = userRef.child(localPath+".jpg");
 
         UploadTask uploadTask = imageRef.putBytes(generateBitmapBytes(image));
