@@ -107,7 +107,7 @@ public class LoginActivity extends AppCompatActivity {
                                             Toast.LENGTH_SHORT).show();
 
                                     // store user/data and start next activity
-                                    LoadedData.get().loggedInUser = username;
+                                    LoadedData.get().logIn(username);
                                     loadDataFromFirebase(username);
                                 } else {
                                     Log.w(TAG, "signInWithEmail:failure", task.getException());

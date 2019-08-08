@@ -57,6 +57,12 @@ public class LoadedData {
             new Sport("Basketball"),
     };
 
+    public void logIn(String username) {
+        loggedInUser = username;
+        userRef = storage.getReferenceFromUrl("gs://sportsmanager-wajowe.appspot.com/")
+                .child(loggedInUser);
+    }
+
     public static void changeCurrentTeamIndex(int position) {
         instance.currentTeamIndex = position;
     }
@@ -124,7 +130,7 @@ public class LoadedData {
                                 user_ID_COUNTER = data.ID_counter;
                                 Log.d(TAG, "Loaded team 1 = " + teams.get(0).getName());
                             }
-                            loggedInUser = username;
+                            logIn(username);
                             callback.notifyDataLoaded(true);
                             fetchPhotosFromFirestore();
                         } else {
@@ -137,8 +143,6 @@ public class LoadedData {
     }
 
     private void fetchPhotosFromFirestore() {
-        userRef = storage.getReferenceFromUrl("gs://sportsmanager-wajowe.appspot.com/")
-                .child(LoadedData.get().loggedInUser);
         final long ONE_MEGABYTE = 1024 * 1024;
         //at this point, all team and player data should be loaded, just need their images
         //Load team images first, since that's what the user will see first
