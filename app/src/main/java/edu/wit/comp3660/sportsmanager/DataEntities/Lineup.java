@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Lineup {
 
     ArrayList<Position> positions;
-    ArrayList<String> playerNames;
+    ArrayList<String> playerIds;
 
     Lineup() {
         super();
@@ -13,9 +13,9 @@ public class Lineup {
 
     Lineup(Sport sport) {
         positions = new ArrayList<>(sport.getPositions());
-        playerNames = new ArrayList<>(positions.size());
+        playerIds = new ArrayList<>(positions.size());
         for (int i = 0; i < positions.size(); i++)
-            playerNames.add("Empty");
+            playerIds.add("Empty");
     }
 
     public Position getPosition(int index) {
@@ -23,7 +23,7 @@ public class Lineup {
     }
 
     public Player player(int index) {
-        return LoadedData.get().getCurrentTeam().findPlayer(playerNames.get(index));
+        return LoadedData.get().getCurrentTeam().findPlayer(playerIds.get(index));
     }
 //
 //    public void setPlayer(Position getPosition, Player player) {
@@ -34,7 +34,7 @@ public class Lineup {
 //    }
 
     public void changePlayer(int index, String playerId) {
-        playerNames.set(index, playerId);
+        playerIds.set(index, playerId);
     }
 
     public int size() {

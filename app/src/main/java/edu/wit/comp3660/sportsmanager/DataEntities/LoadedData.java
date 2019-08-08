@@ -33,6 +33,7 @@ public class LoadedData {
     private int currentTeamIndex;
     private int currentGameIndex;
     public String loggedInUser;
+    public int user_ID_COUNTER;
     public final Sport[] SPORTS = {
             new Sport("Football"),
             new Sport("Soccer"),
@@ -77,7 +78,7 @@ public class LoadedData {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
         // Create a new user with a first and last name
-        FirebaseTeam team = new FirebaseTeam(loggedInUser, teams);
+        FirebaseTeam team = new FirebaseTeam(user_ID_COUNTER, teams);
         //user.put("password", "admin");
 
         // Add a new document with a generated ID
@@ -105,6 +106,7 @@ public class LoadedData {
                         if (task.isSuccessful() && data != null) {
                             Log.d(TAG, document.getId() + " => " + document.getData());
                             teams = data.teams;
+                            user_ID_COUNTER = data.ID_counter;
                             loggedInUser = username;
                             Log.d(TAG, "Loaded team 1 = " + teams.get(0).getName());
 
@@ -119,17 +121,17 @@ public class LoadedData {
 
 
     static class FirebaseTeam {
-        String username;
+        int ID_counter;
         ArrayList<Team> teams;
 
         FirebaseTeam() {
             // we need this empty constructor, otherwise Firebase will error out
-            username = "error";
+            ID_counter = -1;
             teams = null;
         }
 
-        FirebaseTeam(String id, ArrayList<Team> data) {
-            username = id;
+        FirebaseTeam(int id_count, ArrayList<Team> data) {
+            ID_counter = id_count;
             teams = data;
         }
     }

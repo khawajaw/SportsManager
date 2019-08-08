@@ -51,7 +51,7 @@ public class LineupAdapter extends RecyclerView.Adapter<LineupviewHolder>{
             public void onItemSelected(AdapterView<?> parent, View view, int index, long id) {
                 if (index > 0) {
                     Player selectedPlayer = players.get(index-1);
-                    lineup.changePlayer(position, selectedPlayer.name);
+                    lineup.changePlayer(position, selectedPlayer.ID);
                     if (!selectedPlayer.jerseyNumber.equals("")) {
                         holder.number.setVisibility(View.VISIBLE);
                         holder.number.setText("#"+selectedPlayer.jerseyNumber);

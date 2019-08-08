@@ -20,6 +20,7 @@ public class Player {
     public Position preferredPosition;
     public String notes;
     public String bitmapBytes;
+    public String ID;
 
     private Context context;
 
@@ -33,6 +34,7 @@ public class Player {
     public Player() {
         name = "Empty";
         jerseyNumber = "";
+        ID = "Player_"+LoadedData.get().user_ID_COUNTER++;
     }
 
     public Bitmap playerImage() {

@@ -85,7 +85,7 @@ public class Team {
 
     public Player findPlayer(String playerId) {
         for (Player e: roster)
-            if (e.name.equals(playerId))
+            if (e.ID.equals(playerId))
                 return e;
         return null;
     }

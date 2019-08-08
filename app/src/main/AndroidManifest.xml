@@ -25,7 +25,7 @@
 
         <activity
             android:name=".LoginActivity"
-            android:label="Welcome"
+            android:label="Sports Manager"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -19,7 +19,6 @@ import java.io.IOException;
 
 import edu.wit.comp3660.sportsmanager.DataEntities.Game;
 import edu.wit.comp3660.sportsmanager.DataEntities.LoadedData;
-import edu.wit.comp3660.sportsmanager.DataEntities.Player;
 import edu.wit.comp3660.sportsmanager.DataEntities.Team;
 
 
@@ -33,11 +32,6 @@ public class TeamHomeFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         team = LoadedData.get().getCurrentTeam();
-        if (team.getName().equals("Leopards") && team.getRoster().isEmpty()) {
-            team.getRoster().add(new Player(getContext(), "Jones", "5"));
-            team.getRoster().add(new Player(getContext(), "John", "15"));
-            team.getRoster().add(new Player(getContext(), "Adam", "18"));
-        }
     }
 
     @Nullable
