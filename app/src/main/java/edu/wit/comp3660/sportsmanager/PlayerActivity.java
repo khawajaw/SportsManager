@@ -23,6 +23,7 @@ public class PlayerActivity extends AppCompatActivity {
     private Player player;
     private boolean isCreatingPlayer;
     private boolean editing;
+    private boolean didSelectImage;
 
     PlayerView view;
 
@@ -92,7 +93,7 @@ public class PlayerActivity extends AppCompatActivity {
     }
 
     private void savePlayerData() {
-        if (player.playerImage() != view.getImage())
+        if (didSelectImage && player.playerImage() != view.getImage())
             player.setPlayerImage(view.getImage());
         player.name = view.getName();
         player.jerseyNumber = view.getJerseyNumber();
@@ -124,6 +125,7 @@ public class PlayerActivity extends AppCompatActivity {
             try {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), data.getData());
                 view.updateImage(bitmap);
+                didSelectImage = true;
             } catch (IOException e) {
                 e.printStackTrace();
             }

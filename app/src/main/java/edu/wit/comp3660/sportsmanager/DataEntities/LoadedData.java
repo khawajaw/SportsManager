@@ -12,6 +12,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageMetadata;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
@@ -142,8 +143,8 @@ public class LoadedData {
                 });
     }
 
+    private final long ONE_MEGABYTE = 1024 * 1024;
     private void fetchPhotosFromFirestore() {
-        final long ONE_MEGABYTE = 1024 * 1024;
         //at this point, all team and player data should be loaded, just need their images
         //Load team images first, since that's what the user will see first
         for (final Team e: teams) {
@@ -182,7 +183,10 @@ public class LoadedData {
     }
 
     void uploadImageToFirestore(String localPath, Bitmap image) {
-        // Create a reference to 'images/mountains.jpg'
+        StorageMetadata userData = userRef.getMetadata().getResult();
+        if (userData != null && userData.getSizeBytes() > ONE_MEGABYTE*10) {
+            return;
+        }
         StorageReference imageRef = userRef.child(localPath+".jpg");
 
         UploadTask uploadTask = imageRef.putBytes(generateBitmapBytes(image));
