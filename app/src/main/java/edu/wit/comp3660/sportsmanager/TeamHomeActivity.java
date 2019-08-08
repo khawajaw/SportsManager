@@ -13,6 +13,8 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import edu.wit.comp3660.sportsmanager.DataEntities.LoadedData;
+
 public class TeamHomeActivity extends AppCompatActivity {
 
     private FragmentManager fm;
@@ -28,6 +30,7 @@ public class TeamHomeActivity extends AppCompatActivity {
             fm = getSupportFragmentManager();
             ft = fm.beginTransaction();
 
+            LoadedData.get().syncAllDataToFirebase();
             switch (item.getItemId()) {
                 case R.id.team_home_nav_button:
                     if (!(selectedFragment instanceof TeamHomeFragment)) {

@@ -34,7 +34,14 @@ public class Player {
     public Player() {
         name = "Empty";
         jerseyNumber = "";
-        ID = "Player_"+LoadedData.get().user_ID_COUNTER++;
+
+    }
+
+    public Player(boolean inRoster) {
+        //other fields will be filled in
+        if (inRoster) {
+            ID = "Player_"+LoadedData.get().user_ID_COUNTER++;
+        }
     }
 
     public Bitmap playerImage() {

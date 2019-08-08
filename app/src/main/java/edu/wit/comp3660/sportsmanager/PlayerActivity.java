@@ -42,7 +42,7 @@ public class PlayerActivity extends AppCompatActivity {
         if (player != null)
             view.populateData(player);
         else { //we are creating a new player
-            player = new Player();
+            player = new Player(true);
             enterEditMode();
             isCreatingPlayer = true;
         }

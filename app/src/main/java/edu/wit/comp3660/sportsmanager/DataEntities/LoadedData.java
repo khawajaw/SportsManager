@@ -73,13 +73,13 @@ public class LoadedData {
         return teams;
     }
 
-    // TODO: call this when we add data, or when the app closes?
+    /**
+     * This should run in the background and not slow the UI
+     */
     public void syncAllDataToFirebase() {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-        // Create a new user with a first and last name
         FirebaseTeam team = new FirebaseTeam(user_ID_COUNTER, teams);
-        //user.put("password", "admin");
 
         // Add a new document with a generated ID
         db.collection("teams").document(loggedInUser)
