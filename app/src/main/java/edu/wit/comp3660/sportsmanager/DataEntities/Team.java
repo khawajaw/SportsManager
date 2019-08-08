@@ -3,7 +3,6 @@ package edu.wit.comp3660.sportsmanager.DataEntities;
 import android.graphics.Bitmap;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class Team {
 
@@ -12,7 +11,7 @@ public class Team {
     private ArrayList<Player> roster;
     private Lineup lineup;
     private ArrayList<Game> games;
-    private RecordDictionary recordDict = new RecordDictionary();
+    private RecordDictionary recordDict;
     private Bitmap logo;
 
     public Team(String name, Sport sport) {
@@ -20,6 +19,7 @@ public class Team {
         this.sport = sport;
         this.roster = new ArrayList<>();
         this.lineup = new Lineup(sport);
+        recordDict = new RecordDictionary(false);
         this.games = new ArrayList<>();
     }
 
@@ -41,15 +41,15 @@ public class Team {
     }
 
     public Lineup getLineup() {
-        if (lineup == null || lineup.isEmpty())
+        if (lineup == null)
             lineup = new Lineup(sport);
         return lineup;
     }
 
-    public String getRecordText() {
-        return recordDict.get("W") + "W - "
-                + recordDict.get("L") + "L - "
-                + recordDict.get("T") + "T";
+    public String generateRecordText() {
+        return recordDict.wins + "W - "
+                + recordDict.losses + "L - "
+                + recordDict.ties + "T";
     }
 
     public ArrayList<Game> getGames() {
@@ -74,22 +74,12 @@ public class Team {
         Game currentGame = games.get(LoadedData.get().getCurrentGameIndex());
         removeGameIfPlayed(currentGame);
         currentGame.setScore(tS, oS);
-        if (tS > oS) {
-            recordDict.increment("W");
-        } else if (tS == oS) {
-            recordDict.increment("T");
-        } else {
-            recordDict.increment("L");
-        }
+        recordDict.updateRecordFromNewScore(tS, oS);
     }
 
     public void removeGameIfPlayed(Game currentGame) {
         if (currentGame.isPlayed()) {
-            if (currentGame.getTeamScore() > currentGame.getOpponentScore())
-                recordDict.decrement("W");
-            else if (currentGame.getTeamScore() == currentGame.getOpponentScore())
-                recordDict.decrement("T");
-            else recordDict.decrement("L");
+            recordDict.updateRecordFromRemovedScore(currentGame.getTeamScore(), currentGame.getOpponentScore());
         }
     }
 
@@ -121,20 +111,40 @@ public class Team {
     }
 }
 
-class RecordDictionary extends HashMap<String, Integer> {
-    RecordDictionary() {
+class RecordDictionary {
+
+    int wins;
+    int losses;
+    int ties;
+
+    public RecordDictionary() {
+        //for Firebase
+    }
+    RecordDictionary(boolean fromFirebase) {
         super();
-        for (String key: new String[]{"W", "L", "T"})
-            put(key, 0);
+        //use this so Firebase doesn't reset everything to 0 (Firebase calls the default constructor)
+        wins = 0;
+        ties = 0;
+        losses = 0;
     }
-    void increment(String key) {
-        Integer val = super.get(key);
-        if (val == null) return;
-        super.put(key, val+1);
+
+    void updateRecordFromNewScore(int tS, int oS) {
+        if (tS > oS) {
+            wins++;
+        } else if (tS == oS) {
+            ties++;
+        } else {
+            losses++;
+        }
     }
-    void decrement(String key) {
-        Integer val = super.get(key);
-        if (val == null) return;
-        super.put(key, val-1);
+
+    void updateRecordFromRemovedScore(int tS, int oS) {
+        if (tS > oS) {
+            wins--;
+        } else if (tS == oS) {
+            ties--;
+        } else {
+            losses--;
+        }
     }
 }

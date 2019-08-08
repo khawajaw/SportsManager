@@ -1,7 +1,10 @@
 package edu.wit.comp3660.sportsmanager;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -56,6 +59,25 @@ public class TeamSelectActivity extends AppCompatActivity {
                 dialogFragment.show(getSupportFragmentManager(), "NewTeamDialog");
             }
         });
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            new AlertDialog.Builder(this).setPositiveButton("Log out",
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            LoadedData.reset();
+                            finish();
+                        }
+                    })
+                    .setNegativeButton("Cancel", null)
+                    .setTitle("Are you sure you want to log out?")
+                    .create()
+                    .show();
+        }
+        return true;
     }
 
     class TeamDialogCallback implements DialogCallback {

@@ -63,6 +63,7 @@ public class Player {
     }
 
     public String getBitmapBytes() {
+        if (image == null) return "";
         int size = image.getRowBytes() * image.getHeight();
         ByteBuffer byteBuffer = ByteBuffer.allocate(size);
         image.copyPixelsToBuffer(byteBuffer);

@@ -33,7 +33,7 @@
     <string name="register_btn_text">Register</string>
     <string name="register_title_text">REGISTER</string>
     <string name="login_btn_text">Login</string>
-    <string name="username_hint">enter username</string>
+    <string name="username_hint">enter email</string>
     <string name="password_hint">enter password</string>
     <string name="game_location">Location</string>
     <string name="opponent_team">Opponent Team</string>
@@ -50,6 +50,7 @@
     <string name="roster_default_text">You currently have no players on your roster.</string>
     <string name="preferred_position">Preferred Position:</string>
     <string name="notes">Notes</string>
+    <string name="back_to_login">Back to Login</string>
     <string-array name="array_0to11">
         <item>0</item><item>1</item><item>2</item>
         <item>3</item><item>4</item><item>5</item>

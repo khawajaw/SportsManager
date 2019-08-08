@@ -36,7 +36,7 @@ public class RosterListAdapter extends ArrayAdapter<Player> {
         if (player.jerseyNumber.equals("")) playerNumber.setVisibility(View.INVISIBLE);
         playerNumber.setText("#"+player.jerseyNumber);
 
-        //set player preferred position
+        //set player preferred getPosition
         TextView playerPosition = view.findViewById(R.id.player_position);
         if (player.preferredPosition != null)
             playerPosition.setText(player.preferredPosition.toString());

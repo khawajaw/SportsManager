@@ -24,6 +24,10 @@ public class LoadedData {
         return instance;
     }
 
+    public static void reset() {
+        instance = null;
+    }
+
     private String TAG = "LoadedData";
     private ArrayList<Team> teams = new ArrayList<>();
     private int currentTeamIndex;

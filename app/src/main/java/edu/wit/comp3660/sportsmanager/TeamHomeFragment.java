@@ -88,9 +88,9 @@ public class TeamHomeFragment extends Fragment {
             nextGameTextViewLocation.setText(location);
         }
 
-        if(!team.getRecordText().equals("")) {
+        if(!team.generateRecordText().equals("")) {
             TextView record = root.findViewById(R.id.record);
-            record.setText(team.getRecordText());
+            record.setText(team.generateRecordText());
         }
     }
 

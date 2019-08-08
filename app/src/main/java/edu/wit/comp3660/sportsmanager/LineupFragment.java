@@ -70,7 +70,7 @@ public class LineupFragment extends Fragment  {
         @Override
         public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
 
-            if (dragFromPosition == -1) { //For Saving drag start from position
+            if (dragFromPosition == -1) { //For Saving drag start from getPosition
                 dragStartFromPosition = viewHolder.getAdapterPosition();
             }
 

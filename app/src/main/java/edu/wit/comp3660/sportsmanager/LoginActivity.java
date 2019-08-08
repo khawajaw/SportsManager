@@ -2,14 +2,19 @@ package edu.wit.comp3660.sportsmanager;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
 import edu.wit.comp3660.sportsmanager.DataEntities.LoadedData;
@@ -67,8 +72,8 @@ public class LoginActivity extends AppCompatActivity {
      *
      * @return true if username and password exist/match
      */
-    private boolean loadDataFromFirebase(String username, String password) {
-        boolean useFirebase = true; //switch to true if you want to test Firebase
+    private boolean loadDataFromFirebase(String username) {
+        boolean useFirebase = true; //switch to true if you want to test locally
         if (useFirebase) {
             loadingBar.setVisibility(View.VISIBLE);
             LoadedData.get().fetchDataFromFirebase(username, this);
@@ -84,13 +89,11 @@ public class LoginActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             final String username = usernameBox.getText().toString();
-            /*final String password = passwordBox.getText().toString();
-            loadDataFromFirebase(username, password);
+            final String password = passwordBox.getText().toString();
 
             if (username.equals("") || password.equals("")) {
                 Toast.makeText(LoginActivity.this, "Must enter a username and password!",
                         Toast.LENGTH_SHORT).show();
-                //notifyDataLoaded(true);
             } else {
                 mAuth.signInWithEmailAndPassword(username, password)
                         .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
@@ -105,29 +108,30 @@ public class LoginActivity extends AppCompatActivity {
 
                                     // store user/data and start next activity
                                     LoadedData.get().loggedInUser = username;
-                                    notifyDataLoaded(true);
+                                    loadDataFromFirebase(username);
                                 } else {
                                     // If sign in fails, display a message to the user.
                                     Log.w(TAG, "signInWithEmail:failure", task.getException());
-                                    Toast.makeText(LoginActivity.this, "Authentication failed.",
-                                            Toast.LENGTH_SHORT).show();
-                                    usernameBox.getText().clear();
-                                    usernameBox.setHint(R.string.username_hint);
-                                    passwordBox.getText().clear();
-                                    passwordBox.setHint(R.string.password_hint);
+//                                    Toast.makeText(LoginActivity.this,
+//                                            "Authentication failed: "+task.getException().getLocalizedMessage(),
+//                                            Toast.LENGTH_LONG).show();
+                                    notifyDataLoaded(false);
                                 }
+                                usernameBox.getText().clear();
+                                usernameBox.setHint(R.string.username_hint);
+                                passwordBox.getText().clear();
+                                passwordBox.setHint(R.string.password_hint);
                             }
                         });
-                    */
-            if (loadDataFromFirebase(username, null)) {
-                //LoadedData.get().loggedInUser = username;
-                //wait for data to load
-            } else {
-                Toast.makeText(getApplicationContext(), "Username/password does not match or exit", Toast.LENGTH_LONG)
-                        .show();
             }
+//            if (loadDataFromFirebase(username, null)) {
+//                //LoadedData.get().loggedInUser = username;
+//                //wait for data to load
+//            } else {
+//                Toast.makeText(getApplicationContext(), "Username/password does not match or exit", Toast.LENGTH_LONG)
+//                        .show();
+//            }
 
         }
     }
-
 }

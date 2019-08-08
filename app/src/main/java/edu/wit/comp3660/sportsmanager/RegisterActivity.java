@@ -17,6 +17,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
+import edu.wit.comp3660.sportsmanager.DataEntities.LoadedData;
+
 public class RegisterActivity extends AppCompatActivity {
 
     private ProgressBar loadingBar;
@@ -54,12 +56,14 @@ public class RegisterActivity extends AppCompatActivity {
                                         // Sign in success, update UI with the signed-in user's information
                                         Log.d(TAG, "createUserWithEmail:success");
                                         //FirebaseUser user = mAuth.getCurrentUser();
+                                        LoadedData.get().loggedInUser = username;
                                         notifyDataLoaded();
                                     } else {
                                         // If sign in fails, display a message to the user.
                                         Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                                        Toast.makeText(RegisterActivity.this, "Authentication failed.",
-                                                Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(RegisterActivity.this,
+                                                "Authentication failed: "+task.getException().getLocalizedMessage(),
+                                                Toast.LENGTH_LONG).show();
                                     }
 
                                     u.getText().clear();

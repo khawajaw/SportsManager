@@ -2,67 +2,43 @@ package edu.wit.comp3660.sportsmanager.DataEntities;
 
 import java.util.ArrayList;
 
-public class Lineup extends ArrayList<LineupEntity>  {
+public class Lineup {
+
+    ArrayList<Position> positions;
+    ArrayList<String> playerNames;
 
     Lineup() {
         super();
     }
 
-    public Lineup(Sport sport) {
-        super(sport.getPositions().size());
-        for (Position e:sport.getPositions()) {
-            add(new LineupEntity(e));
-        }
+    Lineup(Sport sport) {
+        positions = new ArrayList<>(sport.getPositions());
+        playerNames = new ArrayList<>(positions.size());
+        for (int i = 0; i < positions.size(); i++)
+            playerNames.add("Empty");
     }
 
-    public Position position(int index) {
-        return super.get(index).position;
+    public Position getPosition(int index) {
+        return positions.get(index);
     }
 
     public Player player(int index) {
-        return super.get(index).player();
+        return LoadedData.get().getCurrentTeam().findPlayer(playerNames.get(index));
     }
 //
-//    public void setPlayer(Position position, Player player) {
+//    public void setPlayer(Position getPosition, Player player) {
 //        for (LineupEntity e: this)
-//            if (e.position == position) {
+//            if (e.getPosition == getPosition) {
 //                e.changePlayer(player);
 //            }
 //    }
 
-    public void changePlayer(int index, Player player) {
-        super.get(index).changePlayer(player);
+    public void changePlayer(int index, String playerId) {
+        playerNames.set(index, playerId);
     }
 
-}
-
-class LineupEntity {
-    Position position;
-    private Player player;
-    String playerId;
-
-    LineupEntity(){}
-
-    LineupEntity(Position position) {
-        this.position = position;
-        player = new Player();
-        playerId = "";
+    public int size() {
+        return positions.size();
     }
 
-    LineupEntity(Position position, String playerId) {
-        this.position = position;
-        this.playerId = playerId;
-    }
-
-
-    Player player() {
-        if (player == null)
-            player = LoadedData.get().getCurrentTeam().findPlayer(playerId);
-        return player;
-    }
-
-    void changePlayer(Player p) {
-        player = p;
-        playerId = player().name;
-    }
 }
