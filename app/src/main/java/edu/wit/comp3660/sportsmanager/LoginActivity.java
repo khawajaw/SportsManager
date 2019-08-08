@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -18,7 +19,6 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
 import edu.wit.comp3660.sportsmanager.DataEntities.LoadedData;
-//import com.google.firebase.auth.FirebaseUser;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -95,6 +95,7 @@ public class LoginActivity extends AppCompatActivity {
                 Toast.makeText(LoginActivity.this, "Must enter a username and password!",
                         Toast.LENGTH_SHORT).show();
             } else {
+                dismissKeyboard();
                 mAuth.signInWithEmailAndPassword(username, password)
                         .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
                             @Override
@@ -104,34 +105,31 @@ public class LoginActivity extends AppCompatActivity {
                                     Log.d(TAG, "signInWithEmail:success");
                                     Toast.makeText(LoginActivity.this, "Authentication successful!",
                                             Toast.LENGTH_SHORT).show();
-                                    //FirebaseUser user = mAuth.getCurrentUser();
 
                                     // store user/data and start next activity
                                     LoadedData.get().loggedInUser = username;
                                     loadDataFromFirebase(username);
                                 } else {
-                                    // If sign in fails, display a message to the user.
                                     Log.w(TAG, "signInWithEmail:failure", task.getException());
 //                                    Toast.makeText(LoginActivity.this,
 //                                            "Authentication failed: "+task.getException().getLocalizedMessage(),
 //                                            Toast.LENGTH_LONG).show();
+                                    // If sign in fails, display a message to the user.
                                     notifyDataLoaded(false);
                                 }
-                                usernameBox.getText().clear();
-                                usernameBox.setHint(R.string.username_hint);
                                 passwordBox.getText().clear();
                                 passwordBox.setHint(R.string.password_hint);
                             }
                         });
-            }
-//            if (loadDataFromFirebase(username, null)) {
-//                //LoadedData.get().loggedInUser = username;
-//                //wait for data to load
-//            } else {
-//                Toast.makeText(getApplicationContext(), "Username/password does not match or exit", Toast.LENGTH_LONG)
-//                        .show();
-//            }
+            } // end else
+        }
 
+        void dismissKeyboard() {
+            InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+            if(imm.isAcceptingText()) { // verify if the soft keyboard is open
+                imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+            }
         }
     }
+
 }

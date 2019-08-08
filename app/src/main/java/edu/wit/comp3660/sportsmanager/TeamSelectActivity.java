@@ -64,20 +64,31 @@ public class TeamSelectActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
-            new AlertDialog.Builder(this).setPositiveButton("Log out",
-                    new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            LoadedData.reset();
-                            finish();
-                        }
-                    })
-                    .setNegativeButton("Cancel", null)
-                    .setTitle("Are you sure you want to log out?")
-                    .create()
-                    .show();
+            promptToLogOut();
         }
         return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        promptToLogOut();
+    }
+
+    private void promptToLogOut() {
+        new AlertDialog.Builder(this).setPositiveButton("Log out",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        LoadedData.get().syncAllDataToFirebase();
+                        LoadedData.reset();
+                        finish();
+                        TeamSelectActivity.super.onBackPressed();
+                    }
+                })
+                .setNegativeButton("Cancel", null)
+                .setTitle("Are you sure you want to log out?")
+                .create()
+                .show();
     }
 
     class TeamDialogCallback implements DialogCallback {

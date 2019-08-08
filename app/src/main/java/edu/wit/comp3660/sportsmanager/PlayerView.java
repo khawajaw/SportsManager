@@ -61,7 +61,8 @@ class PlayerView extends ConstraintLayout {
     public void populateData(Player player) {
         makeFieldsReadOnly(player);
 
-        image.setImageBitmap(player.playerImage());
+        if (player.avatarIsSet)
+            image.setImageBitmap(player.playerImage());
         name.setText(player.name);
         jerseyNumber.setText(player.jerseyNumber);
         phoneNumber.setText(player.phoneNumber);

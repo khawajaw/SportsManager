@@ -45,7 +45,6 @@ public class RegisterActivity extends AppCompatActivity {
                 if(username.equals("") || password.equals("")) {
                     Toast.makeText(RegisterActivity.this, "Must enter a username and/or password!",
                             Toast.LENGTH_SHORT).show();
-                    notifyDataLoaded();
                 }
                 else {
                     mAuth.createUserWithEmailAndPassword(username, password)

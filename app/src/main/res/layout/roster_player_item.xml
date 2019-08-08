@@ -8,6 +8,7 @@
         android:id="@+id/player_image"
         android:layout_width="80dip"
         android:layout_height="80dip"
+        android:src="@drawable/avatar_placeholder"
         android:contentDescription="@string/player_image"/>
 
     <LinearLayout

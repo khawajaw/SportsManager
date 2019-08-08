@@ -56,7 +56,7 @@ public class LineupAdapter extends RecyclerView.Adapter<LineupviewHolder>{
                         holder.number.setVisibility(View.VISIBLE);
                         holder.number.setText("#"+selectedPlayer.jerseyNumber);
                     }
-                    if (selectedPlayer.playerImage() != null) {
+                    if (selectedPlayer.avatarIsSet) {
                         holder.image.setVisibility(View.VISIBLE);
                         holder.image.setImageBitmap(selectedPlayer.playerImage());
                     }

@@ -40,11 +40,11 @@ public class TeamHomeFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_team_home, container, false);
 
         logo = rootView.findViewById(R.id.team_logo);
-        if(LoadedData.get().getCurrentTeam().getLogo() != null) {
-            logo.setImageBitmap(LoadedData.get().getCurrentTeam().getLogo());
+        if(LoadedData.get().getCurrentTeam().logo() != null) {
+            logo.setImageBitmap(LoadedData.get().getCurrentTeam().logo());
         }
-        if (team.getLogo() != null)
-            logo.setImageBitmap(team.getLogo());
+        if (team.logo() != null)
+            logo.setImageBitmap(team.logo());
         logo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -95,7 +95,7 @@ public class TeamHomeFragment extends Fragment {
         if (requestCode == PICK_IMAGE && resultCode == Activity.RESULT_OK && data != null) {
             try {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), data.getData());
-                LoadedData.get().getCurrentTeam().setLogo(bitmap);
+                LoadedData.get().getCurrentTeam().changeLogo(bitmap);
                 logo.setImageBitmap(bitmap);
             } catch (IOException e) {
                 e.printStackTrace();

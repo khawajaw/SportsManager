@@ -92,7 +92,8 @@ public class PlayerActivity extends AppCompatActivity {
     }
 
     private void savePlayerData() {
-        player.setPlayerImage(view.getImage());
+        if (player.playerImage() != view.getImage())
+            player.setPlayerImage(view.getImage());
         player.name = view.getName();
         player.jerseyNumber = view.getJerseyNumber();
         player.phoneNumber = view.getPhoneNumber();
@@ -103,6 +104,7 @@ public class PlayerActivity extends AppCompatActivity {
         if (isCreatingPlayer) {
             LoadedData.get().getCurrentTeam().getRoster().add(player);
         }
+        LoadedData.get().syncAllDataToFirebase();
     }
 
     private static final int PICK_IMAGE = 1;

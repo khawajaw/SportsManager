@@ -1,6 +1,7 @@
 package edu.wit.comp3660.sportsmanager.DataEntities;
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 
 import java.util.ArrayList;
 
@@ -13,19 +14,23 @@ public class Team {
     private ArrayList<Game> games;
     private RecordDictionary recordDict;
     private Bitmap logo;
+    public boolean logoIsSet;
+    final String ID;
 
     public Team(String name, Sport sport) {
         this.name = name;
         this.sport = sport;
         this.roster = new ArrayList<>();
         this.lineup = new Lineup(sport);
-        recordDict = new RecordDictionary(false);
+        this.recordDict = new RecordDictionary(false);
         this.games = new ArrayList<>();
+        this.ID = "Team_" + LoadedData.get().user_ID_COUNTER++;
     }
 
     public Team() {
         // we need this empty constructor, otherwise Firebase will error out
         this.name = "error";
+        this.ID = "Team_ERROR";
     }
 
     public String getName() {
@@ -56,12 +61,18 @@ public class Team {
         return games;
     }
 
-    public Bitmap getLogo() {
+    public Bitmap logo() {
         return logo;
     }
 
-    public void setLogo(Bitmap logo) {
+    public void changeLogo(Bitmap logo) {
         this.logo = logo;
+        this.logoIsSet = true;
+        LoadedData.get().uploadImageToFirestore("logos/"+ID, logo);
+    }
+
+    public void loadLogo(byte[] bytes) {
+        this.logo = BitmapFactory.decodeByteArray(bytes, 0,bytes.length);
     }
 
     public void addGame(Game game) {
@@ -81,6 +92,7 @@ public class Team {
         if (currentGame.isPlayed()) {
             recordDict.updateRecordFromRemovedScore(currentGame.getTeamScore(), currentGame.getOpponentScore());
         }
+        LoadedData.get().syncAllDataToFirebase();
     }
 
     public Player findPlayer(String playerId) {

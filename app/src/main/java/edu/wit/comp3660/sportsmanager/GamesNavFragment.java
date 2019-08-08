@@ -102,6 +102,7 @@ public class GamesNavFragment extends Fragment {
     class GameDialogCallback implements DialogCallback {
         public void onAdded() {
             adapter.notifyDataSetChanged();
+            LoadedData.get().syncAllDataToFirebase();
             defaultText.setVisibility(View.INVISIBLE);
         }
 
