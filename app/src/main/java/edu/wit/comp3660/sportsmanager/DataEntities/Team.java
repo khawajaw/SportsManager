@@ -3,6 +3,8 @@ package edu.wit.comp3660.sportsmanager.DataEntities;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
+import com.google.firebase.firestore.Exclude;
+
 import java.util.ArrayList;
 
 public class Team {
@@ -13,7 +15,10 @@ public class Team {
     private Lineup lineup;
     private ArrayList<Game> games;
     private RecordDictionary recordDict;
+
+    @Exclude
     private Bitmap logo;
+
     public boolean logoIsSet;
     final String ID;
 
@@ -61,16 +66,19 @@ public class Team {
         return games;
     }
 
+    @Exclude
     public Bitmap logo() {
         return logo;
     }
 
+    @Exclude
     public void changeLogo(Bitmap logo) {
         this.logo = logo;
         this.logoIsSet = true;
         LoadedData.get().uploadImageToFirestore("logos/"+ID, logo);
     }
 
+    @Exclude
     public void loadLogo(byte[] bytes) {
         this.logo = BitmapFactory.decodeByteArray(bytes, 0,bytes.length);
     }

@@ -15,6 +15,22 @@
       },
       "oauth_client": [
         {
+          "client_id": "931043627108-kpog6otc7drmth3md7qmtokk7s02q0f0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "edu.wit.comp3660.sportsmanager",
+            "certificate_hash": "9896866d94c16857215b7c8f1692d02a48155d14"
+          }
+        },
+        {
+          "client_id": "931043627108-ttn4p3kav0jbknkce9vlp64cnjd823jq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "edu.wit.comp3660.sportsmanager",
+            "certificate_hash": "bd91c418e2fea2a514e96bf62a25f403585debe7"
+          }
+        },
+        {
           "client_id": "931043627108-ufomufn1a4rhmdldf52jgks9j9cdi48g.apps.googleusercontent.com",
           "client_type": 3
         }

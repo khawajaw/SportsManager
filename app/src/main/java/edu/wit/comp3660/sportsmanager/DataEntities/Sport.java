@@ -1,5 +1,7 @@
 package edu.wit.comp3660.sportsmanager.DataEntities;
 
+import androidx.annotation.Keep;
+
 import java.util.ArrayList;
 
 public class Sport {
@@ -12,6 +14,7 @@ public class Sport {
         findPositions(sportName);
     }
 
+    @Keep
     public Sport() {
         // we need this empty constructor, otherwise Firebase will error out
         this.name = "error";

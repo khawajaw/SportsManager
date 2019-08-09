@@ -3,6 +3,7 @@ package edu.wit.comp3660.sportsmanager.DataEntities;
 import android.graphics.Bitmap;
 import android.util.Log;
 
+import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -128,7 +129,6 @@ public class LoadedData {
                                 Log.d(TAG, document.getId() + " => " + document.getData());
                                 teams = data.teams;
                                 user_ID_COUNTER = data.ID_counter;
-                                Log.d(TAG, "Loaded team 1 = " + teams.get(0).getName());
                             }
                             logIn(username);
                             callback.notifyDataLoaded(true);
@@ -164,7 +164,7 @@ public class LoadedData {
                         .addOnSuccessListener(new OnSuccessListener<byte[]>() {
                             @Override
                             public void onSuccess(byte[] bytes) {
-                                e.setPlayerImage(bytes);
+                                e.changePlayerImage(bytes);
                             }
                         });
             }
@@ -200,10 +200,12 @@ public class LoadedData {
     }
 
 
+    @Keep
     static class FirebaseTeam {
         int ID_counter;
         ArrayList<Team> teams;
 
+        @Keep
         FirebaseTeam() {
             // we need this empty constructor, otherwise Firebase will error out
             ID_counter = -1;

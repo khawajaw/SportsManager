@@ -3,9 +3,13 @@ package edu.wit.comp3660.sportsmanager.DataEntities;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
+import com.google.firebase.firestore.Exclude;
+
 public class Player {
 
+    @Exclude
     private Bitmap image;
+
     public boolean avatarIsSet;
     public String name;
     public int weight;
@@ -33,18 +37,19 @@ public class Player {
         }
     }
 
+    @Exclude
     public Bitmap playerImage() {
         return image;
     }
 
-    public void setPlayerImage(Bitmap b) {
+    public void changePlayerImage(Bitmap b) {
         image = b;
         avatarIsSet = true;
         LoadedData.get().uploadImageToFirestore("avatars/"+ID, image);
     }
 
     //load from Firebase
-    void setPlayerImage(byte[] bytes) {
+    void changePlayerImage(byte[] bytes) {
         image = BitmapFactory.decodeByteArray(bytes, 0,bytes.length);
     }
 
