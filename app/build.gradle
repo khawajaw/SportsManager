@@ -2,14 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'io.fabric'
 
 android {
-    signingConfigs {
-        release {
-            storeFile file('C:\\Users\\brimeyerw\\android_keystore\\sportsManagerStore')
-            storePassword 'Aqw123'
-            keyAlias = 'sportsManager'
-            keyPassword 'wit123'
-        }
-    }
+
     compileSdkVersion 28
     defaultConfig {
         applicationId "edu.wit.comp3660.sportsmanager"
