@@ -102,7 +102,7 @@ public class LoadedData {
      */
     public void syncAllDataToFirebase() {
         FirebaseTeam team = new FirebaseTeam(user_ID_COUNTER, teams);
-
+        if (loggedInUser == null) return;
         // Add a new document with a generated ID
         fireDB.collection("teams").document(loggedInUser)
                 .set(team)
@@ -115,6 +115,10 @@ public class LoadedData {
     }
 
     public void fetchDataFromFirebase(final String username, final LoginActivity callback) {
+        if (username == null) {
+            callback.notifyDataLoaded(false);
+            return;
+        }
         fireDB.collection("teams")
                 .document(username)
                 .get()

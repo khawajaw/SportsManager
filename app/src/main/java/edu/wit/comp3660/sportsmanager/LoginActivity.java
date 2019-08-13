@@ -59,7 +59,7 @@ public class LoginActivity extends AppCompatActivity {
             Intent intent = new Intent(LoginActivity.this, TeamSelectActivity.class);
             startActivity(intent);
         } else {
-            Toast.makeText(getApplicationContext(), "Username/password does not match or exist", Toast.LENGTH_LONG)
+            Toast.makeText(getApplicationContext(), "Username/password does not match or exist, or you have no internet connection.", Toast.LENGTH_LONG)
                     .show();
         }
         loadingBar.setVisibility(View.INVISIBLE);
